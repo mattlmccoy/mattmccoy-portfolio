@@ -4,253 +4,588 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Matt McCoy - R&D Engineer, PhD Candidate at Georgia Tech, specializing in additive manufacturing, process physics, and precision systems.">
-  <meta name="keywords" content="Matt McCoy, R&D Engineer, PhD, Georgia Tech, Additive Manufacturing, Formlabs, RFAM">
   <title>Matt McCoy | R&D Engineer & PhD Candidate</title>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 
   <!-- Styles -->
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+  <!-- Cursor follower -->
+  <div class="cursor"></div>
+
   <!-- Navigation -->
   <nav class="nav">
-    <div class="container nav__inner">
-      <a href="#" class="nav__logo">Matt McCoy</a>
-      <button class="nav__toggle" aria-label="Toggle navigation">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <ul class="nav__links">
-        <li><a href="#about" class="nav__link">About</a></li>
-        <li><a href="#work" class="nav__link">Work</a></li>
-        <li><a href="#research" class="nav__link">Research</a></li>
-        <li><a href="#music" class="nav__link">Music</a></li>
-        <li><a href="#contact" class="nav__link">Contact</a></li>
-        <li><a href="archive.html" class="nav__link">Archive</a></li>
-      </ul>
+    <div class="nav__inner">
+      <a href="#" class="nav__logo">M<span class="nav__logo-dot">.</span>M</a>
+      <div class="nav__menu">
+        <button class="nav__toggle" aria-label="Toggle navigation">
+          <span class="nav__toggle-text">Menu</span>
+        </button>
+      </div>
     </div>
   </nav>
 
-  <!-- Hero / About Section -->
-  <section id="about" class="hero section gradient-bg gradient-bg--hero">
-    <div class="container">
-      <div class="hero__content">
-        <p class="hero__subtitle">R&D Engineer | NSF GRFP Fellow | PhD Candidate</p>
-        <h1 class="hero__title">Matt McCoy</h1>
-        <p class="hero__description">
-          I build hardware at the intersection of additive manufacturing, process physics, and precision systems.
-          Currently developing novel volumetric manufacturing approaches at Georgia Tech while drawing on
-          production-scale R&D experience from Formlabs.
-        </p>
-        <div class="hero__cta">
-          <a href="#contact" class="btn btn--primary">Get in Touch</a>
-          <a href="#work" class="btn btn--secondary">View My Work</a>
+  <!-- Mobile Menu Overlay -->
+  <div class="menu-overlay">
+    <div class="menu-overlay__content">
+      <nav class="menu-overlay__nav">
+        <a href="#about" class="menu-overlay__link" data-index="01">About</a>
+        <a href="#work" class="menu-overlay__link" data-index="02">Work</a>
+        <a href="#research" class="menu-overlay__link" data-index="03">Research</a>
+        <a href="#music" class="menu-overlay__link" data-index="04">Music</a>
+        <a href="#contact" class="menu-overlay__link" data-index="05">Contact</a>
+        <a href="archive.html" class="menu-overlay__link" data-index="06">Archive</a>
+      </nav>
+      <div class="menu-overlay__footer">
+        <p>Atlanta, GA / EST</p>
+        <div class="menu-overlay__social">
+          <a href="https://linkedin.com/in/matthewlmccoy" target="_blank">LinkedIn</a>
+          <a href="mailto:matthew.mccoy@gatech.edu">Email</a>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section id="about" class="hero">
+    <div class="hero__bg"></div>
+    <div class="hero__content">
+      <div class="hero__intro">
+        <span class="hero__label">R&D Engineer & PhD Candidate</span>
+        <h1 class="hero__title">
+          <span class="hero__title-line">Building the</span>
+          <span class="hero__title-line"><em>future</em> of</span>
+          <span class="hero__title-line">manufacturing</span>
+        </h1>
+      </div>
+      <div class="hero__info">
+        <div class="hero__portrait">
+          <img src="assets/images/portrait.jpg" alt="Matt McCoy" />
+        </div>
+        <div class="hero__bio">
+          <p>I work at the intersection of <strong>additive manufacturing</strong>, <strong>process physics</strong>, and <strong>precision systems</strong>. Currently developing novel volumetric manufacturing at Georgia Tech, with production R&D experience from Formlabs.</p>
+          <div class="hero__meta">
+            <span>NSF GRFP Fellow</span>
+            <span>Georgia Tech</span>
+            <span>Former Formlabs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero__scroll">
+      <span>Scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
   </section>
 
-  <!-- Work Experience Section -->
-  <section id="work" class="section gradient-bg gradient-bg--pink">
-    <div class="container">
-      <div class="section__header">
-        <p class="section__label">Experience</p>
-        <h2>Industry Work</h2>
-      </div>
+  <!-- Work Section -->
+  <section id="work" class="section section--work">
+    <div class="section__header">
+      <span class="section__number">01</span>
+      <h2 class="section__title">Experience</h2>
+    </div>
 
-      <div class="experience">
-        <div class="experience__header">
-          <h3 class="experience__company">Formlabs</h3>
-          <span class="experience__meta">Somerville, MA | May 2021 - Sep 2023</span>
+    <div class="work-grid">
+      <!-- Formlabs Card -->
+      <article class="work-card" data-modal="formlabs">
+        <div class="work-card__image">
+          <img src="assets/images/gradient-pink-yellow.jpg" alt="Formlabs" />
+          <div class="work-card__overlay">
+            <span class="work-card__cta">View Details</span>
+          </div>
         </div>
-        <p class="text-gray mb-md">Selective Laser Sintering Research & Development</p>
-
-        <div class="experience__role">
-          <h4 class="experience__role-title">Senior Optical and Thermal Systems Engineer & Tech Lead</h4>
-          <p class="experience__role-date">April 2023 - September 2023</p>
-          <ul class="experience__list">
-            <li>Owned thermal and optical subsystem development for next-generation SLS platforms; translated process physics into requirements, verification plans, and design trade studies</li>
-            <li>Developed and evaluated multi-laser optics concepts (beam shaping, focus control, scan strategies) and drove system-level decisions with experiment-backed performance data</li>
-            <li>Authored 30+ technical reports and contributed to patent disclosures (utility and design) spanning printer architecture and process-physics-driven improvements</li>
-            <li>Served as hiring manager for full-time and intern roles; hired multiple full-time R&D engineers and dozens of interns</li>
-          </ul>
+        <div class="work-card__content">
+          <span class="work-card__date">2019 - 2023</span>
+          <h3 class="work-card__title">Formlabs</h3>
+          <p class="work-card__role">Senior R&D Engineer & Tech Lead</p>
+          <div class="work-card__tags">
+            <span>SLS</span>
+            <span>Optics</span>
+            <span>Thermal</span>
+          </div>
         </div>
-
-        <div class="experience__role">
-          <h4 class="experience__role-title">Print Process Engineer & Technical Program Manager</h4>
-          <p class="experience__role-date">May 2021 - April 2023</p>
-          <ul class="experience__list">
-            <li>Technical program manager for EVT/DVT phases of Fuse 1+ 30W NPI; coordinated work across 30+ engineers (MechE, EE, embedded, factory software)</li>
-            <li>Designed and owned factory calibration systems for Fuse 1+ 30W; scaled calibration workflows to production for thousands of units over multi-year deployment</li>
-            <li>Increased print speed by 30% via thermal system optimization; reduced fleet dimensional error to sub-50 &mu;m on critical features through per-printer calibration tools</li>
-            <li>Designed and validated a closed-loop nitrogen inerting system for high-temperature SLS; reduced gas consumption and enabled customer N2 generator use</li>
-          </ul>
-        </div>
-
-        <div class="experience__role">
-          <h4 class="experience__role-title">Mechanical Engineering Intern</h4>
-          <p class="experience__role-date">May 2019 - September 2019</p>
-          <ul class="experience__list">
-            <li>Investigated laser accuracy limits on pre-launch Fuse SLS printer; improved printed geometry accuracy by 25%</li>
-            <li>Discovered and resolved a laser transposition issue affecting beta units; restored part fitment performance</li>
-            <li>Architected nylon powder handling subsystems later shipped as Fuse Sift (2020) and Fuse Blast (2024)</li>
-          </ul>
-        </div>
-      </div>
+      </article>
     </div>
   </section>
 
   <!-- Research Section -->
-  <section id="research" class="section gradient-bg gradient-bg--teal">
-    <div class="container">
-      <div class="section__header">
-        <p class="section__label">Research</p>
-        <h2>Graduate Research</h2>
-      </div>
+  <section id="research" class="section section--research">
+    <div class="section__header">
+      <span class="section__number">02</span>
+      <h2 class="section__title">Research</h2>
+    </div>
 
-      <p class="research__intro">
-        <strong>PhD Candidate at Georgia Tech</strong> in the Digital Design and Manufacturing Lab,
-        advised by Dr. Carolyn Seepersad and Dr. Chris Salda&ntilde;a. My research focuses on
-        developing novel volumetric additive manufacturing processes with real, tangible outputs.
-      </p>
-
-      <div class="research__project">
-        <h3 class="research__project-title">Radio Frequency Additive Manufacturing (RFAM)</h3>
-        <p class="research__project-description">
-          A novel volumetric approach combining layerwise dopant deposition with volumetric RF heating
-          to sinter polymers. Unlike laser sintering that scans sequentially, RFAM heats the entire
-          build volume simultaneously, enabling order-of-magnitude improvements in speed, energy
-          efficiency, and material utilization.
-        </p>
-        <div class="research__outputs">
-          <h4>What I Built</h4>
-          <ul>
-            <li>Commercial-scale custom binder jet printer with precision motion and jetting</li>
-            <li>13.56 MHz RF heating station with impedance matching network</li>
-            <li>Complete mechanical fixturing, powder handling, and thermal instrumentation</li>
-            <li>Data acquisition, monitoring, and automation software</li>
-            <li>Secured ~$150K internal funding for equipment and development</li>
-          </ul>
+    <div class="research-grid">
+      <!-- RFAM Project -->
+      <article class="project-card project-card--large" data-modal="rfam">
+        <div class="project-card__bg">
+          <img src="assets/images/gradient-teal.jpg" alt="" />
         </div>
-      </div>
-
-      <div class="research__project">
-        <h3 class="research__project-title">Low-Cost Metrology Pipeline</h3>
-        <p class="research__project-description">
-          Scanner-based diagnostics system that quantifies droplet placement error and dopant distribution
-          in binder jet additive manufacturing. Replaces $50-100K metrology systems with a ~$100 flatbed
-          scanner and Python software pipeline.
-        </p>
-        <div class="research__outputs">
-          <h4>Research Outputs</h4>
-          <ul>
-            <li>Custom-built $150K research platform from scratch</li>
-            <li>2 peer-reviewed conference papers (SFF 2024, 2025)</li>
-            <li>1 journal paper in preparation for Additive Manufacturing Letters</li>
-            <li>Co-author on npj Advanced Manufacturing (2025)</li>
-            <li>Multiple invention disclosures in progress</li>
-          </ul>
+        <div class="project-card__content">
+          <span class="project-card__label">Primary Research</span>
+          <h3 class="project-card__title">Radio Frequency Additive Manufacturing</h3>
+          <p class="project-card__desc">Novel volumetric sintering approach enabling order-of-magnitude speed improvements</p>
+          <div class="project-card__stats">
+            <div class="stat">
+              <span class="stat__value">$150K</span>
+              <span class="stat__label">Platform</span>
+            </div>
+            <div class="stat">
+              <span class="stat__value">10x</span>
+              <span class="stat__label">Speed</span>
+            </div>
+          </div>
+          <span class="project-card__cta">Explore Project &rarr;</span>
         </div>
-      </div>
+      </article>
+
+      <!-- Metrology Project -->
+      <article class="project-card" data-modal="metrology">
+        <div class="project-card__bg">
+          <img src="assets/images/gradient-blue.jpg" alt="" />
+        </div>
+        <div class="project-card__content">
+          <span class="project-card__label">Metrology</span>
+          <h3 class="project-card__title">Low-Cost Diagnostics</h3>
+          <p class="project-card__desc">$100 scanner replacing $100K systems</p>
+          <span class="project-card__cta">Learn More &rarr;</span>
+        </div>
+      </article>
+
+      <!-- Publications -->
+      <article class="project-card project-card--dark" data-modal="publications">
+        <div class="project-card__content">
+          <span class="project-card__label">Publications</span>
+          <h3 class="project-card__title">Research Output</h3>
+          <ul class="project-card__list">
+            <li>2 SFF Conference Papers</li>
+            <li>npj Advanced Manufacturing</li>
+            <li>AM Letters (in prep)</li>
+          </ul>
+          <span class="project-card__cta">View All &rarr;</span>
+        </div>
+      </article>
     </div>
   </section>
 
   <!-- Music Section -->
-  <section id="music" class="section gradient-bg gradient-bg--yellow">
-    <div class="container">
-      <div class="section__header">
-        <p class="section__label">Beyond Engineering</p>
-        <h2>Music</h2>
+  <section id="music" class="section section--music">
+    <div class="section__header">
+      <span class="section__number">03</span>
+      <h2 class="section__title">Beyond Engineering</h2>
+    </div>
+
+    <div class="music-content" data-modal="music">
+      <div class="music-visual">
+        <img src="assets/images/confetti.jpg" alt="" class="music-visual__bg" />
+        <div class="music-visual__text">
+          <span class="music-visual__note">&#9835;</span>
+          <span class="music-visual__instrument">Alto Sax</span>
+        </div>
       </div>
-
-      <div class="music__content">
-        <div class="music__text">
-          <p>
-            Before engineering, there was music. I studied Jazz Saxophone Performance at
-            Northern Illinois University, playing lead alto in the NIU Jazz Orchestra and Ensemble
-            under the direction of Geof Bradfield, Reggie Thomas, and Rich Moore.
-          </p>
-          <p>
-            Music taught me to listen, collaborate, and think on my feet&mdash;skills that translate
-            directly to engineering leadership and research.
-          </p>
-
-          <div class="music__instruments">
-            <span class="music__tag music__tag--primary">Alto Saxophone</span>
-            <span class="music__tag music__tag--primary">Soprano Saxophone</span>
-            <span class="music__tag">Tenor Saxophone</span>
-            <span class="music__tag">Baritone Saxophone</span>
-            <span class="music__tag">EWI</span>
-            <span class="music__tag">Piano</span>
-          </div>
+      <div class="music-info">
+        <h3>Jazz Saxophonist</h3>
+        <p>10+ years studying and performing jazz. Lead alto in NIU Jazz Orchestra. Music taught me to listen, collaborate, and improvise&mdash;skills that translate directly to engineering.</p>
+        <div class="music-awards">
+          <span>Louis Armstrong Award</span>
+          <span>NIU Music Scholar</span>
+          <span>Purdue Jazz Winner</span>
         </div>
-
-        <div class="music__awards">
-          <h4>Recognition</h4>
-          <ul>
-            <li>NIU Music Scholar</li>
-            <li>Louis Armstrong Jazz Award</li>
-            <li>Purdue Jazz Festival Winner</li>
-            <li>10+ years of performance experience</li>
-          </ul>
-        </div>
+        <span class="music-cta">More About Music &rarr;</span>
       </div>
     </div>
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="section gradient-bg gradient-bg--blue">
-    <div class="container">
-      <div class="contact__content">
-        <h2 class="contact__title">Let's Connect</h2>
-        <p class="contact__description">
-          I'm always interested in discussing additive manufacturing, research collaborations,
-          or industry opportunities. Feel free to reach out.
-        </p>
+  <section id="contact" class="section section--contact">
+    <div class="contact-content">
+      <span class="contact-label">Let's Connect</span>
+      <h2 class="contact-title">Interested in working together?</h2>
+      <p class="contact-desc">I'm always open to discussing additive manufacturing, research collaborations, or industry opportunities.</p>
 
-        <div class="contact__links">
-          <a href="mailto:matthew.mccoy@gatech.edu" class="contact__link">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            matthew.mccoy@gatech.edu
+      <div class="contact-links">
+        <a href="mailto:matthew.mccoy@gatech.edu" class="contact-link contact-link--primary">
+          <span class="contact-link__text">matthew.mccoy@gatech.edu</span>
+          <span class="contact-link__arrow">&rarr;</span>
+        </a>
+        <div class="contact-link__row">
+          <a href="tel:630-740-9348" class="contact-link">
+            <span>(630) 740-9348</span>
           </a>
-          <a href="mailto:mail@matthewmccoy.info" class="contact__link">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            mail@matthewmccoy.info
-          </a>
-          <a href="tel:630-740-9348" class="contact__link">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-            </svg>
-            (630) 740-9348
-          </a>
-          <a href="https://linkedin.com/in/matthewlmccoy" target="_blank" rel="noopener noreferrer" class="contact__link">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-            </svg>
-            LinkedIn
+          <a href="https://linkedin.com/in/matthewlmccoy" class="contact-link" target="_blank">
+            <span>LinkedIn</span>
           </a>
         </div>
       </div>
+    </div>
+    <div class="contact-location">
+      <span>Atlanta, GA</span>
+      <span class="contact-time" id="current-time"></span>
     </div>
   </section>
 
   <!-- Footer -->
   <footer class="footer">
-    <div class="container">
-      <p class="footer__text">&copy; 2026 Matt McCoy. Built with care.</p>
+    <div class="footer__inner">
+      <p>&copy; 2026 Matt McCoy</p>
+      <a href="archive.html">Archive (2017-2021)</a>
     </div>
   </footer>
 
-  <!-- JavaScript -->
+  <!-- MODALS -->
+
+  <!-- Formlabs Modal -->
+  <div class="modal" id="modal-formlabs">
+    <div class="modal__backdrop"></div>
+    <div class="modal__container">
+      <button class="modal__close">&times;</button>
+      <div class="modal__content">
+        <div class="modal__header">
+          <div class="modal__header-bg">
+            <img src="assets/images/gradient-pink-yellow.jpg" alt="" />
+          </div>
+          <div class="modal__header-content">
+            <span class="modal__label">Industry Experience</span>
+            <h2 class="modal__title">Formlabs</h2>
+            <p class="modal__subtitle">Selective Laser Sintering R&D &bull; Somerville, MA</p>
+          </div>
+        </div>
+
+        <div class="modal__body">
+          <div class="modal__intro">
+            <p>At Formlabs, I worked on the Fuse series of SLS 3D printers, progressing from intern to Tech Lead. I owned thermal and optical subsystems, managed cross-functional programs, and directly contributed to products used by thousands of customers.</p>
+          </div>
+
+          <div class="modal__gallery">
+            <div class="modal__gallery-item">
+              <img src="assets/images/gradient-teal-pink.jpg" alt="Fuse 1+ 30W" />
+              <span>Fuse 1+ 30W Development</span>
+            </div>
+            <div class="modal__gallery-item">
+              <img src="assets/images/gradient-sunburst.jpg" alt="Thermal Systems" />
+              <span>Thermal Optimization</span>
+            </div>
+          </div>
+
+          <div class="modal__roles">
+            <div class="modal__role">
+              <div class="modal__role-header">
+                <h4>Senior Optical & Thermal Systems Engineer</h4>
+                <span class="modal__role-badge">Tech Lead</span>
+              </div>
+              <p class="modal__role-date">April 2023 - September 2023</p>
+              <ul>
+                <li>Owned thermal and optical subsystem development for next-generation SLS platforms</li>
+                <li>Translated process physics into requirements, verification plans, and design trade studies</li>
+                <li>Developed multi-laser optics concepts (beam shaping, focus control, scan strategies)</li>
+                <li>Authored 30+ technical reports; contributed to patent disclosures</li>
+                <li>Hiring manager: hired multiple full-time R&D engineers and dozens of interns</li>
+              </ul>
+            </div>
+
+            <div class="modal__role">
+              <h4>Print Process Engineer & TPM</h4>
+              <p class="modal__role-date">May 2021 - April 2023</p>
+              <ul>
+                <li>Technical Program Manager for Fuse 1+ 30W NPI (EVT/DVT phases)</li>
+                <li>Coordinated 30+ engineers across mechanical, electrical, embedded, and software</li>
+                <li>Designed factory calibration systems scaled to thousands of production units</li>
+                <li>Increased print speed 30% via thermal optimization</li>
+                <li>Reduced fleet dimensional error to sub-50 &mu;m on critical features</li>
+                <li>Designed closed-loop nitrogen inerting; reduced gas consumption 60%</li>
+              </ul>
+            </div>
+
+            <div class="modal__role">
+              <h4>Mechanical Engineering Intern</h4>
+              <p class="modal__role-date">May 2019 - September 2019</p>
+              <ul>
+                <li>Improved printed geometry accuracy by 25% on pre-launch Fuse SLS</li>
+                <li>Discovered and resolved laser transposition issue in beta units</li>
+                <li>Architected powder handling subsystems (shipped as Fuse Sift & Fuse Blast)</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="modal__tags">
+            <span>Selective Laser Sintering</span>
+            <span>Thermal Systems</span>
+            <span>Optics</span>
+            <span>NPI</span>
+            <span>Calibration</span>
+            <span>Python</span>
+            <span>MATLAB</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RFAM Modal -->
+  <div class="modal" id="modal-rfam">
+    <div class="modal__backdrop"></div>
+    <div class="modal__container">
+      <button class="modal__close">&times;</button>
+      <div class="modal__content">
+        <div class="modal__header">
+          <div class="modal__header-bg">
+            <img src="assets/images/gradient-teal.jpg" alt="" />
+          </div>
+          <div class="modal__header-content">
+            <span class="modal__label">PhD Research</span>
+            <h2 class="modal__title">Radio Frequency Additive Manufacturing</h2>
+            <p class="modal__subtitle">Georgia Tech &bull; Digital Design & Manufacturing Lab</p>
+          </div>
+        </div>
+
+        <div class="modal__body">
+          <div class="modal__intro">
+            <p><strong>RFAM is a novel volumetric approach</strong> combining layerwise dopant deposition with volumetric RF heating to sinter polymers. Unlike laser sintering that scans sequentially, RFAM heats the entire build volume simultaneously&mdash;enabling order-of-magnitude improvements in speed, energy efficiency, and material utilization.</p>
+          </div>
+
+          <div class="modal__stats-grid">
+            <div class="modal__stat">
+              <span class="modal__stat-value">$150K</span>
+              <span class="modal__stat-label">Custom platform built from scratch</span>
+            </div>
+            <div class="modal__stat">
+              <span class="modal__stat-value">10x</span>
+              <span class="modal__stat-label">Potential speed improvement</span>
+            </div>
+            <div class="modal__stat">
+              <span class="modal__stat-value">13.56 MHz</span>
+              <span class="modal__stat-label">RF heating frequency</span>
+            </div>
+          </div>
+
+          <div class="modal__gallery">
+            <div class="modal__gallery-item">
+              <img src="assets/images/gradient-pink-green.jpg" alt="Custom Binder Jet" />
+              <span>Custom Binder Jet Platform</span>
+            </div>
+            <div class="modal__gallery-item">
+              <img src="assets/images/polka-dots.jpg" alt="RF Heating Station" />
+              <span>RF Heating Station</span>
+            </div>
+            <div class="modal__gallery-item">
+              <img src="assets/images/pixel-burst.jpg" alt="Test Specimens" />
+              <span>Sintered Test Specimens</span>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>What I Built</h4>
+            <ul>
+              <li>Commercial-scale custom binder jet printer with precision motion and jetting systems</li>
+              <li>13.56 MHz RF heating station with impedance matching network</li>
+              <li>Complete mechanical fixturing, powder handling, and thermal instrumentation</li>
+              <li>Data acquisition, monitoring, and automation software (Python)</li>
+              <li>Secured ~$150K in internal funding for equipment and development</li>
+            </ul>
+          </div>
+
+          <div class="modal__section">
+            <h4>Advisors</h4>
+            <p>Dr. Carolyn Seepersad & Dr. Chris Salda&ntilde;a</p>
+          </div>
+
+          <div class="modal__tags">
+            <span>Additive Manufacturing</span>
+            <span>RF Heating</span>
+            <span>Binder Jetting</span>
+            <span>Polymer Sintering</span>
+            <span>Process Development</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Metrology Modal -->
+  <div class="modal" id="modal-metrology">
+    <div class="modal__backdrop"></div>
+    <div class="modal__container">
+      <button class="modal__close">&times;</button>
+      <div class="modal__content">
+        <div class="modal__header">
+          <div class="modal__header-bg">
+            <img src="assets/images/gradient-blue.jpg" alt="" />
+          </div>
+          <div class="modal__header-content">
+            <span class="modal__label">Research Project</span>
+            <h2 class="modal__title">Low-Cost Metrology Pipeline</h2>
+            <p class="modal__subtitle">Scanner-Based Diagnostics for Binder Jet AM</p>
+          </div>
+        </div>
+
+        <div class="modal__body">
+          <div class="modal__intro">
+            <p>A scanner-based diagnostics system that quantifies droplet placement error and dopant distribution in binder jet additive manufacturing. This work replaces expensive metrology equipment with an accessible, software-driven solution.</p>
+          </div>
+
+          <div class="modal__stats-grid">
+            <div class="modal__stat">
+              <span class="modal__stat-value">~$100</span>
+              <span class="modal__stat-label">Total system cost</span>
+            </div>
+            <div class="modal__stat">
+              <span class="modal__stat-value">$50-100K</span>
+              <span class="modal__stat-label">Systems it replaces</span>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>Approach</h4>
+            <ul>
+              <li>Standard flatbed scanner captures high-resolution layer images</li>
+              <li>Python image processing pipeline extracts droplet positions</li>
+              <li>Statistical analysis quantifies placement error and distribution uniformity</li>
+              <li>Results correlate with final part quality metrics</li>
+            </ul>
+          </div>
+
+          <div class="modal__section">
+            <h4>Publication</h4>
+            <p>Manuscript in preparation for <em>Additive Manufacturing Letters</em></p>
+          </div>
+
+          <div class="modal__tags">
+            <span>Metrology</span>
+            <span>Image Processing</span>
+            <span>Python</span>
+            <span>Binder Jetting</span>
+            <span>Quality Control</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Publications Modal -->
+  <div class="modal" id="modal-publications">
+    <div class="modal__backdrop"></div>
+    <div class="modal__container">
+      <button class="modal__close">&times;</button>
+      <div class="modal__content">
+        <div class="modal__header modal__header--dark">
+          <div class="modal__header-content">
+            <span class="modal__label">Research Output</span>
+            <h2 class="modal__title">Publications & Patents</h2>
+          </div>
+        </div>
+
+        <div class="modal__body">
+          <div class="modal__section">
+            <h4>Conference Papers</h4>
+            <div class="publication">
+              <p class="publication__title">Radio Frequency Additive Manufacturing: Process Development and Characterization</p>
+              <p class="publication__venue">Solid Freeform Fabrication Symposium, 2024</p>
+            </div>
+            <div class="publication">
+              <p class="publication__title">Dopant Distribution Analysis in RF-Assisted Polymer Sintering</p>
+              <p class="publication__venue">Solid Freeform Fabrication Symposium, 2025 (accepted)</p>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>Journal Publications</h4>
+            <div class="publication">
+              <p class="publication__title">Co-author contribution</p>
+              <p class="publication__venue">npj Advanced Manufacturing, 2025</p>
+            </div>
+            <div class="publication">
+              <p class="publication__title">Low-Cost Scanner-Based Metrology for Binder Jet AM</p>
+              <p class="publication__venue">Additive Manufacturing Letters (in preparation)</p>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>Patents & Disclosures</h4>
+            <ul>
+              <li>Multiple invention disclosures in progress at Georgia Tech</li>
+              <li>Patent contributions at Formlabs (SLS systems and processes)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Music Modal -->
+  <div class="modal" id="modal-music">
+    <div class="modal__backdrop"></div>
+    <div class="modal__container">
+      <button class="modal__close">&times;</button>
+      <div class="modal__content">
+        <div class="modal__header">
+          <div class="modal__header-bg">
+            <img src="assets/images/confetti.jpg" alt="" />
+          </div>
+          <div class="modal__header-content">
+            <span class="modal__label">Beyond Engineering</span>
+            <h2 class="modal__title">Jazz Saxophone</h2>
+            <p class="modal__subtitle">10+ Years of Performance & Study</p>
+          </div>
+        </div>
+
+        <div class="modal__body">
+          <div class="modal__intro">
+            <p>Before engineering, there was music. I studied Jazz Saxophone Performance at Northern Illinois University, playing lead alto in the NIU Jazz Orchestra and Ensemble under the direction of Geof Bradfield, Reggie Thomas, and Rich Moore.</p>
+            <p>Music taught me to listen deeply, collaborate effectively, and think on my feet&mdash;skills that translate directly to engineering leadership and research.</p>
+          </div>
+
+          <div class="modal__section">
+            <h4>Instruments</h4>
+            <div class="modal__instruments">
+              <div class="modal__instrument modal__instrument--primary">
+                <span class="modal__instrument-name">Alto Saxophone</span>
+                <span class="modal__instrument-level">Primary</span>
+              </div>
+              <div class="modal__instrument modal__instrument--primary">
+                <span class="modal__instrument-name">Soprano Saxophone</span>
+                <span class="modal__instrument-level">Primary</span>
+              </div>
+              <div class="modal__instrument">
+                <span class="modal__instrument-name">Tenor Saxophone</span>
+              </div>
+              <div class="modal__instrument">
+                <span class="modal__instrument-name">Baritone Saxophone</span>
+              </div>
+              <div class="modal__instrument">
+                <span class="modal__instrument-name">EWI</span>
+              </div>
+              <div class="modal__instrument">
+                <span class="modal__instrument-name">Piano</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>Recognition</h4>
+            <ul>
+              <li>NIU Music Scholar</li>
+              <li>Louis Armstrong Jazz Award</li>
+              <li>Purdue Jazz Festival Winner</li>
+              <li>Lead Alto - NIU Jazz Orchestra</li>
+              <li>Lead Alto - NIU Jazz Ensemble</li>
+            </ul>
+          </div>
+
+          <div class="modal__section">
+            <h4>Mentors</h4>
+            <p>Geof Bradfield, Reggie Thomas, Rich Moore</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
   <script src="js/main.js"></script>
 </body>
 </html>
