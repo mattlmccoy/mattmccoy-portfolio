@@ -96,6 +96,10 @@ strong {
 }
 
 @media (hover: hover) {
+  * {
+    cursor: none !important;
+  }
+
   .cursor {
     display: block;
     position: fixed;
