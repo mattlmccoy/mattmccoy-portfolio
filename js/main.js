@@ -14,10 +14,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Add hover effect to interactive elements
-    const interactiveElements = document.querySelectorAll('a, button, [data-modal], .work-card, .project-card, .music-content');
+    const interactiveElements = document.querySelectorAll('a, button, [data-modal], .work-card, .project-card, .music-content, .archive-preview');
     interactiveElements.forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+      el.addEventListener('mouseenter', () => {
+        // Check if we're in contact section (dark background)
+        const contactSection = el.closest('.section--contact');
+        if (contactSection) {
+          cursor.classList.add('hover', 'contact-section');
+        } else {
+          cursor.classList.add('hover');
+        }
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.classList.remove('hover', 'contact-section');
+      });
     });
   }
 

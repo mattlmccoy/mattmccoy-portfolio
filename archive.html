@@ -17,27 +17,40 @@
 <body>
   <!-- Navigation -->
   <nav class="nav">
-    <div class="container nav__inner">
-      <a href="index.html" class="nav__logo">Matt McCoy</a>
-      <button class="nav__toggle" aria-label="Toggle navigation">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <ul class="nav__links">
-        <li><a href="index.html#about" class="nav__link">About</a></li>
-        <li><a href="index.html#work" class="nav__link">Work</a></li>
-        <li><a href="index.html#research" class="nav__link">Research</a></li>
-        <li><a href="index.html#music" class="nav__link">Music</a></li>
-        <li><a href="index.html#contact" class="nav__link nav__link--cta">Contact</a></li>
-        <li><a href="archive.html" class="nav__link nav__link--active">Archive</a></li>
-      </ul>
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">M<span class="nav__logo-dot">.</span>M</a>
+      <div class="nav__menu">
+        <button class="nav__toggle" aria-label="Toggle navigation">
+          <span class="nav__toggle-text">Menu</span>
+        </button>
+      </div>
     </div>
   </nav>
 
+  <!-- Mobile Menu Overlay -->
+  <div class="menu-overlay">
+    <div class="menu-overlay__content">
+      <nav class="menu-overlay__nav">
+        <a href="index.html#about" class="menu-overlay__link" data-index="01">About</a>
+        <a href="index.html#work" class="menu-overlay__link" data-index="02">Work</a>
+        <a href="index.html#research" class="menu-overlay__link" data-index="03">Research</a>
+        <a href="index.html#archive" class="menu-overlay__link" data-index="04">Archive</a>
+        <a href="index.html#music" class="menu-overlay__link" data-index="05">Music</a>
+        <a href="index.html#contact" class="menu-overlay__link" data-index="06">Contact</a>
+      </nav>
+      <div class="menu-overlay__footer">
+        <p>Atlanta, GA / EST</p>
+        <div class="menu-overlay__social">
+          <a href="https://linkedin.com/in/matthewlmccoy" target="_blank">LinkedIn</a>
+          <a href="mailto:mail@matthewmccoy.info">Email</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Archive Header -->
   <header class="archive-header">
-    <div class="container">
+    <div class="archive-header__inner">
       <a href="index.html" class="archive-header__back">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -51,7 +64,7 @@
 
   <!-- Leadership Section -->
   <section class="section">
-    <div class="container">
+    <div>
       <header class="section__header">
         <span class="section__tag">Leadership</span>
         <h2 class="section__title">Student Organizations</h2>
@@ -99,8 +112,7 @@
 
   <!-- Research Section -->
   <section class="section section--research">
-    <div class="section__bg section__bg--teal"></div>
-    <div class="container">
+    <div>
       <header class="section__header">
         <span class="section__tag">Research</span>
         <h2 class="section__title">Undergraduate Research</h2>
@@ -155,7 +167,7 @@
 
   <!-- Industry Experience Section -->
   <section class="section">
-    <div class="container">
+    <div>
       <header class="section__header">
         <span class="section__tag">Experience</span>
         <h2 class="section__title">Early Industry</h2>
@@ -178,8 +190,7 @@
 
   <!-- Awards Section -->
   <section class="section section--music">
-    <div class="section__bg section__bg--confetti"></div>
-    <div class="container">
+    <div>
       <header class="section__header">
         <span class="section__tag">Recognition</span>
         <h2 class="section__title">Awards & Honors</h2>
@@ -202,7 +213,7 @@
 
   <!-- Publications Section -->
   <section class="section">
-    <div class="container">
+    <div>
       <header class="section__header">
         <span class="section__tag">Publications</span>
         <h2 class="section__title">Papers</h2>
@@ -223,9 +234,9 @@
 
   <!-- Footer -->
   <footer class="footer">
-    <div class="container footer__inner">
+    <div class="footer__inner">
       <p>&copy; 2026 Matt McCoy</p>
-      <a href="index.html" class="footer__link">Back to Main Site</a>
+      <a href="index.html">Back to Main Site</a>
     </div>
   </footer>
 
