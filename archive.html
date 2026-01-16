@@ -48,6 +48,9 @@
     </div>
   </div>
 
+  <!-- Cursor follower -->
+  <div class="cursor"></div>
+
   <!-- Archive Header -->
   <header class="archive-header">
     <div class="archive-header__inner">
@@ -58,25 +61,65 @@
         Back to Main
       </a>
       <h1 class="archive-header__title">Archive</h1>
-      <p class="archive-header__subtitle">Undergraduate work from Northern Illinois University, 2017-2021</p>
+      <p class="archive-header__subtitle">Undergraduate work and early industry experience, 2017-2021</p>
     </div>
   </header>
 
+  <!-- Formlabs Internship Section -->
+  <section class="section">
+    <div class="section__header">
+      <span class="section__number">01</span>
+      <h2 class="section__title">Industry Experience</h2>
+    </div>
+
+    <div class="work-grid">
+      <article class="work-card" style="cursor: default;">
+        <div class="work-card__image">
+          <img src="assets/images/gradient-pink-yellow.jpg" alt="Formlabs" />
+        </div>
+        <div class="work-card__content">
+          <span class="work-card__date">May 2019 - September 2019</span>
+          <h3 class="work-card__title">Formlabs</h3>
+          <p class="work-card__role">Mechanical Engineering Intern</p>
+          <div class="work-card__tags">
+            <span>SLS</span>
+            <span>3D Printing</span>
+            <span>R&D</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="modal__roles" style="margin-top: var(--space-2xl);">
+      <div class="modal__role">
+        <div class="modal__role-header">
+          <h4>Mechanical Engineering Intern</h4>
+        </div>
+        <p class="modal__role-date">May 2019 - September 2019 | Somerville, MA</p>
+        <ul>
+          <li>Improved printed geometry accuracy by 25% on pre-launch Fuse SLS</li>
+          <li>Discovered and resolved laser transposition issue in beta units</li>
+          <li>Architected powder handling subsystems (shipped as Fuse Sift & Fuse Blast)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <!-- Leadership Section -->
   <section class="section">
-    <div>
-      <header class="section__header">
-        <span class="section__tag">Leadership</span>
-        <h2 class="section__title">Student Organizations</h2>
-      </header>
+    <div class="section__header">
+      <span class="section__number">02</span>
+      <h2 class="section__title">Student Organizations</h2>
+    </div>
 
-      <div class="role-card">
-        <div class="role-card__header">
+    <div class="modal__roles">
+      <div class="modal__role">
+        <div class="modal__role-header">
           <h4>NIU Supermileage - President</h4>
-          <span class="role-card__badge">2019-2021</span>
+          <span class="modal__role-badge">2019-2021</span>
         </div>
-        <p class="role-card__date">Vice President (2018-19) | Treasurer (2017-18)</p>
-        <ul class="role-card__list">
+        <p class="modal__role-date">Vice President (2018-19) | Treasurer (2017-18)</p>
+        <ul>
           <li>Recruited and led a 25-student team; earned 3rd place at SAE Supermileage 2020 and 2021</li>
           <li>Co-led team to 1st place at Shell Eco-Marathon 2019 and 3rd place at SAE SM 2019 as Vice President</li>
           <li>Created MATLAB, SolidWorks, and ANSYS tutorials to onboard and upskill team members during COVID-19</li>
@@ -86,99 +129,101 @@
         </ul>
       </div>
 
-      <div class="role-card">
-        <div class="role-card__header">
+      <div class="modal__role">
+        <div class="modal__role-header">
           <h4>NIU Engineering Makerspace - Co-Director</h4>
         </div>
-        <p class="role-card__date">January 2018 - August 2020</p>
-        <ul class="role-card__list">
+        <p class="modal__role-date">January 2018 - August 2020</p>
+        <ul>
           <li>Managed 250+ student and industry projects from design consultation through manufacturing and delivery</li>
           <li>Automated backend order-form process to route metadata into task management software</li>
           <li>Trained students in DfAM and operated eight additive systems across materials and processes</li>
         </ul>
       </div>
 
-      <div class="role-card">
-        <div class="role-card__header">
+      <div class="modal__role">
+        <div class="modal__role-header">
           <h4>Pi Tau Sigma - Secretary</h4>
         </div>
-        <p class="role-card__date">Beta Lambda Chapter | April 2019 - May 2021</p>
-        <ul class="role-card__list">
+        <p class="modal__role-date">Beta Lambda Chapter | April 2019 - May 2021</p>
+        <ul>
           <li>Supported chapter operations: planned events, documented meetings, and coordinated with executive board</li>
         </ul>
       </div>
+    </div>
     </div>
   </section>
 
   <!-- Research Section -->
   <section class="section section--research">
-    <div>
-      <header class="section__header">
-        <span class="section__tag">Research</span>
-        <h2 class="section__title">Undergraduate Research</h2>
-      </header>
+    <div class="section__header">
+      <span class="section__number">03</span>
+      <h2 class="section__title">Undergraduate Research</h2>
+    </div>
 
-      <div class="research__grid" style="grid-template-columns: 1fr;">
-        <article class="project-card">
-          <div class="project-card__header">
-            <span class="project-card__tag">NIST Funded</span>
-            <h3>DED Powder Flow Control</h3>
-          </div>
-          <p class="project-card__description">
-            <strong>Pohlman Research Group</strong> | Advisor: Dr. Nicholas Pohlman | Jan - May 2021
-          </p>
-          <ul class="role-card__list">
+    <div class="research-grid">
+      <article class="project-card">
+        <div class="project-card__bg">
+          <img src="assets/images/gradient-teal.jpg" alt="" />
+        </div>
+        <div class="project-card__content">
+          <span class="project-card__label">NIST Funded</span>
+          <h3 class="project-card__title">DED Powder Flow Control</h3>
+          <p class="project-card__desc">Pohlman Research Group | Advisor: Dr. Nicholas Pohlman | Jan - May 2021</p>
+          <ul class="project-card__list">
             <li>Developed powder flow control and analysis methods for directed energy deposition (DED)</li>
             <li>Designed a new DED powder flow nozzle and printhead to improve mass flow control and deposition repeatability</li>
           </ul>
-        </article>
+        </div>
+      </article>
 
-        <article class="project-card">
-          <div class="project-card__header">
-            <span class="project-card__tag">INL Partnership</span>
-            <h3>Embedded Sensors in DED</h3>
-          </div>
-          <p class="project-card__description">
-            <strong>Shelton and Cho Research Group</strong> | Advisors: Dr. John Shelton & Dr. Kyu Taek Cho | May 2020 - Jan 2021
-          </p>
-          <ul class="role-card__list">
+      <article class="project-card">
+        <div class="project-card__bg">
+          <img src="assets/images/gradient-blue.jpg" alt="" />
+        </div>
+        <div class="project-card__content">
+          <span class="project-card__label">INL Partnership</span>
+          <h3 class="project-card__title">Embedded Sensors in DED</h3>
+          <p class="project-card__desc">Shelton and Cho Research Group | Advisors: Dr. John Shelton & Dr. Kyu Taek Cho | May 2020 - Jan 2021</p>
+          <ul class="project-card__list">
             <li>Developed thermocouple embedment techniques using DED metal printing for heat exchangers supporting Idaho National Laboratory</li>
             <li>Owned experiment planning and execution</li>
             <li>Work presented by advisors at TMS 2021 (virtual)</li>
           </ul>
-        </article>
+        </div>
+      </article>
 
-        <article class="project-card">
-          <div class="project-card__header">
-            <span class="project-card__tag">Industry Collab</span>
-            <h3>AM Material Studies</h3>
-          </div>
-          <p class="project-card__description">
-            <strong>Sciammarella Research Group</strong> | Advisor: Dr. Federico Sciammarella | Aug 2018 - May 2019
-          </p>
-          <ul class="role-card__list">
+      <article class="project-card">
+        <div class="project-card__bg">
+          <img src="assets/images/gradient-pink-green.jpg" alt="" />
+        </div>
+        <div class="project-card__content">
+          <span class="project-card__label">Industry Collab</span>
+          <h3 class="project-card__title">AM Material Studies</h3>
+          <p class="project-card__desc">Sciammarella Research Group | Advisor: Dr. Federico Sciammarella | Aug 2018 - May 2019</p>
+          <ul class="project-card__list">
             <li>Developed a refrigerant gas expander concept compatible with DMLM metal additive manufacturing in collaboration with RadMax Technologies</li>
             <li>Investigated degradation of ULTEM 9085 AM polymer; explored bio-inspired structures to improve strength, stiffness, and wear characteristics</li>
           </ul>
-        </article>
-      </div>
+        </div>
+      </article>
     </div>
   </section>
 
   <!-- Industry Experience Section -->
   <section class="section">
-    <div>
-      <header class="section__header">
-        <span class="section__tag">Experience</span>
-        <h2 class="section__title">Early Industry</h2>
-      </header>
+    <div class="section__header">
+      <span class="section__number">04</span>
+      <h2 class="section__title">Early Industry</h2>
+    </div>
 
-      <div class="role-card">
-        <div class="role-card__header">
+    <div class="modal__roles">
+      <div class="modal__role">
+        <div class="modal__role-header">
           <h4>Met-L-Flo, Inc. - Mechanical Engineering Intern</h4>
         </div>
-        <p class="role-card__date">Sugar Grove, IL | May 2018 - September 2018</p>
-        <ul class="role-card__list">
+        <p class="modal__role-date">Sugar Grove, IL | May 2018 - September 2018</p>
+        <ul>
           <li>Lead SLS technician: improved process robustness, authored SOPs, and increased additive manufacturing production throughput</li>
           <li>Developed material profiles and processing approaches for PA11 and PA12 on SLS systems</li>
           <li>Designed, analyzed, and manufactured production tooling; supported Boeing, Lockheed Martin, Google, and NASA</li>
@@ -186,15 +231,15 @@
         </ul>
       </div>
     </div>
+    </div>
   </section>
 
   <!-- Awards Section -->
   <section class="section section--music">
-    <div>
-      <header class="section__header">
-        <span class="section__tag">Recognition</span>
-        <h2 class="section__title">Awards & Honors</h2>
-      </header>
+    <div class="section__header">
+      <span class="section__number">05</span>
+      <h2 class="section__title">Awards & Honors</h2>
+    </div>
 
       <div class="awards" style="max-width: 700px;">
         <ul class="awards__list">
@@ -213,22 +258,21 @@
 
   <!-- Publications Section -->
   <section class="section">
-    <div>
-      <header class="section__header">
-        <span class="section__tag">Publications</span>
-        <h2 class="section__title">Papers</h2>
-      </header>
+    <div class="section__header">
+      <span class="section__number">06</span>
+      <h2 class="section__title">Publications</h2>
+    </div>
 
-      <div class="project-card" style="max-width: 700px;">
-        <div class="project-card__header">
-          <span class="project-card__tag">Award Winner</span>
-          <h3>2020 NIU Supermileage Vehicle Technical Report</h3>
+    <div class="modal__roles">
+      <div class="modal__role">
+        <div class="modal__role-header">
+          <h4>2020 NIU Supermileage Vehicle Technical Report</h4>
+          <span class="modal__role-badge">Award Winner</span>
         </div>
-        <p class="project-card__description">
-          Society of Automotive Engineers, March 30, 2020<br>
-          <em>Award-winning technical paper at SAE Supermileage 2020 competition</em>
-        </p>
+        <p class="modal__role-date">Society of Automotive Engineers, March 30, 2020</p>
+        <p style="color: var(--gray-600); font-style: italic; margin-top: var(--space-sm);">Award-winning technical paper at SAE Supermileage 2020 competition</p>
       </div>
+    </div>
     </div>
   </section>
 
