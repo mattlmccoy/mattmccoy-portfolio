@@ -129,15 +129,15 @@
         <div class="project-card__content">
           <span class="project-card__label">Primary Research</span>
           <h3 class="project-card__title">Radio Frequency Additive Manufacturing</h3>
-          <p class="project-card__desc">Novel volumetric sintering approach enabling order-of-magnitude speed improvements</p>
+          <p class="project-card__desc">Novel volumetric sintering with 10x speed potential and infinite material recyclability</p>
           <div class="project-card__stats">
             <div class="stat">
-              <span class="stat__value">$150K</span>
-              <span class="stat__label">Platform</span>
+              <span class="stat__value">10x</span>
+              <span class="stat__label">Speed Potential</span>
             </div>
             <div class="stat">
-              <span class="stat__value">10x</span>
-              <span class="stat__label">Speed</span>
+              <span class="stat__value">600W</span>
+              <span class="stat__label">RF Power</span>
             </div>
           </div>
           <span class="project-card__cta">Explore Project &rarr;</span>
@@ -198,7 +198,7 @@
   <section id="music" class="section section--music">
     <div class="section__header">
       <span class="section__number">04</span>
-      <h2 class="section__title">Beyond Engineering</h2>
+      <h2 class="section__title">Music</h2>
     </div>
 
     <div class="music-content" data-modal="music">
@@ -380,42 +380,51 @@
 
           <div class="modal__stats-grid">
             <div class="modal__stat">
-              <span class="modal__stat-value">$150K</span>
-              <span class="modal__stat-label">Custom platform built from scratch</span>
-            </div>
-            <div class="modal__stat">
               <span class="modal__stat-value">10x</span>
               <span class="modal__stat-label">Potential speed improvement</span>
             </div>
             <div class="modal__stat">
-              <span class="modal__stat-value">13.56 MHz</span>
-              <span class="modal__stat-label">RF heating frequency</span>
+              <span class="modal__stat-value">&infin;</span>
+              <span class="modal__stat-label">Material recyclability</span>
+            </div>
+            <div class="modal__stat">
+              <span class="modal__stat-value">600W</span>
+              <span class="modal__stat-label">13.56 MHz RF generator</span>
             </div>
           </div>
 
           <div class="modal__gallery">
-            <div class="modal__gallery-item">
+            <div class="modal__gallery-item" data-submodal="rfam-binderjet">
               <img src="assets/images/gradient-pink-green.jpg" alt="Custom Binder Jet" />
               <span>Custom Binder Jet Platform</span>
             </div>
-            <div class="modal__gallery-item">
+            <div class="modal__gallery-item" data-submodal="rfam-rf">
               <img src="assets/images/polka-dots.jpg" alt="RF Heating Station" />
               <span>RF Heating Station</span>
             </div>
-            <div class="modal__gallery-item">
+            <div class="modal__gallery-item" data-submodal="rfam-specimens">
               <img src="assets/images/pixel-burst.jpg" alt="Test Specimens" />
               <span>Sintered Test Specimens</span>
             </div>
           </div>
 
           <div class="modal__section">
+            <h4>Key Advantages</h4>
+            <ul>
+              <li><strong>10x speed potential:</strong> Volumetric heating eliminates sequential scanning</li>
+              <li><strong>Infinite material recyclability:</strong> No thermal cycling of powder bed means unfused material remains pristine</li>
+              <li><strong>Energy efficient:</strong> Selective heating only where dopant is deposited</li>
+            </ul>
+          </div>
+
+          <div class="modal__section">
             <h4>What I Built</h4>
             <ul>
               <li>Commercial-scale custom binder jet printer with precision motion and jetting systems</li>
-              <li>13.56 MHz RF heating station with impedance matching network</li>
+              <li>600W, 13.56 MHz RF generator with custom impedance matching network</li>
+              <li>Custom Faraday cage for RF containment and safety</li>
               <li>Complete mechanical fixturing, powder handling, and thermal instrumentation</li>
               <li>Data acquisition, monitoring, and automation software (Python)</li>
-              <li>Secured ~$150K in internal funding for equipment and development</li>
             </ul>
           </div>
 
@@ -511,34 +520,48 @@
 
         <div class="modal__body">
           <div class="modal__section">
-            <h4>Conference Papers</h4>
+            <h4>Journal Publications</h4>
             <div class="publication">
-              <p class="publication__title">Radio Frequency Additive Manufacturing: Process Development and Characterization</p>
-              <p class="publication__venue">Solid Freeform Fabrication Symposium, 2024</p>
-            </div>
-            <div class="publication">
-              <p class="publication__title">Dopant Distribution Analysis in RF-Assisted Polymer Sintering</p>
-              <p class="publication__venue">Solid Freeform Fabrication Symposium, 2025 (accepted)</p>
+              <p class="publication__title">On the Role of Interface Strategy in Multi-Scale Hybrid Additive Manufacturing</p>
+              <p class="publication__authors">Burl, A., Hussein, Z., Adapa, V.S.K., Foley, M., Van Handel, N., McCoy, M., et al.</p>
+              <p class="publication__venue">npj Advanced Manufacturing 2, 38 (2025)</p>
+              <a href="https://doi.org/10.1038/s44334-025-00034-z" class="publication__doi" target="_blank">doi.org/10.1038/s44334-025-00034-z</a>
             </div>
           </div>
 
           <div class="modal__section">
-            <h4>Journal Publications</h4>
+            <h4>Conference Papers</h4>
             <div class="publication">
-              <p class="publication__title">Co-author contribution</p>
-              <p class="publication__venue">npj Advanced Manufacturing, 2025</p>
+              <p class="publication__title">Machine Design and Process Development of Volumetric Polymer Powder Bed Fusion by Radio Frequency Additive Manufacturing</p>
+              <p class="publication__venue">Solid Freeform Fabrication Symposium, Austin, TX (2024)</p>
             </div>
             <div class="publication">
-              <p class="publication__title">Low-Cost Scanner-Based Metrology for Binder Jet AM</p>
-              <p class="publication__venue">Additive Manufacturing Letters (in preparation)</p>
+              <p class="publication__title">Radio Frequency Additive Manufacturing (RFAM): A Roadmap to Precision Parts via Platform Design and Low-Cost Jetting Diagnostics</p>
+              <p class="publication__venue">Solid Freeform Fabrication Symposium, Austin, TX (2025)</p>
             </div>
+            <div class="publication">
+              <p class="publication__title">Impact of Heat Input and Step Over Distance on Part Geometry for Multi-Bead WAAM Components</p>
+              <p class="publication__authors">Hussein, Z., Goodwin, J., McCoy, M., Bose-Bandyopadhyay, S., Saleeby, K., &amp; Salda&ntilde;a, C.</p>
+              <p class="publication__venue">ASME MSEC 2024, Knoxville, TN</p>
+              <a href="https://doi.org/10.1115/MSEC2024-122007" class="publication__doi" target="_blank">doi.org/10.1115/MSEC2024-122007</a>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>Planned PhD Publications</h4>
+            <ul class="publication__planned">
+              <li>Design of a Modular, Scalable Open-Architecture Platform for Binder and Material Jetting Additive Manufacturing</li>
+              <li>A Low-Cost Scanner-Based Diagnostic Pipeline for Jetting Fidelity and Dopant Distribution in Binder Jet Additive Manufacturing</li>
+              <li>Physical Pathways for Compensating Shrinkage and Field Nonuniformity in Radio Frequency-Driven Additive Manufacturing</li>
+              <li>Model-Informed Input Design for Radio Frequency&ndash;Driven Additive Manufacturing: Functional Grading and Inverse Lithography-Inspired Pre-Distortion</li>
+              <li>Radio Frequency as a Volumetric Energy Paradigm for Additive Manufacturing: Principles, Modalities, and Opportunities</li>
+            </ul>
           </div>
 
           <div class="modal__section">
             <h4>Patents & Disclosures</h4>
             <ul>
-              <li>Multiple invention disclosures in progress at Georgia Tech</li>
-              <li>Patent contributions at Formlabs (SLS systems and processes)</li>
+              <li>Patent contributions/invention disclosures at Formlabs (SLS systems and processes)</li>
             </ul>
           </div>
         </div>
@@ -565,16 +588,33 @@
 
         <div class="modal__body">
           <div class="modal__intro">
-            <p>Before engineering, there was music. I studied Jazz Saxophone Performance at Northern Illinois University, playing lead alto in the NIU Jazz Orchestra and Ensemble under the direction of Geof Bradfield, Reggie Thomas, and Rich Moore.</p>
+            <p>I studied Jazz Saxophone Performance at Northern Illinois University, playing lead alto in the NIU Jazz Orchestra and Ensemble under the direction of Geof Bradfield, Reggie Thomas, and Rich Moore.</p>
             <p>Music taught me to listen deeply, collaborate effectively, and think on my feet&mdash;skills that translate directly to engineering leadership and research.</p>
           </div>
 
           <!-- YouTube Video Embeds -->
           <div class="modal__videos">
-            <!-- YouTube videos will be added here -->
-            <!-- Example: <div class="modal__video">
-              <iframe src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div> -->
+            <div class="modal__video">
+              <iframe src="https://www.youtube.com/embed/mjt-h9uJzwE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="modal__video">
+              <iframe src="https://www.youtube.com/embed/HFXXiVhoWe0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="modal__video">
+              <iframe src="https://www.youtube.com/embed/X9iVp3MMZ5Y" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="modal__video">
+              <iframe src="https://www.youtube.com/embed/Yg0Fhke6s4U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="modal__video">
+              <iframe src="https://www.youtube.com/embed/4vAKAbiqjCE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="modal__video">
+              <iframe src="https://www.youtube.com/embed/3_5J07vL7JQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="modal__video">
+              <iframe src="https://www.youtube.com/embed/E3DqCKT0FZk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
           </div>
 
           <div class="modal__section">

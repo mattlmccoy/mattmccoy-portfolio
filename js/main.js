@@ -116,9 +116,58 @@ document.addEventListener('DOMContentLoaded', () => {
   // Close modal on Escape key
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
+      closeLightbox();
       closeAllModals();
     }
   });
+
+  // Lightbox for gallery images
+  const lightbox = document.createElement('div');
+  lightbox.className = 'lightbox';
+  lightbox.innerHTML = `
+    <div class="lightbox__backdrop"></div>
+    <div class="lightbox__content">
+      <button class="lightbox__close">&times;</button>
+      <img class="lightbox__image" src="" alt="" />
+      <p class="lightbox__caption"></p>
+    </div>
+  `;
+  document.body.appendChild(lightbox);
+
+  const lightboxImage = lightbox.querySelector('.lightbox__image');
+  const lightboxCaption = lightbox.querySelector('.lightbox__caption');
+  const lightboxClose = lightbox.querySelector('.lightbox__close');
+  const lightboxBackdrop = lightbox.querySelector('.lightbox__backdrop');
+
+  function openLightbox(src, caption) {
+    lightboxImage.src = src;
+    lightboxCaption.textContent = caption || '';
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    if (!document.querySelector('.modal.active')) {
+      document.body.style.overflow = '';
+    }
+  }
+
+  // Add click handlers to gallery images
+  document.querySelectorAll('.modal__gallery-item').forEach(item => {
+    item.style.cursor = 'pointer';
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const img = item.querySelector('img');
+      const caption = item.querySelector('span');
+      if (img) {
+        openLightbox(img.src, caption ? caption.textContent : '');
+      }
+    });
+  });
+
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightboxBackdrop.addEventListener('click', closeLightbox);
 
   // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
