@@ -1367,18 +1367,22 @@ strong {
 .publication__planned {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .publication__planned li {
   padding: var(--space-sm) 0;
+  padding-left: var(--space-lg);
   border-bottom: 1px solid var(--gray-100);
   color: var(--gray-600);
   font-size: 0.95rem;
+  position: relative;
 }
 
 .publication__planned li::before {
   content: '○';
-  margin-right: var(--space-sm);
+  position: absolute;
+  left: 0;
   color: var(--gray-300);
 }
 

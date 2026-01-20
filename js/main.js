@@ -148,8 +148,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function closeLightbox() {
     lightbox.classList.remove('active');
-    if (!document.querySelector('.modal.active')) {
-      document.body.style.overflow = '';
+    // Always restore scroll when closing lightbox - modal handles its own overflow
+    document.body.style.overflow = '';
+    // If a modal is still open, let it manage overflow
+    if (document.querySelector('.modal.active')) {
+      document.body.classList.add('modal-open');
     }
   }
 
