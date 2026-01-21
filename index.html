@@ -127,9 +127,9 @@
           <img src="assets/images/gradient-teal.jpg" alt="" />
         </div>
         <div class="project-card__content">
-          <span class="project-card__label">Primary Research</span>
+          <span class="project-card__label">PhD Research</span>
           <h3 class="project-card__title">Radio Frequency Additive Manufacturing</h3>
-          <p class="project-card__desc">Novel volumetric sintering with 10x speed potential and infinite material recyclability</p>
+          <p class="project-card__desc">Volumetric polymer sintering via RF energy delivery&mdash;10x speed potential, infinite recyclability, and novel material modalities</p>
           <div class="project-card__stats">
             <div class="stat">
               <span class="stat__value">10x</span>
@@ -137,7 +137,7 @@
             </div>
             <div class="stat">
               <span class="stat__value">600W</span>
-              <span class="stat__label">RF Power</span>
+              <span class="stat__label">13.56 MHz</span>
             </div>
           </div>
           <span class="project-card__cta">Explore Project &rarr;</span>
@@ -150,9 +150,9 @@
           <img src="assets/images/gradient-blue.jpg" alt="" />
         </div>
         <div class="project-card__content">
-          <span class="project-card__label">Metrology</span>
-          <h3 class="project-card__title">Low-Cost Diagnostics</h3>
-          <p class="project-card__desc">$100 scanner replacing $100K systems</p>
+          <span class="project-card__label">Diagnostics</span>
+          <h3 class="project-card__title">Scanner-Based Metrology</h3>
+          <p class="project-card__desc">$100 flatbed scanner + Python/OpenCV for dimensional jetting diagnostics</p>
           <span class="project-card__cta">Learn More &rarr;</span>
         </div>
       </article>
@@ -165,7 +165,7 @@
           <ul class="project-card__list">
             <li>2 SFF Conference Papers</li>
             <li>npj Advanced Manufacturing</li>
-            <li>AM Letters (in prep)</li>
+            <li>AM Letters (submitted)</li>
           </ul>
           <span class="project-card__cta">View All &rarr;</span>
         </div>
@@ -368,14 +368,14 @@
           </div>
           <div class="modal__header-content">
             <span class="modal__label">PhD Research</span>
-            <h2 class="modal__title">Radio Frequency Additive Manufacturing</h2>
+            <h2 class="modal__title">Advancing Volumetric Additive Manufacturing via Radio Frequency Energy Delivery</h2>
             <p class="modal__subtitle">Georgia Tech &bull; Digital Design & Manufacturing Lab</p>
           </div>
         </div>
 
         <div class="modal__body">
           <div class="modal__intro">
-            <p><strong>RFAM is a novel volumetric approach</strong> combining layerwise dopant deposition with volumetric RF heating to sinter polymers. Unlike laser sintering that scans sequentially, RFAM heats the entire build volume simultaneously&mdash;enabling order-of-magnitude improvements in speed, energy efficiency, and material utilization.</p>
+            <p><strong>RFAM is a novel volumetric approach</strong> combining layerwise dopant deposition with volumetric RF heating to sinter polymers. Carbon/graphite-doped nylon powder is exposed to an RF field between copper electrode plates&mdash;the dopant selectively absorbs RF energy, generating heat that melts the surrounding nylon, enabling particle coalescence and part densification. Unlike laser sintering that scans sequentially, RFAM heats the entire build volume simultaneously&mdash;enabling order-of-magnitude improvements in speed, energy efficiency, and material utilization.</p>
           </div>
 
           <div class="modal__stats-grid">
@@ -409,28 +409,40 @@
           </div>
 
           <div class="modal__section">
+            <h4>Research Tasks</h4>
+            <ul>
+              <li><strong>Task 1 &ndash; Platform Design & Diagnostics:</strong> Custom binder jet-style machine with precision dopant patterning and low-cost scanner-based diagnostic pipeline for jetting fidelity and dopant distribution</li>
+              <li><strong>Task 2 &ndash; Computational Solutions:</strong> Multiphysics FEA simulation of RF heating, functional grading of dopant concentration, geometric pre-warping (ILT-inspired), and turntable-based field averaging for thermal uniformity</li>
+              <li><strong>Task 3 &ndash; New Materials & Modalities:</strong> RF-curable silicones in viscous baths, RF-induced foam expansion, and selective RF actuation for programmable deformation</li>
+            </ul>
+          </div>
+
+          <div class="modal__section">
             <h4>Key Advantages</h4>
             <ul>
-              <li><strong>10x speed potential:</strong> Volumetric heating eliminates sequential scanning</li>
-              <li><strong>Infinite material recyclability:</strong> No thermal cycling of powder bed means unfused material remains pristine</li>
-              <li><strong>Energy efficient:</strong> Selective heating only where dopant is deposited</li>
+              <li><strong>10x speed potential:</strong> Volumetric heating eliminates sequential voxel-by-voxel scanning</li>
+              <li><strong>Infinite material recyclability:</strong> No thermal cycling of powder bed&mdash;unfused material remains pristine (vs. 5-7 cycles for SLS nylon)</li>
+              <li><strong>Energy efficient:</strong> Selective heating only where dopant is deposited; surrounding powder functionally transparent to RF</li>
+              <li><strong>Reduced residual stress:</strong> Volumetric heating eliminates interlayer reheating and thermal gradients</li>
+              <li><strong>Lower cost:</strong> No precision scanning optics; scalable designs without major system complexity</li>
             </ul>
           </div>
 
           <div class="modal__section">
             <h4>What I Built</h4>
             <ul>
-              <li>Commercial-scale custom binder jet printer with precision motion and jetting systems</li>
-              <li>600W, 13.56 MHz RF generator with custom impedance matching network</li>
-              <li>Custom Faraday cage for RF containment and safety</li>
-              <li>Complete mechanical fixturing, powder handling, and thermal instrumentation</li>
-              <li>Data acquisition, monitoring, and automation software (Python)</li>
+              <li>Custom binder jet-style platform with high-precision ball screw actuators (sub-100 &mu;m repeatability)</li>
+              <li>Xaar Aquinox 2002 printheads capable of jetting high-viscosity inks (50+ cP) with up to 50 wt% particle loading</li>
+              <li>600W, 13.56 MHz RF generator (AG0613) with AIT-600 automatic impedance matching network</li>
+              <li>Custom Faraday cage with parallel copper electrodes and motorized turntable for isotropic field exposure</li>
+              <li>RF-transparent build chambers (PLA/nylon) with compliant printed spring sealing systems</li>
+              <li>Custom high-loading graphite inks (up to 25 wt%) developed with Nazdar</li>
             </ul>
           </div>
 
           <div class="modal__section">
             <h4>Advisors</h4>
-            <p>Dr. Carolyn Seepersad & Dr. Chris Salda&ntilde;a</p>
+            <p>Dr. Carolyn C. Seepersad (Woodruff Professor) & Dr. Christopher J. Salda&ntilde;a (Ring Family Professor)</p>
           </div>
 
           <div class="modal__tags">
@@ -438,6 +450,7 @@
             <span>RF Heating</span>
             <span>Binder Jetting</span>
             <span>Polymer Sintering</span>
+            <span>COMSOL Multiphysics</span>
             <span>Process Development</span>
           </div>
         </div>
@@ -457,14 +470,14 @@
           </div>
           <div class="modal__header-content">
             <span class="modal__label">Research Project</span>
-            <h2 class="modal__title">Low-Cost Metrology Pipeline</h2>
-            <p class="modal__subtitle">Scanner-Based Diagnostics for Binder Jet AM</p>
+            <h2 class="modal__title">Low-Cost Scanner-Based Diagnostic Pipeline</h2>
+            <p class="modal__subtitle">Dimensional Metrology of Jetting Fidelity in Binder Jet AM</p>
           </div>
         </div>
 
         <div class="modal__body">
           <div class="modal__intro">
-            <p>A scanner-based diagnostics system that quantifies droplet placement error and dopant distribution in binder jet additive manufacturing. This work replaces expensive metrology equipment with an accessible, software-driven solution.</p>
+            <p>A low-cost, scanner-based diagnostic pipeline for quantitative dimensional metrology of jetting outcomes in binder jet additive manufacturing (BJAM). The approach combines high-resolution flatbed scanning (4800&ndash;9600 dpi, ~5.3 &mu;m pixel pitch) with open-source Python/OpenCV computer vision to extract feature-specific metrics, producing standardized aggregate and per-instance data products suitable for iterative calibration.</p>
           </div>
 
           <div class="modal__stats-grid">
@@ -476,29 +489,54 @@
               <span class="modal__stat-value">$50-100K</span>
               <span class="modal__stat-label">Systems it replaces</span>
             </div>
+            <div class="modal__stat">
+              <span class="modal__stat-value">4800 dpi</span>
+              <span class="modal__stat-label">5.3 &mu;m pixel pitch</span>
+            </div>
           </div>
 
           <div class="modal__section">
-            <h4>Approach</h4>
+            <h4>Calibration Patterns</h4>
             <ul>
-              <li>Standard flatbed scanner captures high-resolution layer images</li>
-              <li>Python image processing pipeline extracts droplet positions</li>
-              <li>Statistical analysis quantifies placement error and distribution uniformity</li>
-              <li>Results correlate with final part quality metrics</li>
+              <li><strong>Dot arrays:</strong> Centroid-based pitch error, diameter, circularity, eccentricity, and grid rotation</li>
+              <li><strong>Checkerboards:</strong> Sub-pixel corner detection, pitch estimation, and yaw compensation</li>
+              <li><strong>Concentric rings:</strong> Radial symmetry, linewidth/spacing extraction, edge fidelity stress-test</li>
+              <li><strong>Pitch rulers:</strong> Minimum resolvable bar width as a function of sampling resolution</li>
+            </ul>
+          </div>
+
+          <div class="modal__section">
+            <h4>Key Contributions</h4>
+            <ul>
+              <li>Digital "gold-standard" validation isolates algorithmic behavior from physical printing variability</li>
+              <li>Normalized circularity metric (C<sub>norm</sub>) referenced to intrinsic discretization ceiling (C<sub>&infin;</sub> = 0.899)</li>
+              <li>Structured dimensional health report separating kinematic compensation from morphology diagnostics</li>
+              <li>GUI and CLI with standardized outputs (results.csv, raw.csv, debug overlays) for cross-session tracking</li>
+            </ul>
+          </div>
+
+          <div class="modal__section">
+            <h4>Diagnostic Workflow</h4>
+            <ul>
+              <li>Pattern definition &rarr; Rasterization/scanning &rarr; Feature extraction &rarr; Error processing &rarr; Compensation</li>
+              <li>Separates compensation-driving metrics (scale, yaw) from process health indicators (circularity, eccentricity)</li>
+              <li>Produces actionable recommendations for motion calibration and process tuning</li>
             </ul>
           </div>
 
           <div class="modal__section">
             <h4>Publication</h4>
-            <p>Manuscript in preparation for <em>Additive Manufacturing Letters</em></p>
+            <p>Manuscript submitted &mdash; <em>Additive Manufacturing Letters</em></p>
           </div>
 
           <div class="modal__tags">
             <span>Metrology</span>
             <span>Image Processing</span>
             <span>Python</span>
+            <span>OpenCV</span>
             <span>Binder Jetting</span>
             <span>Quality Control</span>
+            <span>Calibration</span>
           </div>
         </div>
       </div>
@@ -521,6 +559,11 @@
         <div class="modal__body">
           <div class="modal__section">
             <h4>Journal Publications</h4>
+            <div class="publication">
+              <p class="publication__title">A Low-Cost Scanner-Based Diagnostic Pipeline for Dimensional Metrology of Jetting Fidelity in Binder Jet Additive Manufacturing</p>
+              <p class="publication__authors">McCoy, M.L., Salda&ntilde;a, C.J., &amp; Seepersad, C.C.</p>
+              <p class="publication__venue">Additive Manufacturing Letters (submitted)</p>
+            </div>
             <div class="publication">
               <p class="publication__title">On the Role of Interface Strategy in Multi-Scale Hybrid Additive Manufacturing</p>
               <p class="publication__authors">Burl, A., Hussein, Z., Adapa, V.S.K., Foley, M., Van Handel, N., McCoy, M., et al.</p>
@@ -551,10 +594,8 @@
             <h4>Planned PhD Publications</h4>
             <ul class="publication__planned">
               <li>Design of a Modular, Scalable Open-Architecture Platform for Binder and Material Jetting Additive Manufacturing</li>
-              <li>A Low-Cost Scanner-Based Diagnostic Pipeline for Jetting Fidelity and Dopant Distribution in Binder Jet Additive Manufacturing</li>
-              <li>Physical Pathways for Compensating Shrinkage and Field Nonuniformity in Radio Frequency-Driven Additive Manufacturing</li>
-              <li>Model-Informed Input Design for Radio Frequency&ndash;Driven Additive Manufacturing: Functional Grading and Inverse Lithography-Inspired Pre-Distortion</li>
-              <li>Radio Frequency as a Volumetric Energy Paradigm for Additive Manufacturing: Principles, Modalities, and Opportunities</li>
+              <li>Simulation Framework for Achieving Thermal Uniformity in RFAM: Functional Grading and Inverse Lithography-Inspired Pre-Distortion</li>
+              <li>Expanding Radio Frequency Applications in Additive Manufacturing: New Materials and Process Modalities</li>
             </ul>
           </div>
 
