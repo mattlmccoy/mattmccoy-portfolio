@@ -177,14 +177,27 @@
   <section id="archive" class="section section--archive">
     <div class="section__header">
       <span class="section__number">03</span>
-      <h2 class="section__title">Archive</h2>
+      <h2 class="section__title">Archive & Fun Projects</h2>
     </div>
+
+    <!-- Featured Fun Project: Bottle Opener -->
+    <article class="project-card" data-modal="bottle-opener" style="margin-bottom: 2rem; height: auto; min-height: 200px;">
+      <div class="project-card__bg">
+        <img src="assets/images/content/bottle-opener.avif" alt="Over-Engineered Bottle Opener" />
+      </div>
+      <div class="project-card__content">
+        <span class="project-card__label" style="background: #FF6B6B;">Featured on Hackaday</span>
+        <h3 class="project-card__title">Over-Engineered Bottle Opener</h3>
+        <p class="project-card__desc">A ridiculously over-engineered automatic bottle opener built in college&mdash;featured on Hackaday article and podcast</p>
+        <span class="project-card__cta">Watch the Video &rarr;</span>
+      </div>
+    </article>
 
     <a href="archive.html" class="archive-preview">
       <div class="archive-preview__content">
         <p class="archive-preview__text">Want to check out my older work? Explore my undergraduate projects, leadership roles, and early industry experience from 2017-2021.</p>
         <div class="archive-preview__link">
-          <span>View Archive</span>
+          <span>View Full Archive</span>
           <span class="archive-preview__arrow">&rarr;</span>
         </div>
       </div>
@@ -268,7 +281,7 @@
       <div class="modal__content">
         <div class="modal__header">
           <div class="modal__header-bg">
-            <img src="assets/images/gradient-pink-yellow.jpg" alt="" />
+            <img src="assets/images/content/FUSE-EVT-BRINGUP.JPG" alt="Fuse EVT Bringup" />
           </div>
           <div class="modal__header-content">
             <span class="modal__label">Industry Experience</span>
@@ -279,27 +292,78 @@
 
         <div class="modal__body">
           <div class="modal__intro">
-            <p>At Formlabs, I worked on the Fuse series of SLS 3D printers, progressing from intern to Tech Lead. I owned thermal and optical subsystems, managed cross-functional programs, and directly contributed to products used by thousands of customers.</p>
+            <p>At Formlabs, I worked on the Fuse series of SLS 3D printers, progressing from intern to Tech Lead. I owned thermal and optical subsystems, managed cross-functional programs, and authored 30+ technical reports that enabled future engineering decisions. My work on calibration tools and process characterization directly impacted products used by thousands of customers&mdash;including notable makers like Adam Savage.</p>
+          </div>
+
+          <div class="modal__stats-grid">
+            <div class="modal__stat">
+              <span class="modal__stat-value">30+</span>
+              <span class="modal__stat-label">Technical reports authored</span>
+            </div>
+            <div class="modal__stat">
+              <span class="modal__stat-value">3x</span>
+              <span class="modal__stat-label">Dimensional accuracy improvement</span>
+            </div>
+            <div class="modal__stat">
+              <span class="modal__stat-value">120W</span>
+              <span class="modal__stat-label">Next-gen laser characterization</span>
+            </div>
           </div>
 
           <div class="modal__gallery">
-            <!-- Images will be added here -->
             <div class="modal__gallery-item">
-              <img src="assets/images/gradient-teal-pink.jpg" alt="Fuse 1+ 30W" />
-              <span>Fuse 1+ 30W Development</span>
+              <img src="assets/images/content/fuse-bed-temp-tool.png" alt="Bed Temperature Fine Tuning Tool" />
+              <span>Bed Temperature Diagnostic Tool</span>
             </div>
             <div class="modal__gallery-item">
-              <img src="assets/images/gradient-sunburst.jpg" alt="Thermal Systems" />
-              <span>Thermal Optimization</span>
+              <img src="assets/images/content/adam-savage-bedtemptool.png" alt="Adam Savage using Bed Temp Tool" />
+              <span>Adam Savage's Fuse 1+ Setup</span>
+            </div>
+            <div class="modal__gallery-item">
+              <img src="assets/images/content/FUSE_DVT_BRINGUP.JPG" alt="Fuse DVT Bringup" />
+              <span>Fuse DVT Bringup</span>
+            </div>
+            <div class="modal__gallery-item">
+              <img src="assets/images/content/fuse-user-scaling-tool-LEGO.png" alt="XY Scaling Calibration Tool" />
+              <span>XY Scaling Calibration Tool</span>
+            </div>
+            <div class="modal__gallery-item">
+              <img src="assets/images/content/fuse-optical-process-map-functional-regimes.png" alt="Optical Process Map" />
+              <span>Peak Irradiance Process Map</span>
+            </div>
+            <div class="modal__gallery-item">
+              <img src="assets/images/content/fuse-thermal-uniformity-significance.png" alt="Thermal Uniformity Study" />
+              <span>Thermal Uniformity Impact Study</span>
+            </div>
+            <div class="modal__gallery-item">
+              <img src="assets/images/content/fuse-spot-size-centralcompositedesign.png" alt="Large Spot DOE" />
+              <span>800&mu;m Spot DOE Study</span>
+            </div>
+            <div class="modal__gallery-item">
+              <img src="assets/images/content/fuse-optical-selection-timeVpriceVpower.png" alt="Laser Selection Analysis" />
+              <span>120W Laser Cost-Performance</span>
             </div>
           </div>
 
           <!-- YouTube Video Embed Section -->
           <div class="modal__videos">
-            <!-- YouTube videos will be added here -->
-            <!-- Example: <div class="modal__video">
-              <iframe src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div> -->
+            <div class="modal__video">
+              <iframe src="https://www.youtube.com/embed/x78bJi-snrc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+          </div>
+          <p style="text-align: center; color: var(--gray-600); font-size: 0.875rem; margin-top: -1rem; margin-bottom: 2rem;">Adam Savage showcasing his Fuse 1+ 30W&mdash;featuring my Bed Temperature Diagnostic Tool at 7:42</p>
+
+          <div class="modal__section">
+            <h4>Technical Research & Tools</h4>
+            <p style="margin-bottom: 1rem;">I authored research enabling data-driven decisions for next-generation SLS development. Key contributions:</p>
+            <ul>
+              <li><strong>XY Scaling Calibration System:</strong> Designed user-facing tool achieving &plusmn;100&mu;m tolerance (3x improvement). Developed Gage R&R methodology, identified regression failure modes with small datasets, and introduced Outer Boundary Offset (OBO) correction for thermal bleed effects.</li>
+              <li><strong>Bed Temperature Fine Tuning Tool:</strong> Created diagnostic part with torque spinners, dimpling grids, and birchbark cones for visual/mechanical assessment of thermal uniformity. Widely deployed to customers and field engineers&mdash;featured by Adam Savage on Tested.</li>
+              <li><strong>120W Laser Characterization:</strong> Led systematic study of high-power laser selection (30W-120W). Introduced peak irradiance [W/cm&sup2;] as key metric, created smoking performance lookup tables, and recommended 70W/500&mu;m configuration as optimal.</li>
+              <li><strong>Thermal Uniformity Study:</strong> Correlated bed temperature distribution with part quality. Discovered path planning dominates clearances while thermal uniformity drives elongation at break (6% center vs 4% edges).</li>
+              <li><strong>Variable Focus / Large Spot:</strong> Proved 800&mu;m spot feasibility via Central Composite Design study. Achieved 40% improvement in Z-EAB, zero smoking at 4000+ mJ/cm&sup2;, and ~10% speed improvement.</li>
+              <li><strong>Minimum Power Density Study:</strong> Challenged industry assumption of 10&sup4; W/cm&sup2; threshold. Proved Nylon 12 prints successfully at 336 W/cm&sup2; (30x lower), validating VCSEL array feasibility.</li>
+            </ul>
           </div>
 
           <div class="modal__roles">
@@ -312,8 +376,8 @@
               <ul>
                 <li>Owned thermal and optical subsystem development for next-generation SLS platforms</li>
                 <li>Translated process physics into requirements, verification plans, and design trade studies</li>
-                <li>Developed multi-laser optics concepts (beam shaping, focus control, scan strategies)</li>
-                <li>Authored 30+ technical reports; contributed to patent disclosures</li>
+                <li>Developed multi-laser optics concepts (beam shaping, variable focus, scan strategies)</li>
+                <li>Created predictive frameworks: peak irradiance process maps, print time models, cost-performance optimization</li>
                 <li>Hiring manager: hired multiple full-time R&D engineers and dozens of interns</li>
               </ul>
             </div>
@@ -325,8 +389,8 @@
                 <li>Technical Program Manager for Fuse 1+ 30W NPI (EVT/DVT phases)</li>
                 <li>Coordinated 30+ engineers across mechanical, electrical, embedded, and software</li>
                 <li>Designed factory calibration systems scaled to thousands of production units</li>
-                <li>Increased print speed 30% via thermal optimization</li>
-                <li>Reduced fleet dimensional error to sub-50 &mu;m on critical features</li>
+                <li>Increased print speed 30% via thermal optimization; 33% interlayer improvement yielded ~4hr free speed</li>
+                <li>Reduced fleet dimensional error from &plusmn;300&mu;m to &plusmn;100&mu;m on critical features</li>
                 <li>Designed closed-loop nitrogen inerting; reduced gas consumption 60%</li>
               </ul>
             </div>
@@ -342,12 +406,23 @@
             </div>
           </div>
 
+          <div class="modal__section">
+            <h4>Key Equations Developed</h4>
+            <ul>
+              <li><strong>Peak Irradiance:</strong> I<sub>peak</sub> = 2P / (&pi;r&sup2;) where P = power, r = 1/e&sup2; spot radius</li>
+              <li><strong>Surface Energy Density (SED):</strong> Power / (Hatch Spacing &times; Galvo Speed)</li>
+              <li><strong>Linear Energy Density (LED):</strong> Power / Galvo Speed</li>
+            </ul>
+          </div>
+
           <div class="modal__tags">
             <span>Selective Laser Sintering</span>
             <span>Thermal Systems</span>
             <span>Optics</span>
             <span>NPI</span>
             <span>Calibration</span>
+            <span>Process Physics</span>
+            <span>DOE</span>
             <span>Python</span>
             <span>MATLAB</span>
           </div>
@@ -406,6 +481,31 @@
               <img src="assets/images/pixel-burst.jpg" alt="Test Specimens" />
               <span>Sintered Test Specimens</span>
             </div>
+          </div>
+
+          <!-- Conference Talk & Proposal Videos -->
+          <div class="modal__section">
+            <h4>Conference Presentation</h4>
+            <p style="margin-bottom: 1rem;">Solid Freeform Fabrication Symposium 2025 &bull; Austin, TX</p>
+          </div>
+          <div class="modal__videos">
+            <div class="modal__video">
+              <iframe src="https://www.youtube.com/embed/b4yTXEDQ0zk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>PhD Proposal</h4>
+            <p style="margin-bottom: 1rem;">Proposal defense presentation (August 2025)</p>
+          </div>
+          <div class="modal__videos">
+            <div class="modal__video">
+              <iframe src="https://www.youtube.com/embed/Hb7Ml6X2GxU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+          </div>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;">
+            <a href="https://docs.google.com/presentation/d/1a9rlaCXvCfr2C6LK6zRw-2JO90qCgkmNeJUSctIsVUY/edit?usp=sharing" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; background: var(--teal); color: var(--white); border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 0.875rem;">View Proposal Slides &rarr;</a>
+            <a href="assets/documents/mccoy_phd_proposal.pdf" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; background: var(--gray-200); color: var(--gray-800); border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 0.875rem;">Download Proposal Document (PDF) &rarr;</a>
           </div>
 
           <div class="modal__section">
@@ -604,6 +704,91 @@
             <ul>
               <li>Patent contributions/invention disclosures at Formlabs (SLS systems and processes)</li>
             </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottle Opener Modal -->
+  <div class="modal" id="modal-bottle-opener">
+    <div class="modal__backdrop"></div>
+    <div class="modal__container">
+      <button class="modal__close">&times;</button>
+      <div class="modal__content">
+        <div class="modal__header">
+          <div class="modal__header-bg">
+            <img src="assets/images/content/bottle-opener.avif" alt="Over-Engineered Bottle Opener" />
+          </div>
+          <div class="modal__header-content">
+            <span class="modal__label">Fun Project</span>
+            <h2 class="modal__title">Over-Engineered Bottle Opener</h2>
+            <p class="modal__subtitle">Featured on Hackaday &bull; Built in College (2020)</p>
+          </div>
+        </div>
+
+        <div class="modal__body">
+          <div class="modal__intro">
+            <p>Sometimes the best engineering projects are the ones that solve problems nobody asked to be solved. This ridiculously over-engineered automatic bottle opener was built with friends during college&mdash;and ended up getting featured on Hackaday's website and podcast.</p>
+          </div>
+
+          <div class="modal__stats-grid">
+            <div class="modal__stat">
+              <span class="modal__stat-value">99th</span>
+              <span class="modal__stat-label">Hackaday Podcast Episode</span>
+            </div>
+            <div class="modal__stat">
+              <span class="modal__stat-value">100%</span>
+              <span class="modal__stat-label">Over-Engineered</span>
+            </div>
+            <div class="modal__stat">
+              <span class="modal__stat-value">0</span>
+              <span class="modal__stat-label">Problems Actually Solved</span>
+            </div>
+          </div>
+
+          <!-- Main Demo Video -->
+          <div class="modal__section">
+            <h4>Full Demo Video</h4>
+          </div>
+          <div class="modal__videos">
+            <div class="modal__video">
+              <iframe src="https://www.youtube.com/embed/XNhSrVIV6Ac" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>Manufacturing & Build Process</h4>
+          </div>
+          <div class="modal__videos">
+            <div class="modal__video">
+              <iframe src="https://www.youtube.com/embed/koXtxFYrNRM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>Quick Highlight</h4>
+          </div>
+          <div class="modal__videos">
+            <div class="modal__video">
+              <iframe src="https://www.youtube.com/embed/1FEmYQiFS-Y" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>Media Coverage</h4>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
+              <a href="https://hackaday.com/2020/12/18/over-engineered-bottle-opener-takes-the-drudgery-out-of-drinking/" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; background: var(--teal); color: var(--white); border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 0.875rem;">Hackaday Article &rarr;</a>
+              <a href="https://hackaday.com/2020/12/24/hackaday-podcast-099-our-hundredth-episode-denture-synth-oled-keycaps-and-snes-raytracing/" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; background: var(--gray-200); color: var(--gray-800); border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 0.875rem;">Hackaday Podcast #99 &rarr;</a>
+            </div>
+          </div>
+
+          <div class="modal__tags">
+            <span>Mechatronics</span>
+            <span>Arduino</span>
+            <span>3D Printing</span>
+            <span>Over-Engineering</span>
+            <span>Fun</span>
           </div>
         </div>
       </div>
