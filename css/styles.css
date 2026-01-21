@@ -1162,6 +1162,47 @@ strong {
   background: var(--gray-50);
 }
 
+.modal__project {
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-xl);
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.modal__project:last-of-type {
+  border-bottom: none;
+  margin-bottom: var(--space-lg);
+}
+
+.modal__project-content {
+  margin-bottom: var(--space-md);
+}
+
+.modal__project-content h5 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--gray-800);
+}
+
+.modal__project-content p {
+  color: var(--gray-600);
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.modal__project-content a {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.modal__project-media .modal__gallery {
+  margin-bottom: 0;
+}
+
+.modal__project-media .modal__videos {
+  margin-bottom: 0;
+}
+
 .modal__videos {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));

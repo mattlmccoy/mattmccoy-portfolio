@@ -310,73 +310,139 @@
             </div>
           </div>
 
-          <div class="modal__gallery">
-            <div class="modal__gallery-item">
-              <img src="assets/images/content/fuse-bed-temp-tool.png" alt="Bed Temperature Fine Tuning Tool" />
-              <span>Bed Temperature Diagnostic Tool</span>
-            </div>
-            <div class="modal__gallery-item">
-              <img src="assets/images/content/adam-savage-bedtemptool.png" alt="Adam Savage using Bed Temp Tool" />
-              <span>Adam Savage's Fuse 1+ Setup</span>
-            </div>
-            <div class="modal__gallery-item">
-              <img src="assets/images/content/FUSE_DVT_BRINGUP.JPG" alt="Fuse DVT Bringup" />
-              <span>Fuse DVT Bringup</span>
-            </div>
-            <div class="modal__gallery-item">
-              <img src="assets/images/content/FUSE-EVT-BRINGUP.JPG" alt="Fuse EVT Bringup" />
-              <span>Fuse EVT Bringup</span>
-            </div>
-            <div class="modal__gallery-item">
-              <img src="assets/images/content/fuse-user-scaling-tool-LEGO.png" alt="XY Scaling Calibration Tool" />
-              <span>XY Scaling Calibration Tool</span>
-            </div>
-            <div class="modal__gallery-item">
-              <img src="assets/images/content/fuse-optical-process-map-functional-regimes.png" alt="Optical Process Map" />
-              <span>Peak Irradiance Process Map</span>
-            </div>
-            <div class="modal__gallery-item">
-              <img src="assets/images/content/fuse-thermal-uniformity-significance.png" alt="Thermal Uniformity Study" />
-              <span>Thermal Uniformity Impact Study</span>
-            </div>
-            <div class="modal__gallery-item">
-              <img src="assets/images/content/fuse-spot-size-centralcompositedesign.png" alt="Large Spot DOE" />
-              <span>800&mu;m Spot DOE Study</span>
-            </div>
-            <div class="modal__gallery-item">
-              <img src="assets/images/content/fuse-optical-selection-timeVpriceVpower.png" alt="Laser Selection Analysis" />
-              <span>120W Laser Cost-Performance</span>
-            </div>
-          </div>
-
-          <!-- YouTube Video Embed Section -->
-          <div class="modal__section">
-            <h4>Featured Videos</h4>
-          </div>
-          <div class="modal__videos">
-            <div class="modal__video">
-              <iframe src="https://www.youtube.com/embed/x78bJi-snrc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-          </div>
-          <p style="text-align: center; color: var(--gray-600); font-size: 0.875rem; margin-top: -1rem; margin-bottom: 2rem;">Adam Savage showcasing his Fuse 1+ 30W&mdash;featuring my Bed Temperature Diagnostic Tool at 7:42</p>
-          <div class="modal__videos">
-            <div class="modal__video">
-              <iframe src="https://www.youtube.com/embed/Ev8CLGpsMMg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-          </div>
-          <p style="text-align: center; color: var(--gray-600); font-size: 0.875rem; margin-top: -1rem; margin-bottom: 2rem;">Official Formlabs tutorial on the Bed Temperature Measurement Tool</p>
-
           <div class="modal__section">
             <h4>Technical Research & Tools</h4>
-            <p style="margin-bottom: 1rem;">I authored research enabling data-driven decisions for next-generation SLS development. These tools remain actively deployed across the Fuse fleet today:</p>
-            <ul>
-              <li><strong>XY Scaling Calibration System:</strong> Designed user-facing tool achieving &plusmn;100&mu;m tolerance (3x improvement). Developed Gage R&R methodology, identified regression failure modes with small datasets, and introduced Outer Boundary Offset (OBO) correction for thermal bleed effects. <a href="https://support.formlabs.com/s/article/X-Y-Scaling-Fuse-1-generation-printers?language=en_US" target="_blank" style="color: var(--teal);">View official documentation &rarr;</a></li>
-              <li><strong>Bed Temperature Fine Tuning Tool:</strong> Created diagnostic part with torque spinners, dimpling grids, and birchbark cones for visual/mechanical assessment of thermal uniformity. The torque spinners use a digital torque meter to quantitatively tease out optical and thermal parameters&mdash;a feature widely deployed to customers and field engineers. <a href="https://support.formlabs.com/s/article/Fine-tuning-your-Fuse-1-generation-printer-with-the-Bed-Temperature-Measurement-Tool?language=en_US" target="_blank" style="color: var(--teal);">View official documentation &rarr;</a></li>
-              <li><strong>120W Laser Characterization:</strong> Led systematic study of high-power laser selection (30W-120W). Introduced peak irradiance [W/cm&sup2;] as key metric, created smoking performance lookup tables, and recommended 70W/500&mu;m configuration as optimal.</li>
-              <li><strong>Thermal Uniformity Study:</strong> Correlated bed temperature distribution with part quality. Discovered path planning dominates clearances while thermal uniformity drives elongation at break (6% center vs 4% edges).</li>
-              <li><strong>Variable Focus / Large Spot:</strong> Proved 800&mu;m spot feasibility via Central Composite Design study. Achieved 40% improvement in Z-EAB, zero smoking at 4000+ mJ/cm&sup2;, and ~10% speed improvement.</li>
-              <li><strong>Minimum Power Density Study:</strong> Challenged industry assumption of 10<sup>4</sup> W/cm&sup2; threshold. Proved Nylon 12 prints successfully at 336 W/cm&sup2; (30x lower), validating VCSEL array feasibility.</li>
-            </ul>
+            <p style="margin-bottom: 1.5rem;">I authored research enabling data-driven decisions for next-generation SLS development. These tools remain actively deployed across the Fuse fleet today:</p>
+          </div>
+
+          <!-- Bed Temperature Fine Tuning Tool -->
+          <div class="modal__project">
+            <div class="modal__project-content">
+              <h5>Bed Temperature Fine Tuning Tool</h5>
+              <p>Created diagnostic part with torque spinners, dimpling grids, and birchbark cones for visual/mechanical assessment of thermal uniformity. The torque spinners use a digital torque meter to quantitatively tease out optical and thermal parameters&mdash;a feature widely deployed to customers and field engineers.</p>
+              <a href="https://support.formlabs.com/s/article/Fine-tuning-your-Fuse-1-generation-printer-with-the-Bed-Temperature-Measurement-Tool?language=en_US" target="_blank" style="color: var(--teal);">View official documentation &rarr;</a>
+            </div>
+            <div class="modal__project-media">
+              <div class="modal__gallery" style="margin-bottom: 1rem;">
+                <div class="modal__gallery-item modal__gallery-item--lightbox">
+                  <img src="assets/images/content/fuse-bed-temp-tool.png" alt="Bed Temperature Fine Tuning Tool" />
+                  <span>Diagnostic Tool</span>
+                </div>
+                <div class="modal__gallery-item modal__gallery-item--lightbox">
+                  <img src="assets/images/content/adam-savage-bedtemptool.png" alt="Adam Savage using Bed Temp Tool" />
+                  <span>Adam Savage's Setup</span>
+                </div>
+              </div>
+              <div class="modal__videos">
+                <div class="modal__video">
+                  <iframe src="https://www.youtube.com/embed/x78bJi-snrc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+              </div>
+              <p style="text-align: center; color: var(--gray-600); font-size: 0.8rem; margin-top: 0.5rem;">Adam Savage showcasing his Fuse 1+ 30W&mdash;my tool featured at 7:42</p>
+              <div class="modal__videos" style="margin-top: 1rem;">
+                <div class="modal__video">
+                  <iframe src="https://www.youtube.com/embed/Ev8CLGpsMMg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+              </div>
+              <p style="text-align: center; color: var(--gray-600); font-size: 0.8rem; margin-top: 0.5rem;">Official Formlabs tutorial</p>
+            </div>
+          </div>
+
+          <!-- XY Scaling Calibration System -->
+          <div class="modal__project">
+            <div class="modal__project-content">
+              <h5>XY Scaling Calibration System</h5>
+              <p>Designed user-facing tool achieving &plusmn;100&mu;m tolerance (3x improvement). Developed Gage R&R methodology, identified regression failure modes with small datasets, and introduced Outer Boundary Offset (OBO) correction for thermal bleed effects.</p>
+              <a href="https://support.formlabs.com/s/article/X-Y-Scaling-Fuse-1-generation-printers?language=en_US" target="_blank" style="color: var(--teal);">View official documentation &rarr;</a>
+            </div>
+            <div class="modal__project-media">
+              <div class="modal__gallery">
+                <div class="modal__gallery-item modal__gallery-item--lightbox">
+                  <img src="assets/images/content/fuse-user-scaling-tool-LEGO.png" alt="XY Scaling Calibration Tool" />
+                  <span>XY Scaling Calibration Tool</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 120W Laser Characterization -->
+          <div class="modal__project">
+            <div class="modal__project-content">
+              <h5>120W Laser Characterization</h5>
+              <p>Led systematic study of high-power laser selection (30W-120W). Introduced peak irradiance [W/cm&sup2;] as key metric, created smoking performance lookup tables, and recommended 70W/500&mu;m configuration as optimal.</p>
+            </div>
+            <div class="modal__project-media">
+              <div class="modal__gallery">
+                <div class="modal__gallery-item modal__gallery-item--lightbox">
+                  <img src="assets/images/content/fuse-optical-process-map-functional-regimes.png" alt="Peak Irradiance Process Map" />
+                  <span>Peak Irradiance Process Map</span>
+                </div>
+                <div class="modal__gallery-item modal__gallery-item--lightbox">
+                  <img src="assets/images/content/fuse-optical-selection-timeVpriceVpower.png" alt="120W Laser Cost-Performance" />
+                  <span>Laser Cost-Performance Analysis</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Thermal Uniformity Study -->
+          <div class="modal__project">
+            <div class="modal__project-content">
+              <h5>Thermal Uniformity Study</h5>
+              <p>Correlated bed temperature distribution with part quality. Discovered path planning dominates clearances while thermal uniformity drives elongation at break (6% center vs 4% edges).</p>
+            </div>
+            <div class="modal__project-media">
+              <div class="modal__gallery">
+                <div class="modal__gallery-item modal__gallery-item--lightbox">
+                  <img src="assets/images/content/fuse-thermal-uniformity-significance.png" alt="Thermal Uniformity Impact Study" />
+                  <span>Thermal Uniformity Impact Study</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Variable Focus / Large Spot -->
+          <div class="modal__project">
+            <div class="modal__project-content">
+              <h5>Variable Focus / Large Spot</h5>
+              <p>Proved 800&mu;m spot feasibility via Central Composite Design study. Achieved 40% improvement in Z-EAB, zero smoking at 4000+ mJ/cm&sup2;, and ~10% speed improvement.</p>
+            </div>
+            <div class="modal__project-media">
+              <div class="modal__gallery">
+                <div class="modal__gallery-item modal__gallery-item--lightbox">
+                  <img src="assets/images/content/fuse-spot-size-centralcompositedesign.png" alt="800μm Spot DOE Study" />
+                  <span>800&mu;m Spot DOE Study</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Minimum Power Density Study -->
+          <div class="modal__project">
+            <div class="modal__project-content">
+              <h5>Minimum Power Density Study</h5>
+              <p>Challenged industry assumption of 10<sup>4</sup> W/cm&sup2; threshold. Proved Nylon 12 prints successfully at 336 W/cm&sup2; (30x lower), validating VCSEL array feasibility.</p>
+            </div>
+          </div>
+
+          <!-- NPI Bringup -->
+          <div class="modal__project">
+            <div class="modal__project-content">
+              <h5>Fuse 1+ 30W NPI</h5>
+              <p>Technical Program Manager for EVT/DVT phases, coordinating 30+ engineers across mechanical, electrical, embedded, and software teams.</p>
+            </div>
+            <div class="modal__project-media">
+              <div class="modal__gallery">
+                <div class="modal__gallery-item modal__gallery-item--lightbox">
+                  <img src="assets/images/content/FUSE-EVT-BRINGUP.JPG" alt="Fuse EVT Bringup" />
+                  <span>EVT Bringup</span>
+                </div>
+                <div class="modal__gallery-item modal__gallery-item--lightbox">
+                  <img src="assets/images/content/FUSE_DVT_BRINGUP.JPG" alt="Fuse DVT Bringup" />
+                  <span>DVT Bringup</span>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="modal__roles">
