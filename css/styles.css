@@ -1151,6 +1151,17 @@ strong {
   font-size: 0.85rem;
 }
 
+.modal__gallery-item--full {
+  grid-column: 1 / -1;
+  aspect-ratio: 16/9;
+  max-height: 400px;
+}
+
+.modal__gallery-item--full img {
+  object-fit: contain;
+  background: var(--gray-50);
+}
+
 .modal__videos {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
