@@ -125,6 +125,19 @@ strong {
     border-color: var(--teal);
     mix-blend-mode: difference;
   }
+
+  /* White cursor for lightbox */
+  .lightbox.active ~ .cursor,
+  body:has(.lightbox.active) .cursor {
+    border-color: var(--white);
+    z-index: 10001;
+  }
+
+  body:has(.lightbox.active) .cursor.hover {
+    background: var(--white);
+    border-color: var(--white);
+    mix-blend-mode: normal;
+  }
 }
 
 /* Navigation */

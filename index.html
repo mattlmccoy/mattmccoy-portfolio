@@ -281,7 +281,7 @@
       <div class="modal__content">
         <div class="modal__header">
           <div class="modal__header-bg">
-            <img src="assets/images/content/FUSE-EVT-BRINGUP.JPG" alt="Fuse EVT Bringup" />
+            <img src="assets/images/gradient-pink-yellow.jpg" alt="" />
           </div>
           <div class="modal__header-content">
             <span class="modal__label">Industry Experience</span>
@@ -292,7 +292,7 @@
 
         <div class="modal__body">
           <div class="modal__intro">
-            <p>At Formlabs, I worked on the Fuse series of SLS 3D printers, progressing from intern to Tech Lead. I owned thermal and optical subsystems, managed cross-functional programs, and authored 30+ technical reports that enabled future engineering decisions. My work on calibration tools and process characterization directly impacted products used by thousands of customers&mdash;including notable makers like Adam Savage.</p>
+            <p>At Formlabs, I worked on the Fuse series of SLS 3D printers, progressing from intern to Tech Lead. I owned thermal and optical subsystems, managed cross-functional programs, and authored 30+ technical reports that enabled data-driven engineering decisions. The calibration tools and process characterization systems I developed are actively deployed across tens of thousands of Fuse printers today&mdash;including notable makers like Adam Savage.</p>
           </div>
 
           <div class="modal__stats-grid">
@@ -324,6 +324,10 @@
               <span>Fuse DVT Bringup</span>
             </div>
             <div class="modal__gallery-item">
+              <img src="assets/images/content/FUSE-EVT-BRINGUP.JPG" alt="Fuse EVT Bringup" />
+              <span>Fuse EVT Bringup</span>
+            </div>
+            <div class="modal__gallery-item">
               <img src="assets/images/content/fuse-user-scaling-tool-LEGO.png" alt="XY Scaling Calibration Tool" />
               <span>XY Scaling Calibration Tool</span>
             </div>
@@ -346,23 +350,32 @@
           </div>
 
           <!-- YouTube Video Embed Section -->
+          <div class="modal__section">
+            <h4>Featured Videos</h4>
+          </div>
           <div class="modal__videos">
             <div class="modal__video">
               <iframe src="https://www.youtube.com/embed/x78bJi-snrc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
           </div>
           <p style="text-align: center; color: var(--gray-600); font-size: 0.875rem; margin-top: -1rem; margin-bottom: 2rem;">Adam Savage showcasing his Fuse 1+ 30W&mdash;featuring my Bed Temperature Diagnostic Tool at 7:42</p>
+          <div class="modal__videos">
+            <div class="modal__video">
+              <iframe src="https://www.youtube.com/embed/Ev8CLGpsMMg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+          </div>
+          <p style="text-align: center; color: var(--gray-600); font-size: 0.875rem; margin-top: -1rem; margin-bottom: 2rem;">Official Formlabs tutorial on the Bed Temperature Measurement Tool</p>
 
           <div class="modal__section">
             <h4>Technical Research & Tools</h4>
-            <p style="margin-bottom: 1rem;">I authored research enabling data-driven decisions for next-generation SLS development. Key contributions:</p>
+            <p style="margin-bottom: 1rem;">I authored research enabling data-driven decisions for next-generation SLS development. These tools remain actively deployed across the Fuse fleet today:</p>
             <ul>
-              <li><strong>XY Scaling Calibration System:</strong> Designed user-facing tool achieving &plusmn;100&mu;m tolerance (3x improvement). Developed Gage R&R methodology, identified regression failure modes with small datasets, and introduced Outer Boundary Offset (OBO) correction for thermal bleed effects.</li>
-              <li><strong>Bed Temperature Fine Tuning Tool:</strong> Created diagnostic part with torque spinners, dimpling grids, and birchbark cones for visual/mechanical assessment of thermal uniformity. Widely deployed to customers and field engineers&mdash;featured by Adam Savage on Tested.</li>
+              <li><strong>XY Scaling Calibration System:</strong> Designed user-facing tool achieving &plusmn;100&mu;m tolerance (3x improvement). Developed Gage R&R methodology, identified regression failure modes with small datasets, and introduced Outer Boundary Offset (OBO) correction for thermal bleed effects. <a href="https://support.formlabs.com/s/article/X-Y-Scaling-Fuse-1-generation-printers?language=en_US" target="_blank" style="color: var(--teal);">View official documentation &rarr;</a></li>
+              <li><strong>Bed Temperature Fine Tuning Tool:</strong> Created diagnostic part with torque spinners, dimpling grids, and birchbark cones for visual/mechanical assessment of thermal uniformity. The torque spinners use a digital torque meter to quantitatively tease out optical and thermal parameters&mdash;a feature widely deployed to customers and field engineers. <a href="https://support.formlabs.com/s/article/Fine-tuning-your-Fuse-1-generation-printer-with-the-Bed-Temperature-Measurement-Tool?language=en_US" target="_blank" style="color: var(--teal);">View official documentation &rarr;</a></li>
               <li><strong>120W Laser Characterization:</strong> Led systematic study of high-power laser selection (30W-120W). Introduced peak irradiance [W/cm&sup2;] as key metric, created smoking performance lookup tables, and recommended 70W/500&mu;m configuration as optimal.</li>
               <li><strong>Thermal Uniformity Study:</strong> Correlated bed temperature distribution with part quality. Discovered path planning dominates clearances while thermal uniformity drives elongation at break (6% center vs 4% edges).</li>
               <li><strong>Variable Focus / Large Spot:</strong> Proved 800&mu;m spot feasibility via Central Composite Design study. Achieved 40% improvement in Z-EAB, zero smoking at 4000+ mJ/cm&sup2;, and ~10% speed improvement.</li>
-              <li><strong>Minimum Power Density Study:</strong> Challenged industry assumption of 10&sup4; W/cm&sup2; threshold. Proved Nylon 12 prints successfully at 336 W/cm&sup2; (30x lower), validating VCSEL array feasibility.</li>
+              <li><strong>Minimum Power Density Study:</strong> Challenged industry assumption of 10<sup>4</sup> W/cm&sup2; threshold. Proved Nylon 12 prints successfully at 336 W/cm&sup2; (30x lower), validating VCSEL array feasibility.</li>
             </ul>
           </div>
 
@@ -404,15 +417,6 @@
                 <li>Architected powder handling subsystems (shipped as Fuse Sift & Fuse Blast)</li>
               </ul>
             </div>
-          </div>
-
-          <div class="modal__section">
-            <h4>Key Equations Developed</h4>
-            <ul>
-              <li><strong>Peak Irradiance:</strong> I<sub>peak</sub> = 2P / (&pi;r&sup2;) where P = power, r = 1/e&sup2; spot radius</li>
-              <li><strong>Surface Energy Density (SED):</strong> Power / (Hatch Spacing &times; Galvo Speed)</li>
-              <li><strong>Linear Energy Density (LED):</strong> Power / Galvo Speed</li>
-            </ul>
           </div>
 
           <div class="modal__tags">
@@ -496,7 +500,7 @@
 
           <div class="modal__section">
             <h4>PhD Proposal</h4>
-            <p style="margin-bottom: 1rem;">Proposal defense presentation (August 2025)</p>
+            <p style="margin-bottom: 1rem;">Proposal defense presentation (September 2025)</p>
           </div>
           <div class="modal__videos">
             <div class="modal__video">
@@ -694,8 +698,10 @@
             <h4>Planned PhD Publications</h4>
             <ul class="publication__planned">
               <li>Design of a Modular, Scalable Open-Architecture Platform for Binder and Material Jetting Additive Manufacturing</li>
-              <li>Simulation Framework for Achieving Thermal Uniformity in RFAM: Functional Grading and Inverse Lithography-Inspired Pre-Distortion</li>
-              <li>Expanding Radio Frequency Applications in Additive Manufacturing: New Materials and Process Modalities</li>
+              <li>A Low-Cost Scanner-Based Diagnostic Pipeline for Jetting Fidelity and Dopant Distribution in Binder Jet Additive Manufacturing</li>
+              <li>Physical Pathways for Compensating Shrinkage and Field Nonuniformity in Radio Frequency-Driven Additive Manufacturing</li>
+              <li>Model-Informed Input Design for Radio Frequency&ndash;Driven Additive Manufacturing: Functional Grading and Inverse Lithography-Inspired Pre-Distortion</li>
+              <li>Radio Frequency as a Volumetric Energy Paradigm for Additive Manufacturing: Principles, Modalities, and Opportunities</li>
             </ul>
           </div>
 
@@ -734,8 +740,8 @@
 
           <div class="modal__stats-grid">
             <div class="modal__stat">
-              <span class="modal__stat-value">99th</span>
-              <span class="modal__stat-label">Hackaday Podcast Episode</span>
+              <span class="modal__stat-value">100th</span>
+              <span class="modal__stat-label">Hackaday Podcast Episode*</span>
             </div>
             <div class="modal__stat">
               <span class="modal__stat-value">100%</span>
@@ -746,6 +752,7 @@
               <span class="modal__stat-label">Problems Actually Solved</span>
             </div>
           </div>
+          <p style="text-align: center; color: var(--gray-500); font-size: 0.75rem; margin-top: -1rem; margin-bottom: 1.5rem;">*Listed as #99 because Hackaday uses zero-indexed episode numbering</p>
 
           <!-- Main Demo Video -->
           <div class="modal__section">
