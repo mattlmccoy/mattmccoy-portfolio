@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Lightbox for gallery images
+  // Lightbox for gallery images and videos
   const lightbox = document.createElement('div');
   lightbox.className = 'lightbox';
   lightbox.innerHTML = `
@@ -129,18 +129,33 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="lightbox__content">
       <button class="lightbox__close">&times;</button>
       <img class="lightbox__image" src="" alt="" />
+      <video class="lightbox__video" controls autoplay loop muted playsinline>
+        <source src="" type="video/mp4">
+      </video>
       <p class="lightbox__caption"></p>
     </div>
   `;
   document.body.appendChild(lightbox);
 
   const lightboxImage = lightbox.querySelector('.lightbox__image');
+  const lightboxVideo = lightbox.querySelector('.lightbox__video');
+  const lightboxVideoSource = lightboxVideo.querySelector('source');
   const lightboxCaption = lightbox.querySelector('.lightbox__caption');
   const lightboxClose = lightbox.querySelector('.lightbox__close');
   const lightboxBackdrop = lightbox.querySelector('.lightbox__backdrop');
 
-  function openLightbox(src, caption) {
-    lightboxImage.src = src;
+  function openLightbox(src, caption, isVideo = false) {
+    if (isVideo) {
+      lightboxImage.style.display = 'none';
+      lightboxVideo.style.display = 'block';
+      lightboxVideoSource.src = src;
+      lightboxVideo.load();
+      lightboxVideo.play();
+    } else {
+      lightboxVideo.style.display = 'none';
+      lightboxImage.style.display = 'block';
+      lightboxImage.src = src;
+    }
     lightboxCaption.textContent = caption || '';
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -148,6 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function closeLightbox() {
     lightbox.classList.remove('active');
+    lightboxVideo.pause();
     // Always restore scroll when closing lightbox - modal handles its own overflow
     document.body.style.overflow = '';
     // If a modal is still open, let it manage overflow
@@ -156,15 +172,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Add click handlers to gallery images
+  // Add click handlers to gallery images and videos
   document.querySelectorAll('.modal__gallery-item').forEach(item => {
     item.style.cursor = 'pointer';
     item.addEventListener('click', (e) => {
       e.stopPropagation();
       const img = item.querySelector('img');
+      const video = item.querySelector('video');
       const caption = item.querySelector('span');
-      if (img) {
-        openLightbox(img.src, caption ? caption.textContent : '');
+      if (video) {
+        const source = video.querySelector('source');
+        openLightbox(source.src, caption ? caption.textContent : '', true);
+      } else if (img) {
+        openLightbox(img.src, caption ? caption.textContent : '', false);
       }
     });
   });
