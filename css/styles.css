@@ -1104,7 +1104,6 @@ strong {
 
 .modal__gallery-item:hover {
   transform: scale(1.02);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
 
 .modal__gallery-item::after {
