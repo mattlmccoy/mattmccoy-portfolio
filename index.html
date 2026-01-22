@@ -357,11 +357,11 @@
           </div>
           <div class="modal__gallery" style="margin-bottom: 1.5rem;">
             <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/images/content/FUSE-EVT-BRINGUP.JPG" alt="Fuse EVT Bringup" />
+              <img src="assets/images/content/fuse-evt-bringup.jpg" alt="Fuse EVT Bringup" />
               <span>EVT Bringup</span>
             </div>
             <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/images/content/FUSE_DVT_BRINGUP.JPG" alt="Fuse DVT Bringup" />
+              <img src="assets/images/content/fuse-dvt-bringup.jpg" alt="Fuse DVT Bringup" />
               <span>DVT Bringup</span>
             </div>
           </div>
@@ -415,20 +415,17 @@
           </div>
 
           <!-- Print Speed Optimization -->
-          <div class="modal__project">
+          <div class="modal__project modal__project--text-only">
             <div class="modal__project-content">
               <h5>Print Speed Optimization</h5>
               <p>Increased print speed 30% via thermal optimization. Achieved 33% interlayer time improvement, yielding approximately 4 hours of free build time per print job.</p>
             </div>
-            <div class="modal__project-media">
-              <div class="modal__gallery">
-                <div class="modal__gallery-item">
-                  <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
-                    <source src="assets/images/content/formlabs-fuse-speeds.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </div>
-            </div>
+          </div>
+          <div style="margin-bottom: 2rem;">
+            <video autoplay muted loop playsinline style="width: 100%; border-radius: 8px;">
+              <source src="assets/images/content/formlabs-fuse-speeds.mp4" type="video/mp4">
+            </video>
+            <p style="text-align: center; color: var(--gray-600); font-size: 0.75rem; margin-top: 0.5rem;">Print speed comparison: before and after thermal optimization</p>
           </div>
 
           <!-- 120W Laser Characterization -->
@@ -596,8 +593,12 @@
               <span>Sintering Workflow</span>
             </div>
             <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/rfam-exp-vs-simulation.jpg" alt="Task 2: Modeling - Experiment vs Simulation" />
+              <span>Task 2: Modeling</span>
+            </div>
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
               <img src="assets/images/content/rfam-bath-printing.png" alt="Bath Printing (Task 3)" />
-              <span>Bath Printing (Task 3)</span>
+              <span>Task 3: Bath Printing</span>
             </div>
             <div class="modal__gallery-item modal__gallery-item--lightbox">
               <img src="assets/images/content/rfam-machine-photo.jpg" alt="RFAM Machine" />
@@ -620,10 +621,6 @@
                 <source src="assets/images/content/rfam-print-routine.mp4" type="video/mp4">
               </video>
               <span>Layerwise Print Routine</span>
-            </div>
-            <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/images/content/rfam-exp-vs-simulation.jpg" alt="Experiment vs Simulation" />
-              <span>Experiment vs Simulation</span>
             </div>
           </div>
 
@@ -746,6 +743,19 @@
             </div>
           </div>
 
+          <div class="modal__section">
+            <h4>Two Diagnostic Capabilities</h4>
+            <p style="margin-bottom: 1rem;">This tool serves two complementary functions for RFAM process validation:</p>
+            <ul>
+              <li><strong>Dimensional Accuracy:</strong> Evaluates jetting fidelity and compensates for system-level mechanical errors (scale, yaw, backlash)</li>
+              <li><strong>Carbon Concentration Classification:</strong> Classifies ink concentration levels to verify dopant distribution for RF heating uniformity</li>
+            </ul>
+          </div>
+
+          <div class="modal__section">
+            <h4>Dimensional Accuracy Analysis</h4>
+            <p style="margin-bottom: 1rem;">Calibration patterns are printed on low-wicking substrates to preserve precise droplet locations, then scanned and analyzed to extract geometric error metrics.</p>
+          </div>
           <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr);">
             <div class="modal__gallery-item modal__gallery-item--lightbox">
               <img src="assets/images/content/metrology-gold-standard.jpg" alt="Gold Standard Pattern" />
@@ -754,14 +764,6 @@
             <div class="modal__gallery-item modal__gallery-item--lightbox">
               <img src="assets/images/content/metrology-checkerboard-pipeline.jpg" alt="Checkerboard Processing Pipeline" />
               <span>Checkerboard Analysis Pipeline</span>
-            </div>
-            <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/images/content/metrology-ink-classifier.jpg" alt="Carbon Concentration Classifier" />
-              <span>Carbon Concentration Classifier</span>
-            </div>
-            <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/images/content/metrology-inkblot-heatmap.gif" alt="Inkblot Analysis Heatmap" />
-              <span>Inkblot Analysis Heatmap</span>
             </div>
           </div>
 
@@ -773,6 +775,22 @@
               <li><strong>Concentric rings:</strong> Radial symmetry, linewidth/spacing extraction, edge fidelity stress-test</li>
               <li><strong>Pitch rulers:</strong> Minimum resolvable bar width as a function of sampling resolution</li>
             </ul>
+          </div>
+
+          <div class="modal__section">
+            <h4>Carbon Concentration Classification</h4>
+            <p style="margin-bottom: 1rem;">For dopant concentration analysis, chromatography or blotting paper substrates are used due to their ability to absorb and spread droplets into consistent, analyzable halos. Grayscale intensity values are sampled from doped regions and mapped to dopant concentration using calibration curves developed from manual ink deposition of known volumes and carbon content.</p>
+            <p style="margin-bottom: 1rem;">The classifier uses multiple estimation methods (weighted score, k-NN, logistic regression, concentration-by-skewness) to determine carbon loading from scanned inkblot patterns. This enables verification that the correct dopant concentration is being deposited across the powder bed&mdash;critical for achieving uniform RF heating during sintering.</p>
+          </div>
+          <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/metrology-ink-classifier.jpg" alt="Carbon Concentration Classifier Workflow" />
+              <span>Classifier Workflow</span>
+            </div>
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/metrology-inkblot-heatmap.gif" alt="Inkblot Analysis Heatmap" />
+              <span>Inkblot Heatmap Analysis</span>
+            </div>
           </div>
 
           <div class="modal__section">
