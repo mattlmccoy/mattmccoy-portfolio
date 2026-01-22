@@ -338,6 +338,25 @@
           </div>
         </div>
       </article>
+
+      <article class="work-card" data-modal="archive-orbit">
+        <div class="work-card__image">
+          <img src="assets/images/gradient-blue.jpg" alt="Orbit app" />
+          <div class="work-card__overlay">
+            <span class="work-card__cta">View Details</span>
+          </div>
+        </div>
+        <div class="work-card__content">
+          <span class="work-card__date">Fall 2025</span>
+          <h3 class="work-card__title">Orbit</h3>
+          <p class="work-card__role">Service Design App</p>
+          <div class="work-card__tags">
+            <span>UX Research</span>
+            <span>Figma</span>
+            <span>React</span>
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -1002,6 +1021,121 @@
             <span>Premiere Pro</span>
             <span>Physical Computing</span>
             <span>Installation Art</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Orbit Modal -->
+  <div class="modal" id="modal-archive-orbit">
+    <div class="modal__backdrop"></div>
+    <div class="modal__container">
+      <button class="modal__close">&times;</button>
+      <div class="modal__content">
+        <div class="modal__header">
+          <div class="modal__header-bg">
+            <img src="assets/images/gradient-blue.jpg" alt="" />
+          </div>
+          <div class="modal__header-content">
+            <span class="modal__label">Service Design</span>
+            <h2 class="modal__title">Orbit</h2>
+            <p class="modal__subtitle">Service Design, Brand & Marketing &bull; Fall 2025</p>
+          </div>
+        </div>
+
+        <div class="modal__body">
+          <div class="modal__intro">
+            <p>Orbit is a mobile app designed to help seniors plan weekly activities that keep them physically active, mobile, and socially connected. Developed through user research with elderly community members and healthcare workers, the app addresses the growing need for tools that support healthy aging while respecting independence and autonomy.</p>
+          </div>
+
+          <div class="modal__section">
+            <h4>The Problem</h4>
+            <p>As populations age globally, many seniors face challenges staying physically and socially active. Research shows that maintaining regular activity is crucial for both physical health and mental wellbeing, yet many older adults struggle to find and plan appropriate activities that match their preferences, abilities, and social needs.</p>
+          </div>
+
+          <!-- Interactive Prototype -->
+          <div class="modal__section">
+            <h4>Interactive Prototype</h4>
+            <p style="margin-bottom: 1rem; color: var(--gray-600); font-size: 0.875rem;">Click through the app to experience the onboarding flow and main features.</p>
+            <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.15); background: #000;">
+              <iframe
+                style="border: none; width: 100%; height: 700px;"
+                src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/QJygLSNtT1RSmrNWeSvs1v/Onboarding-Flow-Wireframe?node-id=1-2&starting-point-node-id=1%3A2&scaling=scale-down&content-scaling=fixed&t=xKxKxKxK"
+                allowfullscreen>
+              </iframe>
+            </div>
+          </div>
+
+          <!-- Demo Videos -->
+          <div class="modal__section">
+            <h4>App Demos</h4>
+            <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1rem;">
+              <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+                <video autoplay loop muted playsinline style="width: 100%; display: block;">
+                  <source src="assets/images/content/orbit/onboarding-demo.mp4" type="video/mp4">
+                </video>
+                <p style="padding: 0.75rem 1rem; background: var(--gray-100); margin: 0; font-size: 0.875rem; color: var(--gray-600);">Onboarding Flow Demo</p>
+              </div>
+              <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+                <video autoplay loop muted playsinline style="width: 100%; display: block;">
+                  <source src="assets/images/content/orbit/app-walkthrough.mp4" type="video/mp4">
+                </video>
+                <p style="padding: 0.75rem 1rem; background: var(--gray-100); margin: 0; font-size: 0.875rem; color: var(--gray-600);">App Walkthrough</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>Key Features</h4>
+            <ul>
+              <li><strong>Personalized Onboarding:</strong> Questions about activity preferences, social styles, travel willingness, and schedule to tailor recommendations</li>
+              <li><strong>Weekly Activity Planning:</strong> Calendar-based interface for scheduling activities throughout the week</li>
+              <li><strong>Social Connection:</strong> Features to coordinate activities with friends and meet new people with similar interests</li>
+              <li><strong>Organizer Portal:</strong> Separate flow for activity providers to list and manage events</li>
+              <li><strong>Accessibility Focus:</strong> Large text, simple navigation, and clear visual hierarchy designed for older adults</li>
+            </ul>
+          </div>
+
+          <div class="modal__section">
+            <h4>Design Process</h4>
+            <ul>
+              <li>Conducted interviews with elderly community members and healthcare workers</li>
+              <li>Created journey maps and service blueprints to identify pain points</li>
+              <li>Developed personas based on research findings</li>
+              <li>Iterative prototyping with user feedback</li>
+              <li>Built working prototype using Figma and React</li>
+            </ul>
+          </div>
+
+          <div class="modal__roles">
+            <div class="modal__role">
+              <div class="modal__role-header">
+                <h4>My Contributions</h4>
+              </div>
+              <ul>
+                <li>User research and stakeholder interviews</li>
+                <li>Wireframing and UI/UX design</li>
+                <li>Interactive prototype development</li>
+                <li>Service blueprint creation</li>
+              </ul>
+            </div>
+            <div class="modal__role">
+              <div class="modal__role-header">
+                <h4>Team</h4>
+              </div>
+              <p class="modal__role-date">Victoria, Michelle, Matt</p>
+            </div>
+          </div>
+
+          <div class="modal__tags">
+            <span>Service Design</span>
+            <span>UX Research</span>
+            <span>Figma</span>
+            <span>React</span>
+            <span>Prototyping</span>
+            <span>Accessibility</span>
+            <span>Healthcare</span>
           </div>
         </div>
       </div>
