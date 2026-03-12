@@ -687,6 +687,25 @@
             <a href="https://github.com/mattlmccoy/ids-gui" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; background: var(--teal); color: var(--white); border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 0.875rem;">View on GitHub &rarr;</a>
           </div>
 
+          <!-- HEATR: Electrothermal Simulation Platform (opens sub-modal) -->
+          <div class="modal__section">
+            <h4>HEATR: Electrothermal Simulation Platform</h4>
+            <p>I developed <strong>HEATR</strong>, a coupled 2D electrothermal simulation platform that models RF field interactions with doped geometries, predicts sintering uniformity, and provides inverse geometry compensation strategies. The platform includes a browser-based GUI with job queue, live previews, and a results browser.</p>
+          </div>
+          <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/heatr-primitive-sweep.png" alt="HEATR – Primitive Geometry Library" />
+              <span>Primitive Geometry Library</span>
+            </div>
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/heatr-h-uniformity.png" alt="HEATR – 86% Uniformity Improvement" />
+              <span>86% Uniformity Improvement</span>
+            </div>
+          </div>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;">
+            <a data-modal="heatr" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; background: var(--teal); color: var(--white); border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 0.875rem; cursor: pointer;">Explore HEATR &rarr;</a>
+          </div>
+
           <!-- Conference Talk & Proposal Videos -->
           <div class="modal__section">
             <h4>Conference Presentation</h4>
@@ -755,9 +774,124 @@
             <span>Binder Jetting</span>
             <span>Polymer Sintering</span>
             <span>COMSOL Multiphysics</span>
+            <span>HEATR</span>
             <span>Process Development</span>
             <span>Electron</span>
             <span>Web Serial API</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEATR Modal -->
+  <div class="modal" id="modal-heatr">
+    <div class="modal__backdrop"></div>
+    <div class="modal__container">
+      <button class="modal__close">&times;</button>
+      <div class="modal__content">
+        <div class="modal__header">
+          <div class="modal__header-bg">
+            <img src="assets/images/gradient-teal.jpg" alt="" />
+          </div>
+          <div class="modal__header-content">
+            <span class="modal__label">PhD Research &bull; Task 2</span>
+            <h2 class="modal__title">HEATR: Electrothermal Simulation Platform</h2>
+            <p class="modal__subtitle">High-frequency Electrothermal Additive Thermal Resolver</p>
+          </div>
+        </div>
+
+        <div class="modal__body">
+          <div class="modal__intro">
+            <p><strong>HEATR is a coupled 2D electrothermal simulation platform</strong> I developed for RFAM process development. It solves the electro-quasi-static field equation at RF frequencies, computes volumetric Joule heating in doped regions, and runs transient thermal transport with phase-change and densification kinetics&mdash;enabling rapid prediction of how geometry, orientation, and exposure strategy affect sintering uniformity.</p>
+          </div>
+
+          <div class="modal__stats-grid">
+            <div class="modal__stat">
+              <span class="modal__stat-value">86%</span>
+              <span class="modal__stat-label">Uniformity improvement</span>
+            </div>
+            <div class="modal__stat">
+              <span class="modal__stat-value">17+</span>
+              <span class="modal__stat-label">Primitive geometries</span>
+            </div>
+            <div class="modal__stat">
+              <span class="modal__stat-value">68%</span>
+              <span class="modal__stat-label">Geometric RMSE reduction</span>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>The Problem: RF Field Non-Uniformity</h4>
+            <p>A core challenge in RFAM is that the RF electromagnetic field is spatially non-uniform. Corners concentrate the electric field at up to 37&times; the mean intensity, faces perpendicular to the applied field see 11&times; enhancement, and parallel faces couple weakly. This creates dramatic heating gradients that cause geometric distortion and density variation in sintered parts. HEATR models these coupled electrothermal effects to predict and compensate for non-uniform sintering before physical experiments.</p>
+          </div>
+          <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/heatr-electric-fields.png" alt="HEATR – RF Electric Field, E-field Magnitude, and Volumetric Heating" />
+              <span>Voltage, E-field &amp; Volumetric Heating</span>
+            </div>
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/heatr-primitive-sweep.png" alt="HEATR – 17-Shape Primitive Geometry Library Sweep" />
+              <span>17-Shape Geometry Library</span>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>Compensation Strategies</h4>
+            <p>HEATR provides three complementary strategies for improving sintering uniformity:</p>
+            <ul>
+              <li><strong>Geometry Prewarp (ILT-Inspired):</strong> An iterative inverse algorithm inspired by Inverse Lithography Technology from semiconductor manufacturing. It adjusts the input geometry so the post-sinter boundary matches the target shape, reducing geometric RMSE by 68% in just 2 iterations.</li>
+              <li><strong>Turntable Exposure Averaging:</strong> Rotates the part through four 90&deg; increments during RF exposure to average the anisotropic field, reducing boundary density variation by up to 95% for rotationally symmetric geometries.</li>
+              <li><strong>Combined Strategy:</strong> Prewarp + turntable together achieve an 86% reduction in boundary density non-uniformity, with synergistic interaction exceeding independent improvements by 24 percentage points.</li>
+            </ul>
+          </div>
+          <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/heatr-prewarp-h.png" alt="HEATR – Geometry Prewarp Algorithm on H-Shape Target" />
+              <span>Prewarp: H-Shape (RMSE 0.22 mm)</span>
+            </div>
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/heatr-h-uniformity.png" alt="HEATR – 86% Boundary Density Uniformity Improvement" />
+              <span>Combined: 86% Uniformity Gain</span>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>Simulation Platform &amp; GUI</h4>
+            <p>The platform includes a full-featured browser-based GUI with a job queue system, live simulation previews, a results browser with contextual physics metrics, and an integrated theory reference. It supports parameter sweeps over exposure time, part orientation optimization, multi-part placement optimization, and shell thickness studies across the full primitive geometry library.</p>
+          </div>
+          <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/heatr-gui-operation.png" alt="HEATR GUI – Operation Page and Job Queue" />
+              <span>GUI: Operation &amp; Job Queue</span>
+            </div>
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/heatr-gui-results.png" alt="HEATR GUI – Results Browser with Physics Metrics" />
+              <span>GUI: Results Browser</span>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>Technical Details</h4>
+            <ul>
+              <li><strong>Physics:</strong> Electro-quasi-static field solve (27.12 MHz), volumetric Joule heating, Crank-Nicolson thermal transport, apparent heat capacity phase-change model, two-regime Arrhenius densification</li>
+              <li><strong>Discretization:</strong> 120&times;120 finite-difference grid with subpixel fill-fraction boundary treatment (8&times;8 subsampling), harmonic-mean conductivity at material interfaces</li>
+              <li><strong>Solver:</strong> Sparse direct solver (SuperLU), implicit time integration with adaptive EQS/thermal subcycling</li>
+              <li><strong>Prewarp:</strong> EPE-based gradient descent with Laplacian smoothing, bilinear density sampling, convergence to sub-0.3 mm RMSE</li>
+              <li><strong>Modes:</strong> Single exposure, parameter sweep, exposure optimizer, turntable scheduling, orientation Pareto optimization, multi-part placement, shell thickness study</li>
+              <li><strong>Stack:</strong> Python, NumPy, SciPy (sparse), Matplotlib, browser-based GUI with live job management</li>
+            </ul>
+          </div>
+
+          <div class="modal__tags">
+            <span>Electrothermal Simulation</span>
+            <span>RF Heating</span>
+            <span>Inverse Geometry</span>
+            <span>Python</span>
+            <span>Finite Difference</span>
+            <span>Process Optimization</span>
+            <span>Densification Kinetics</span>
+            <span>Browser GUI</span>
           </div>
         </div>
       </div>

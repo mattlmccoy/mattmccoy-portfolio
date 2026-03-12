@@ -82,7 +82,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function closeModal(modal) {
     modal.classList.remove('active');
-    document.body.classList.remove('modal-open');
+    // Only remove modal-open if no other modals are still active
+    const stillActive = document.querySelectorAll('.modal.active');
+    if (stillActive.length === 0) {
+      document.body.classList.remove('modal-open');
+    }
   }
 
   function closeAllModals() {
