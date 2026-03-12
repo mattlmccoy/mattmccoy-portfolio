@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="">
+  <title>Matt McCoy | Freeform</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <style>
+    /* Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --teal: #3CBBB1;
+      --teal-dark: #2A9D8F;
+      --white: #FAFAFA;
+      --off-white: #F5F5F5;
+      --gray-50: #F0F0F0;
+      --gray-100: #E0E0E0;
+      --gray-200: #C0C0C0;
+      --gray-400: #808080;
+      --gray-600: #505050;
+      --gray-800: #202020;
+      --black: #0A0A0A;
+      --font-sans: 'Space Grotesk', -apple-system, sans-serif;
+      --font-serif: 'Instrument Serif', Georgia, serif;
+      --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--gray-800);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      line-height: 1.1;
+    }
+
+    h4, h5, h6 {
+      font-family: var(--font-sans);
+      font-weight: 500;
+    }
+
+    em {
+      font-family: var(--font-serif);
+      font-style: italic;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    strong {
+      font-weight: 600;
+    }
+
+    /* Header */
+    .letter-header {
+      background: var(--black);
+      color: var(--white);
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .letter-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(60, 187, 177, 0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .letter-header__inner {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .letter-header__label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--teal);
+      margin-bottom: 1.5rem;
+    }
+
+    .letter-header__title {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      margin-bottom: 1rem;
+      color: var(--white);
+    }
+
+    .letter-header__subtitle {
+      font-size: 1.125rem;
+      color: var(--gray-200);
+      font-weight: 300;
+      max-width: 600px;
+    }
+
+    .letter-header__meta {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .letter-header__meta-item {
+      font-size: 0.8rem;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .letter-header__meta-item span {
+      display: block;
+      color: var(--white);
+      font-size: 0.9rem;
+      text-transform: none;
+      letter-spacing: 0;
+      margin-top: 0.25rem;
+      font-weight: 400;
+    }
+
+    /* Letter Body */
+    .letter-body {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    .letter-greeting {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+
+    .letter-intro {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      color: var(--gray-800);
+    }
+
+    .letter-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .letter-section__title {
+      font-size: 1.25rem;
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--teal-dark);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .letter-section__text {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--gray-600);
+    }
+
+    .letter-section__text + .letter-section__text {
+      margin-top: 1rem;
+    }
+
+    .letter-closing {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--gray-100);
+    }
+
+    .letter-closing__text {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--gray-600);
+      margin-bottom: 2rem;
+    }
+
+    .letter-closing__sign-off {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+      color: var(--gray-800);
+    }
+
+    .letter-closing__name {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      color: var(--black);
+    }
+
+    .letter-closing__links {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .letter-closing__link {
+      font-size: 0.85rem;
+      color: var(--teal-dark);
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--transition);
+    }
+
+    .letter-closing__link:hover {
+      border-bottom-color: var(--teal-dark);
+    }
+
+    /* Back link */
+    .back-link {
+      position: fixed;
+      top: 1.5rem;
+      left: 2rem;
+      font-size: 0.85rem;
+      color: var(--white);
+      opacity: 0.6;
+      transition: opacity var(--transition);
+      z-index: 100;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      opacity: 1;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .letter-header {
+        padding: 5rem 1.5rem 3rem;
+      }
+
+      .letter-header__meta {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .letter-body {
+        padding: 3rem 1.5rem 4rem;
+      }
+
+      .letter-closing__links {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="../" class="back-link">&larr; matthewmccoy.info</a>
+
+  <header class="letter-header">
+    <div class="letter-header__inner">
+      <span class="letter-header__label">Cover Letter</span>
+      <h1 class="letter-header__title">Technical <em>Leadership</em><br>Opportunities</h1>
+      <p class="letter-header__subtitle">Freeform Future Corp &middot; Hawthorne, CA</p>
+      <div class="letter-header__meta">
+        <div class="letter-header__meta-item">
+          From
+          <span>Matthew McCoy</span>
+        </div>
+        <div class="letter-header__meta-item">
+          Current Role
+          <span>PhD Candidate, Georgia Tech</span>
+        </div>
+        <div class="letter-header__meta-item">
+          Previous
+          <span>Sr. Engineer &amp; Tech Lead, Formlabs</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="letter-body">
+    <p class="letter-greeting">Dear Freeform Hiring Team,</p>
+
+    <p class="letter-intro">I'm writing to express my interest in Technical Leadership Opportunities at Freeform. I've spent my career leading technically ambitious programs in additive manufacturing, from running the cross-functional development of the best-selling SLS printer in the world at Formlabs, to pitching, funding, and building an entirely new manufacturing modality from scratch in my Ph.D. at Georgia Tech. I lead by doing: I set technical direction, get my hands dirty in the details, and drive programs through ambiguity to production. I want to bring that to Freeform.</p>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Early Leadership and a Track Record of Building Teams</h2>
+      <p class="letter-section__text">My leadership trajectory started before industry. As President of NIU Supermileage, I recruited and led a 25-student collegiate design team competing in the SAE Collegiate Design Series and Shell Eco-Marathon. Over three years I progressed from Treasurer to Vice President to President, ultimately securing over &#36;60,000 in funding, including a &#36;30,000 sponsorship from Navistar International for a full carbon fiber chassis redesign. The team took 1st place at Shell Eco-Marathon 2019 and placed 3rd at SAE Supermileage three years running. On the technical side, I designed and fabricated a custom DOHC engine head over a nine-month development cycle. That experience, building a team, securing resources, managing a budget, and delivering a physical system under competition deadlines, laid the groundwork for everything that followed.</p>
+    </div>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Fast-Tracked into Technical Management at Formlabs</h2>
+      <p class="letter-section__text">Formlabs hired me straight out of undergrad as a Print Process Engineer II on the SLS R&amp;D team, but the role was designed as something unusual: a fast track to technical management. To my knowledge, I'm the only person they've done this for. The logic was straightforward. The SLS Print Process team was the core R&amp;D group. We understood the system down to the process physics, which meant we could troubleshoot any problem, whether it surfaced at headquarters or on the factory floor. Formlabs needed someone who could bridge that deep technical knowledge with program execution, and they bet on me to do it.</p>
+      <p class="letter-section__text">Within three months, I was put in charge of taking the Fuse 1+ 30W out of R&amp;D and into NPI, while continuing to do both. I became the technical point of contact for over 30 engineers spanning mechanical, electrical, firmware, and software teams, managing 130+ engineering change orders through the full new product introduction cycle. In parallel, I managed the factory test software team, owning the definition and validation of 150+ acceptance tests that determined whether every single printer met specification before shipment. This wasn't checkbox management. It required deep technical understanding of every subsystem, the judgment to know which issues were blocking versus acceptable, and the ability to communicate technical risk to leadership in terms that drove the right decisions. Many nights were spent on the phone with the factory, debugging issues in real time because I was one of the few people who understood the process physics well enough to diagnose problems remotely.</p>
+      <p class="letter-section__text">Working in close partnership with Operational Program Management, I helped deliver the company's fastest printer launch in history: prototype to full production in nine months. The Fuse 1+ 30W became Formlabs' flagship SLS system and the best-selling SLS printer in the world, ultimately capturing approximately 55% of the global SLS market by unit volume and deploying thousands of systems across professional and industrial environments.</p>
+    </div>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Driving Technical Direction Through Ambiguity</h2>
+      <p class="letter-section__text">Within two years I was promoted to Senior Optical and Thermal Systems Engineer and Technical Lead for the company's next-generation SLS platform. This is the kind of role where leadership is tested most: early-stage concept development, high uncertainty, and a team waiting for someone to establish direction.</p>
+      <p class="letter-section__text">When architectural ambiguity stalled program momentum, I didn't wait for direction. I identified the optical system as the program's highest-risk subsystem and independently initiated a comprehensive technical study to resolve the open questions. That investigation, which I scoped, designed, executed, and reported on myself, produced the first concrete technical foundation for the next-generation platform. It directly catalyzed the internal decision to greenlight development. This is how I lead: I find the hardest problem, build the technical case, and create the conditions for the team to move forward with confidence.</p>
+    </div>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Building Diagnostic Infrastructure That Scales</h2>
+      <p class="letter-section__text">One of the contributions I'm most proud of at Formlabs wasn't a product feature. It was solving a systemic reliability problem that factory-only calibration could not address.</p>
+      <p class="letter-section__text">Professional SLS printers ship from a controlled factory environment but operate in wildly variable conditions around the world. Geographic and seasonal thermal shifts alter powder behavior and part accuracy in ways that factory calibration simply cannot predict. I developed two novel diagnostic and calibration systems designed for direct use by untrained operators in the field. The first was a dimensional accuracy tool that used inexpensive consumer-grade calipers and purpose-designed calibration artifacts to reduce dimensional error by a factor of three, from approximately &plusmn;300 &micro;m to &plusmn;100 &micro;m. This system directly enabled LEGO's global factory deployment of Fuse printers, a major commercial milestone. The second was a thermal diagnostic tool that used engineered geometric features and torque-driven "spinners" embedded in printed artifacts to reverse-engineer print parameters and detect thermal drift inside the machine.</p>
+      <p class="letter-section__text">Both systems remain in active use more than three years after deployment and were recently featured publicly by Adam Savage. More importantly, they represent the kind of leadership thinking I bring: identifying a systemic problem, designing a solution that scales without requiring expert intervention, and building tools that create long-term value across the entire fleet.</p>
+    </div>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Why a Ph.D. After Leading Technical Teams</h2>
+      <p class="letter-section__text">When people see my trajectory at Formlabs, they often ask why I chose to pursue a Ph.D. rather than continue climbing the industry ladder. The honest answer is that Formlabs showed me the ceiling of optimizing within existing technology, and I wanted to push past it. I had authored 30+ technical reports, run laser characterization studies, and developed process models, but I kept running into fundamental limitations of the SLS architecture. I wanted to go deeper into the physics and ask whether there was a better way to build.</p>
+      <p class="letter-section__text">My doctoral research at Georgia Tech, funded by the NSF Graduate Research Fellowship, is the answer to that question. I pitched the concept for Radio Frequency Additive Manufacturing (RFAM) to Dr. Carolyn Seepersad (now GT ME School Chair), secured approximately &#36;150,000 in research funding, and built the first RFAM platform from the ground up within a single year. I designed every subsystem: sub-100 &micro;m motion control, high-viscosity inkjet deposition capable of suspending 50 wt% dopant loading, a 600W 13.56 MHz RF energy delivery system with Faraday isolation, and a scanner-based diagnostic platform for in-situ quality measurement. This wasn't a project I inherited or joined. I conceived it, sold it, built it, and am now publishing on it.</p>
+      <p class="letter-section__text">The Ph.D. didn't take me away from leadership. It deepened the technical foundation I lead from. I now bring both the program execution experience of shipping products at scale and the first-principles understanding that comes from inventing a manufacturing process from nothing.</p>
+    </div>
+
+    <div class="letter-closing">
+      <p class="letter-closing__text">What draws me to Freeform is the combination of technical ambition and integrated systems thinking. I've seen what happens when manufacturing is treated as disconnected subsystems, and I've experienced the leverage you get when hardware, software, diagnostics, and process control are designed as one system. Freeform is building that integrated future at industrial scale with AI at its core, and I want to be part of the team making it real.</p>
+      <p class="letter-closing__text">I bring hands-on leadership that spans process physics, systems engineering, metrology, and cross-functional program execution. I've shipped products, built teams, and created new technology from scratch. I'm ready to relocate to Los Angeles and to take on whatever Freeform's highest-priority challenges demand.</p>
+      <p class="letter-closing__text">I'd love the opportunity to explore how my experience aligns with Freeform's most pressing initiatives.</p>
+      <p class="letter-closing__sign-off">Best regards,</p>
+      <p class="letter-closing__name">Matthew McCoy</p>
+      <div class="letter-closing__links">
+        <a href="https://matthewmccoy.info" class="letter-closing__link">matthewmccoy.info</a>
+        <a href="https://linkedin.com/in/matthewlmccoy" class="letter-closing__link" target="_blank">LinkedIn</a>
+        <a href="mailto:mail@matthewmccoy.info" class="letter-closing__link">mail@matthewmccoy.info</a>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
