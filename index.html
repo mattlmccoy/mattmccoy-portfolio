@@ -137,7 +137,7 @@
 
     <div class="research-grid">
       <!-- RFAM Project -->
-      <article class="project-card project-card--large" data-modal="rfam">
+      <article class="project-card project-card--large" data-modal="rfam" style="grid-row: span 3;">
         <div class="project-card__bg">
           <img src="assets/images/gradient-teal.jpg" alt="" />
         </div>
@@ -156,6 +156,19 @@
             </div>
           </div>
           <span class="project-card__cta">Explore Project &rarr;</span>
+        </div>
+      </article>
+
+      <!-- HEATR Simulation -->
+      <article class="project-card" data-modal="heatr">
+        <div class="project-card__bg">
+          <img src="assets/images/gradient-teal.jpg" alt="" />
+        </div>
+        <div class="project-card__content">
+          <span class="project-card__label">Simulation Tool</span>
+          <h3 class="project-card__title">HEATR</h3>
+          <p class="project-card__desc">2.5D coupled electrothermal RF simulation with inverse geometry compensation and process optimization</p>
+          <span class="project-card__cta">Explore Tool &rarr;</span>
         </div>
       </article>
 
@@ -687,25 +700,6 @@
             <a href="https://github.com/mattlmccoy/ids-gui" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; background: var(--teal); color: var(--white); border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 0.875rem;">View on GitHub &rarr;</a>
           </div>
 
-          <!-- HEATR: Electrothermal Simulation Platform (opens sub-modal) -->
-          <div class="modal__section">
-            <h4>HEATR: Electrothermal Simulation Platform</h4>
-            <p>I developed <strong>HEATR</strong>, a coupled 2D electrothermal simulation platform that models RF field interactions with doped geometries, predicts sintering uniformity, and provides inverse geometry compensation strategies. The platform includes a browser-based GUI with job queue, live previews, and a results browser.</p>
-          </div>
-          <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr);">
-            <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/images/content/heatr-primitive-sweep.png" alt="HEATR – Primitive Geometry Library" />
-              <span>Primitive Geometry Library</span>
-            </div>
-            <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/images/content/heatr-h-uniformity.png" alt="HEATR – 86% Uniformity Improvement" />
-              <span>86% Uniformity Improvement</span>
-            </div>
-          </div>
-          <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;">
-            <a data-modal="heatr" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; background: var(--teal); color: var(--white); border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 0.875rem; cursor: pointer;">Explore HEATR &rarr;</a>
-          </div>
-
           <!-- Conference Talk & Proposal Videos -->
           <div class="modal__section">
             <h4>Conference Presentation</h4>
@@ -803,7 +797,7 @@
 
         <div class="modal__body">
           <div class="modal__intro">
-            <p><strong>HEATR is a coupled 2D electrothermal simulation platform</strong> I developed for RFAM process development. It solves the electro-quasi-static field equation at RF frequencies, computes volumetric Joule heating in doped regions, and runs transient thermal transport with phase-change and densification kinetics&mdash;enabling rapid prediction of how geometry, orientation, and exposure strategy affect sintering uniformity.</p>
+            <p><strong>HEATR is a coupled 2.5D electrothermal simulation platform</strong> I developed for RFAM process development. It solves the electro-quasi-static field equation at RF frequencies, computes volumetric Joule heating in doped regions, and runs transient thermal transport with phase-change and densification kinetics&mdash;enabling rapid prediction of how geometry, orientation, and exposure strategy affect sintering uniformity.</p>
           </div>
 
           <div class="modal__stats-grid">
