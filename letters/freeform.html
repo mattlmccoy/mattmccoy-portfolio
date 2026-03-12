@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="">
+  <title>Matt McCoy | Freeform</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <style>
+    /* Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --teal: #3CBBB1;
+      --teal-dark: #2A9D8F;
+      --white: #FAFAFA;
+      --off-white: #F5F5F5;
+      --gray-50: #F0F0F0;
+      --gray-100: #E0E0E0;
+      --gray-200: #C0C0C0;
+      --gray-400: #808080;
+      --gray-600: #505050;
+      --gray-800: #202020;
+      --black: #0A0A0A;
+      --font-sans: 'Space Grotesk', -apple-system, sans-serif;
+      --font-serif: 'Instrument Serif', Georgia, serif;
+      --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--gray-800);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      line-height: 1.1;
+    }
+
+    h4, h5, h6 {
+      font-family: var(--font-sans);
+      font-weight: 500;
+    }
+
+    em {
+      font-family: var(--font-serif);
+      font-style: italic;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    strong {
+      font-weight: 600;
+    }
+
+    /* Header */
+    .letter-header {
+      background: var(--black);
+      color: var(--white);
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .letter-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(60, 187, 177, 0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .letter-header__inner {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .letter-header__label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--teal);
+      margin-bottom: 1.5rem;
+    }
+
+    .letter-header__title {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      margin-bottom: 1rem;
+      color: var(--white);
+    }
+
+    .letter-header__subtitle {
+      font-size: 1.125rem;
+      color: var(--gray-200);
+      font-weight: 300;
+      max-width: 600px;
+    }
+
+    .letter-header__meta {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .letter-header__meta-item {
+      font-size: 0.8rem;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .letter-header__meta-item span {
+      display: block;
+      color: var(--white);
+      font-size: 0.9rem;
+      text-transform: none;
+      letter-spacing: 0;
+      margin-top: 0.25rem;
+      font-weight: 400;
+    }
+
+    /* Letter Body */
+    .letter-body {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    .letter-greeting {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+
+    .letter-intro {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      color: var(--gray-800);
+    }
+
+    .letter-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .letter-section__title {
+      font-size: 1.25rem;
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--teal-dark);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .letter-section__text {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--gray-600);
+    }
+
+    .letter-section__text + .letter-section__text {
+      margin-top: 1rem;
+    }
+
+    .letter-closing {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--gray-100);
+    }
+
+    .letter-closing__text {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--gray-600);
+      margin-bottom: 2rem;
+    }
+
+    .letter-closing__sign-off {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+      color: var(--gray-800);
+    }
+
+    .letter-closing__name {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      color: var(--black);
+    }
+
+    .letter-closing__links {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .letter-closing__link {
+      font-size: 0.85rem;
+      color: var(--teal-dark);
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--transition);
+    }
+
+    .letter-closing__link:hover {
+      border-bottom-color: var(--teal-dark);
+    }
+
+    /* Back link */
+    .back-link {
+      position: fixed;
+      top: 1.5rem;
+      left: 2rem;
+      font-size: 0.85rem;
+      color: var(--white);
+      opacity: 0.6;
+      transition: opacity var(--transition);
+      z-index: 100;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      opacity: 1;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .letter-header {
+        padding: 5rem 1.5rem 3rem;
+      }
+
+      .letter-header__meta {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .letter-body {
+        padding: 3rem 1.5rem 4rem;
+      }
+
+      .letter-closing__links {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="../" class="back-link">&larr; matthewmccoy.info</a>
+
+  <header class="letter-header">
+    <div class="letter-header__inner">
+      <span class="letter-header__label">Cover Letter</span>
+      <h1 class="letter-header__title">Senior Process Engineer<br><em>(Advanced R&D)</em></h1>
+      <p class="letter-header__subtitle">Freeform Future Corp &middot; Hawthorne, CA</p>
+      <div class="letter-header__meta">
+        <div class="letter-header__meta-item">
+          From
+          <span>Matthew McCoy</span>
+        </div>
+        <div class="letter-header__meta-item">
+          Current Role
+          <span>PhD Candidate, Georgia Tech</span>
+        </div>
+        <div class="letter-header__meta-item">
+          Previous
+          <span>Sr. Engineer & Tech Lead, Formlabs</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="letter-body">
+    <p class="letter-greeting">Dear Freeform Hiring Team,</p>
+
+    <p class="letter-intro">I'm writing to express my strong interest in the Senior Process Engineer (Advanced R&D) position. I've spent my career at the intersection of process physics, systems-level engineering, and data-driven manufacturing, first shipping the best-selling SLS printer in the world at Formlabs, and now inventing an entirely new additive manufacturing modality in my Ph.D. at Georgia Tech. I'm drawn to Freeform because you're building the kind of integrated, AI-native manufacturing system I believe will define the next generation of production, and I want to help build it.</p>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Shipping at Scale in a Fast-Paced R&D Environment</h2>
+      <p class="letter-section__text">I joined Formlabs' SLS R&D team straight out of undergrad and within three months assumed Technical Program Management ownership of the Fuse 1+ 30W platform. I coordinated over 30 engineers across mechanical, electrical, firmware, and software teams, managing 130+ engineering change orders through the full NPI cycle while simultaneously overseeing the factory test software team responsible for 150+ acceptance tests per unit. Working closely with Operational Program Management, I helped deliver the company's fastest-ever printer launch: prototype to production in nine months. That platform became Formlabs' flagship SLS system and went on to capture approximately 55% of the global SLS market by unit volume, deploying thousands of systems worldwide.</p>
+      <p class="letter-section__text">Within two years I was promoted to Senior Optical and Thermal Systems Engineer and Technical Lead for the next-generation SLS platform. When architectural uncertainty stalled program direction, I independently initiated and executed an in-depth technical study of the program's highest-risk subsystem, the optical system. That investigation produced the first concrete technical foundation for the next-gen platform and directly catalyzed the decision to greenlight development. This is the kind of ambiguity I thrive in: identifying the hardest problem, designing the right experiments, and building the technical basis for confident decisions.</p>
+    </div>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Field-Deployed Metrology and Diagnostic Systems</h2>
+      <p class="letter-section__text">A central challenge for professional SLS is environmental variability. Factory calibration alone cannot account for the geographic and seasonal thermal shifts that alter powder behavior and part accuracy in real-world deployments. I addressed this by developing two novel diagnostic systems designed for direct customer use.</p>
+      <p class="letter-section__text">The first was a dimensional accuracy tool that used inexpensive consumer-grade calipers and purpose-designed calibration artifacts to reduce dimensional error by a factor of three, improving accuracy from &plusmn;300 &micro;m to &plusmn;100 &micro;m, without requiring on-site technician visits that typically cost thousands of dollars each. This system directly enabled LEGO's global factory deployment of Fuse printers. The second was a thermal diagnostic tool using engineered geometric features embedded in printed artifacts to reverse-engineer print parameters and detect thermal drift inside the machine. Both tools remain in active use more than three years after deployment and were recently featured publicly by Adam Savage. This experience, building metrology systems that quantify dimensional accuracy, detect process drift, and track quality metrics at fleet scale, maps directly to the post-build analysis and tool qualification work at the core of this role.</p>
+    </div>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Inventing a New Manufacturing Process from Scratch</h2>
+      <p class="letter-section__text">Your posting emphasizes passion for developing processes from scratch. My doctoral research at Georgia Tech, funded by the NSF Graduate Research Fellowship, is exactly that. I pitched the concept for Radio Frequency Additive Manufacturing (RFAM), a process that replaces raster laser scanning with selective dopant deposition followed by volumetric RF heating, secured approximately $150,000 in research funding, and built the first RFAM platform from the ground up within a single year.</p>
+      <p class="letter-section__text">The system I designed and built integrates sub-100 &micro;m motion control, high-viscosity inkjet deposition capable of suspending 50 wt% dopant loading, a 600W 13.56 MHz RF energy delivery system with Faraday isolation, and a scanner-based diagnostic platform for quantifying both dimensional accuracy and dopant distribution. Using Bayesian Gaussian Mixture Models, the system classifies ink concentration with 98.9% accuracy while simultaneously measuring spatial placement errors.</p>
+      <p class="letter-section__text">This work lives in the kind of complex multi-physics space Freeform operates in: electromagnetic field interactions with spatially heterogeneous material systems, energy coupling and heat transfer, and the challenge of understanding how process parameters map to final part properties. I've built the experimental infrastructure, the data pipelines, and the statistical frameworks to explore that space rigorously.</p>
+    </div>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Data-Driven Process Development</h2>
+      <p class="letter-section__text">Across both my industry and academic work, I approach process development through designed experiments and large-scale data analysis. At Formlabs I ran Central Composite Designs for variable-focus laser studies, developed Gage R&amp;R-based calibration protocols, and authored 30+ technical reports that drove data-driven engineering decisions. In my Ph.D., I've built Python and OpenCV-based pipelines for processing high-resolution in-situ imaging data, applied Bayesian methods and Gaussian Process regression for process modeling, and developed an open-source metrology toolbox. I'm fluent in Python and experienced with COMSOL Multiphysics for FEA simulation, and I'm excited by the opportunity to work in an environment where machine learning is integrated into the process development loop rather than bolted on after the fact.</p>
+    </div>
+
+    <div class="letter-closing">
+      <p class="letter-closing__text">What Freeform is building, a vertically integrated, AI-native metal AM platform, represents the future of manufacturing. I've lived the pain of optimizing processes on systems that weren't designed as integrated wholes, and I've seen what's possible when you build the right diagnostic and control infrastructure from the start. I want to bring my experience in process physics, metrology system design, and data-driven optimization to a team that treats manufacturing as a single integrated system. I'm ready to relocate to Los Angeles and to dive into the complex, audacious problems that define this work.</p>
+      <p class="letter-closing__text">I'd love the opportunity to discuss how my experience can contribute to Freeform's R&D efforts.</p>
+      <p class="letter-closing__sign-off">Best regards,</p>
+      <p class="letter-closing__name">Matthew McCoy</p>
+      <div class="letter-closing__links">
+        <a href="https://matthewmccoy.info" class="letter-closing__link">matthewmccoy.info</a>
+        <a href="https://linkedin.com/in/matthewlmccoy" class="letter-closing__link" target="_blank">LinkedIn</a>
+        <a href="mailto:mail@matthewmccoy.info" class="letter-closing__link">mail@matthewmccoy.info</a>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
