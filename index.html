@@ -167,7 +167,7 @@
         <div class="project-card__content">
           <span class="project-card__label">Simulation Tool</span>
           <h3 class="project-card__title">HEATR</h3>
-          <p class="project-card__desc">2.5D coupled electrothermal RF simulation with inverse geometry compensation and process optimization</p>
+          <p class="project-card__desc">Purpose-built 2.5D electrothermal RF simulation for rapid geometry, compensation, and parameter space exploration</p>
           <span class="project-card__cta">Explore Tool &rarr;</span>
         </div>
       </article>
@@ -797,70 +797,153 @@
 
         <div class="modal__body">
           <div class="modal__intro">
-            <p><strong>HEATR is a coupled 2.5D electrothermal simulation platform</strong> I developed for RFAM process development. It solves the electro-quasi-static field equation at RF frequencies, computes volumetric Joule heating in doped regions, and runs transient thermal transport with phase-change and densification kinetics&mdash;enabling rapid prediction of how geometry, orientation, and exposure strategy affect sintering uniformity.</p>
+            <p><strong>HEATR is a coupled 2.5D electrothermal simulation platform</strong> I built to rapidly explore the RFAM process design space. In RFAM, heating is driven by electro-quasi-static (EQS) coupling between the applied RF field and a carbon black doped nylon susceptor. Part geometry directly determines how energy couples into the material, which drives everything downstream: heating, melting, and densification. Understanding and compensating for this geometry-dependent coupling is essential to making good parts. HEATR provides a way to do that quickly, sweeping geometry types, compensation strategies, and exposure parameters in minutes rather than the hours-to-days required by general-purpose FEA tools like COMSOL.</p>
           </div>
 
           <div class="modal__stats-grid">
-            <div class="modal__stat">
-              <span class="modal__stat-value">86%</span>
-              <span class="modal__stat-label">Uniformity improvement</span>
-            </div>
             <div class="modal__stat">
               <span class="modal__stat-value">17+</span>
               <span class="modal__stat-label">Primitive geometries</span>
             </div>
             <div class="modal__stat">
-              <span class="modal__stat-value">68%</span>
-              <span class="modal__stat-label">Geometric RMSE reduction</span>
+              <span class="modal__stat-value">Minutes</span>
+              <span class="modal__stat-label">Per simulation run</span>
+            </div>
+            <div class="modal__stat">
+              <span class="modal__stat-value">7+</span>
+              <span class="modal__stat-label">Simulation modes</span>
             </div>
           </div>
 
           <div class="modal__section">
-            <h4>The Problem: RF Field Non-Uniformity</h4>
-            <p>A core challenge in RFAM is that the RF electromagnetic field is spatially non-uniform. Corners concentrate the electric field at up to 37&times; the mean intensity, faces perpendicular to the applied field see 11&times; enhancement, and parallel faces couple weakly. This creates dramatic heating gradients that cause geometric distortion and density variation in sintered parts. HEATR models these coupled electrothermal effects to predict and compensate for non-uniform sintering before physical experiments.</p>
+            <h4>The Geometry-Coupling Problem</h4>
+            <p>In a parallel-plate RF field, energy coupling is not uniform. Corners and edges perpendicular to the applied field concentrate the E-field dramatically, while surfaces parallel to the field couple weakly. This means every different geometry produces a different heating pattern, and for non-symmetric shapes the results can be severe: one region of a part can be fully sintered while another barely reaches melt temperature. This is not a bug you can engineer away at the system level. It is an inherent feature of EQS heating. The only path forward is to understand the coupling for each geometry and develop compensation strategies that work around it. That requires a simulation tool fast enough to explore the space systematically.</p>
           </div>
           <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr);">
             <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/images/content/heatr-electric-fields.png" alt="HEATR – RF Electric Field, E-field Magnitude, and Volumetric Heating" />
-              <span>Voltage, E-field &amp; Volumetric Heating</span>
+              <img src="assets/images/content/heatr-circle-electric-fields.png" alt="HEATR – Circle: Voltage, E-field Magnitude, and Volumetric RF Heating" />
+              <span>Circle: Voltage, E-field &amp; RF Heating</span>
             </div>
             <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/images/content/heatr-primitive-sweep.png" alt="HEATR – 17-Shape Primitive Geometry Library Sweep" />
-              <span>17-Shape Geometry Library</span>
+              <img src="assets/images/content/heatr-square-electric-fields.png" alt="HEATR – Square: Voltage, E-field Magnitude, and Volumetric RF Heating" />
+              <span>Square: Voltage, E-field &amp; RF Heating</span>
             </div>
           </div>
 
           <div class="modal__section">
-            <h4>Compensation Strategies</h4>
-            <p>HEATR provides three complementary strategies for improving sintering uniformity:</p>
+            <h4>Why Build a Custom Solver?</h4>
+            <p>General-purpose FEA tools like COMSOL can solve the coupled EQS + thermal + phase-change problem, but the overhead of model setup, meshing, and multi-physics coupling makes it impractical to iterate quickly. Changing a geometry, testing a new compensation method, or sweeping an exposure parameter each requires substantial manual effort. HEATR eliminates that overhead with a purpose-built solver tuned specifically for RF-heated powder bed geometries. A simulation that might take an afternoon to set up and run in COMSOL completes in minutes in HEATR, enabling batch sweeps and automated optimization across the full primitive geometry library.</p>
+          </div>
+
+          <div class="modal__section">
+            <h4>Simulation Modes</h4>
+            <p>HEATR supports multiple modes designed for systematic process exploration:</p>
             <ul>
-              <li><strong>Geometry Prewarp (ILT-Inspired):</strong> An iterative inverse algorithm inspired by Inverse Lithography Technology from semiconductor manufacturing. It adjusts the input geometry so the post-sinter boundary matches the target shape, reducing geometric RMSE by 68% in just 2 iterations.</li>
-              <li><strong>Turntable Exposure Averaging:</strong> Rotates the part through four 90&deg; increments during RF exposure to average the anisotropic field, reducing boundary density variation by up to 95% for rotationally symmetric geometries.</li>
-              <li><strong>Combined Strategy:</strong> Prewarp + turntable together achieve an 86% reduction in boundary density non-uniformity, with synergistic interaction exceeding independent improvements by 24 percentage points.</li>
+              <li><strong>Single Exposure:</strong> Full coupled electrothermal simulation for any geometry with detailed field, thermal, melt fraction, and densification outputs.</li>
+              <li><strong>Parameter Sweeps:</strong> Automated batch runs varying exposure time, part size, orientation, and material properties across the primitive geometry library.</li>
+              <li><strong>Exposure Optimizer:</strong> Bayesian optimization of process parameters to meet target temperature, uniformity, or densification objectives.</li>
+              <li><strong>Orientation Optimizer:</strong> Pareto optimization of part orientation to maximize sintering uniformity within a static field.</li>
+              <li><strong>Turntable Scheduling:</strong> Simulates rotational exposure averaging with configurable rotation increments and timing.</li>
             </ul>
           </div>
           <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr);">
             <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/images/content/heatr-prewarp-h.png" alt="HEATR – Geometry Prewarp Algorithm on H-Shape Target" />
-              <span>Prewarp: H-Shape (RMSE 0.22 mm)</span>
+              <img src="assets/images/content/heatr-circle-rf-summary.png" alt="HEATR – Circle: Full RF Simulation Summary with Thermal, Field, and Densification" />
+              <span>Circle: RF Simulation Summary</span>
             </div>
             <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/images/content/heatr-h-uniformity.png" alt="HEATR – 86% Boundary Density Uniformity Improvement" />
-              <span>Combined: 86% Uniformity Gain</span>
+              <img src="assets/images/content/heatr-square-rf-summary.png" alt="HEATR – Square: Full RF Simulation Summary" />
+              <span>Square: RF Simulation Summary</span>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>Orientation Optimization</h4>
+            <p>The ideal compensation strategy for non-axisymmetric parts would be a turntable that rotates the part through the field during exposure, averaging out the anisotropic coupling. In practice, this is extremely difficult to implement: the susceptor materials are high-impedance, and the electrode walls must maintain continuous contact with the powder medium throughout the process. Physically rotating a part while maintaining that contact is a significant mechanical challenge.</p>
+            <p style="margin-top: 0.75rem;">The next best approach is to keep the field static and optimize the orientation of the part within it. HEATR's orientation optimizer searches for the rotation angle that produces the most uniform sintering for a given geometry. The L-shape below illustrates the difference: in its default upright orientation, the vertical arm overheats while the horizontal arm barely reaches melt temperature. After orientation optimization (rotated ~45&deg;), the coupling distributes much more evenly across both arms, producing uniform melt and densification throughout the part.</p>
+          </div>
+          <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/heatr-lshape-default-efields.png" alt="HEATR – L-Shape Default: E-field showing non-uniform coupling" />
+              <span>L-Shape Default: E-field Coupling</span>
+            </div>
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/heatr-lshape-optimized-efields.png" alt="HEATR – L-Shape Optimized: E-field with improved coupling uniformity" />
+              <span>L-Shape Optimized: E-field Coupling</span>
+            </div>
+          </div>
+          <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr); margin-top: 1rem;">
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/heatr-lshape-default-thermal.png" alt="HEATR – L-Shape Default: Severe thermal non-uniformity" />
+              <span>Default: Non-Uniform Sintering</span>
+            </div>
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/heatr-lshape-optimized-thermal.png" alt="HEATR – L-Shape Optimized: Uniform temperature, melt, and density" />
+              <span>Optimized: Uniform Sintering</span>
+            </div>
+          </div>
+          <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr); margin-top: 1rem;">
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/heatr-lshape-default-density.gif" alt="HEATR – L-Shape Default: Density evolution showing uneven densification" />
+              <span>Default: Density Evolution</span>
+            </div>
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/heatr-lshape-optimized-density.gif" alt="HEATR – L-Shape Optimized: Density evolution showing uniform densification" />
+              <span>Optimized: Density Evolution</span>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>Turntable Compensation</h4>
+            <p>While physically challenging, HEATR also supports turntable simulation for research into rotational exposure averaging. The turntable mode rotates the part through configurable increments during RF exposure, averaging the anisotropic field over multiple orientations. For non-axisymmetric geometries, this produces dramatically more uniform heating than any single static orientation. The results below show a square part under turntable exposure, with the characteristic oscillating temperature profile as the field orientation cycles.</p>
+          </div>
+          <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/heatr-square-turntable-thermal.gif" alt="HEATR – Square: Animated Turntable Thermal Evolution" />
+              <span>Turntable: Thermal Evolution (Animated)</span>
+            </div>
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/heatr-square-turntable-rf-summary.png" alt="HEATR – Square Turntable: RF Summary with Oscillating Temperature Profile" />
+              <span>Turntable: RF Summary &amp; Temp. Profile</span>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>Outputs &amp; Validation</h4>
+            <p>Each run produces a comprehensive output package: spatial field maps (voltage, E-field, Joule heating), thermal evolution with melt fraction and relative density contours, time-resolved temperature and densification curves, and a full validation report tracking energy balance residuals, numerical stability, and solver diagnostics. This makes it straightforward to compare results across geometries and compensation strategies.</p>
+          </div>
+          <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/heatr-circle-thermal-fields.png" alt="HEATR – Circle: Final Temperature, Melt Fraction, and Relative Density" />
+              <span>Circle: Temperature, Melt &amp; Density</span>
+            </div>
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/heatr-square-thermal-fields.png" alt="HEATR – Square: Final Temperature, Melt Fraction, and Relative Density" />
+              <span>Square: Temperature, Melt &amp; Density</span>
+            </div>
+          </div>
+          <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr); margin-top: 1rem;">
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/heatr-circle-optimizer-report.png" alt="HEATR – Circle: Bayesian Optimizer Convergence Report" />
+              <span>Optimizer: Convergence Report</span>
+            </div>
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/heatr-square-validation-report.png" alt="HEATR – Square: Energy Balance and Numerical Validation Report" />
+              <span>Validation: Energy &amp; Solver Diagnostics</span>
             </div>
           </div>
 
           <div class="modal__section">
             <h4>Simulation Platform &amp; GUI</h4>
-            <p>The platform includes a full-featured browser-based GUI with a job queue system, live simulation previews, a results browser with contextual physics metrics, and an integrated theory reference. It supports parameter sweeps over exposure time, part orientation optimization, multi-part placement optimization, and shell thickness studies across the full primitive geometry library.</p>
+            <p>HEATR includes a browser-based GUI for operational control and results exploration. The Operation page provides run configuration (geometry, mode, exposure, turntable parameters), a live job queue with real-time progress tracking, and inline simulation previews. The Results browser offers filterable run history with hero previews, expandable per-run metrics with contextual explanations, and quick access to all output figures. The platform also includes a Files tab for direct output browsing and a Theory tab with integrated physics reference documentation.</p>
           </div>
           <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr);">
             <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/images/content/heatr-gui-operation.png" alt="HEATR GUI – Operation Page and Job Queue" />
+              <img src="assets/images/content/heatr-gui-operation.png" alt="HEATR GUI – Operation Page with Run Configuration and Active Job Queue" />
               <span>GUI: Operation &amp; Job Queue</span>
             </div>
             <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/images/content/heatr-gui-results.png" alt="HEATR GUI – Results Browser with Physics Metrics" />
+              <img src="assets/images/content/heatr-gui-results.png" alt="HEATR GUI – Results Browser with Run Metrics and Output Previews" />
               <span>GUI: Results Browser</span>
             </div>
           </div>
@@ -868,10 +951,9 @@
           <div class="modal__section">
             <h4>Technical Details</h4>
             <ul>
-              <li><strong>Physics:</strong> Electro-quasi-static field solve (27.12 MHz), volumetric Joule heating, Crank-Nicolson thermal transport, apparent heat capacity phase-change model, two-regime Arrhenius densification</li>
+              <li><strong>Physics:</strong> Electro-quasi-static field solve, volumetric Joule heating, transient thermal transport, DSC-calibrated apparent heat capacity phase-change, viscous-capillary densification with Arrhenius/WLF viscosity</li>
               <li><strong>Discretization:</strong> 120&times;120 finite-difference grid with subpixel fill-fraction boundary treatment (8&times;8 subsampling), harmonic-mean conductivity at material interfaces</li>
-              <li><strong>Solver:</strong> Sparse direct solver (SuperLU), implicit time integration with adaptive EQS/thermal subcycling</li>
-              <li><strong>Prewarp:</strong> EPE-based gradient descent with Laplacian smoothing, bilinear density sampling, convergence to sub-0.3 mm RMSE</li>
+              <li><strong>Solver:</strong> Sparse direct solver (SuperLU), Forward Euler time integration with adaptive EQS/thermal subcycling</li>
               <li><strong>Modes:</strong> Single exposure, parameter sweep, exposure optimizer, turntable scheduling, orientation Pareto optimization, multi-part placement, shell thickness study</li>
               <li><strong>Stack:</strong> Python, NumPy, SciPy (sparse), Matplotlib, browser-based GUI with live job management</li>
             </ul>
@@ -880,12 +962,12 @@
           <div class="modal__tags">
             <span>Electrothermal Simulation</span>
             <span>RF Heating</span>
-            <span>Inverse Geometry</span>
+            <span>Rapid Iteration</span>
             <span>Python</span>
             <span>Finite Difference</span>
             <span>Process Optimization</span>
-            <span>Densification Kinetics</span>
-            <span>Browser GUI</span>
+            <span>Orientation Optimization</span>
+            <span>Parameter Sweeps</span>
           </div>
         </div>
       </div>
