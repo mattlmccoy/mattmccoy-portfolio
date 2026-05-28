@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="">
+  <title>Matt McCoy | Hadrian Polymer AM Manager</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <style>
+    /* Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --teal: #3CBBB1;
+      --teal-dark: #2A9D8F;
+      --white: #FAFAFA;
+      --off-white: #F5F5F5;
+      --gray-50: #F0F0F0;
+      --gray-100: #E0E0E0;
+      --gray-200: #C0C0C0;
+      --gray-400: #808080;
+      --gray-600: #505050;
+      --gray-800: #202020;
+      --black: #0A0A0A;
+      --font-sans: 'Space Grotesk', -apple-system, sans-serif;
+      --font-serif: 'Instrument Serif', Georgia, serif;
+      --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--gray-800);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      line-height: 1.1;
+    }
+
+    h4, h5, h6 {
+      font-family: var(--font-sans);
+      font-weight: 500;
+    }
+
+    em {
+      font-family: var(--font-serif);
+      font-style: italic;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    strong {
+      font-weight: 600;
+    }
+
+    /* Header */
+    .letter-header {
+      background: var(--black);
+      color: var(--white);
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .letter-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(60, 187, 177, 0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .letter-header__inner {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .letter-header__label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--teal);
+      margin-bottom: 1.5rem;
+    }
+
+    .letter-header__title {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      margin-bottom: 1rem;
+      color: var(--white);
+    }
+
+    .letter-header__subtitle {
+      font-size: 1.125rem;
+      color: var(--gray-200);
+      font-weight: 300;
+      max-width: 600px;
+    }
+
+    .letter-header__meta {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .letter-header__meta-item {
+      font-size: 0.8rem;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .letter-header__meta-item span {
+      display: block;
+      color: var(--white);
+      font-size: 0.9rem;
+      text-transform: none;
+      letter-spacing: 0;
+      margin-top: 0.25rem;
+      font-weight: 400;
+    }
+
+    /* Letter Body */
+    .letter-body {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    .letter-greeting {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+
+    .letter-intro {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      color: var(--gray-800);
+    }
+
+    .letter-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .letter-section__title {
+      font-size: 1.25rem;
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--teal-dark);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .letter-section__text {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--gray-600);
+    }
+
+    .letter-section__text + .letter-section__text {
+      margin-top: 1rem;
+    }
+
+    .letter-closing {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--gray-100);
+    }
+
+    .letter-closing__text {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--gray-600);
+      margin-bottom: 2rem;
+    }
+
+    .letter-closing__sign-off {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+      color: var(--gray-800);
+    }
+
+    .letter-closing__name {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      color: var(--black);
+    }
+
+    .letter-closing__links {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .letter-closing__link {
+      font-size: 0.85rem;
+      color: var(--teal-dark);
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--transition);
+    }
+
+    .letter-closing__link:hover {
+      border-bottom-color: var(--teal-dark);
+    }
+
+    /* Back link */
+    .back-link {
+      position: fixed;
+      top: 1.5rem;
+      left: 2rem;
+      font-size: 0.85rem;
+      color: var(--white);
+      opacity: 0.6;
+      transition: opacity var(--transition);
+      z-index: 100;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      opacity: 1;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .letter-header {
+        padding: 5rem 1.5rem 3rem;
+      }
+
+      .letter-header__meta {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .letter-body {
+        padding: 3rem 1.5rem 4rem;
+      }
+
+      .letter-closing__links {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="../" class="back-link">&larr; matthewmccoy.info</a>
+
+  <header class="letter-header">
+    <div class="letter-header__inner">
+      <span class="letter-header__label">Cover Letter</span>
+      <h1 class="letter-header__title">Polymer Additive Manufacturing Manager,<br><em>OPUS Platform</em></h1>
+      <p class="letter-header__subtitle">Hadrian &middot; Los Angeles, CA</p>
+      <div class="letter-header__meta">
+        <div class="letter-header__meta-item">
+          From
+          <span>Matthew McCoy</span>
+        </div>
+        <div class="letter-header__meta-item">
+          Current Role
+          <span>PhD Candidate, Georgia Tech</span>
+        </div>
+        <div class="letter-header__meta-item">
+          Previous
+          <span>Sr. Engineer & Lead, Formlabs SLS R&D</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="letter-body">
+    <p class="letter-greeting">Dear Hadrian Hiring Team,</p>
+
+    <p class="letter-intro">I've led engineering teams through complex hardware programs at Formlabs, served as Technical Lead for next-generation platform development, and built a novel polymer powder bed AM process from concept to an operational system as a PhD researcher at Georgia Tech. For the Polymer Additive Manufacturing Manager role, those two things together are what matters: managing a team integrating polymer AM machines into OPUS requires someone who can direct engineers effectively and who understands the process physics well enough to set the right technical priorities. I can do both.</p>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Leading Engineering Teams Through Complex Hardware Programs</h2>
+      <p class="letter-section__text">Three months into my role at Formlabs, I assumed Technical Program Management ownership of the Fuse 1+ 30W SLS platform — a ground-up redesign coordinating more than 30 engineers across mechanical, electrical, firmware, software, and manufacturing process disciplines. I managed more than 130 engineering change orders through EVT and DVT, ran daily dependency syncs, co-hosted go/no-go gate meetings, and translated executive timelines into achievable engineering milestones. We delivered Formlabs' fastest-ever printer launch: prototype to production in nine months, resulting in a platform that captured approximately 55% of the global SLS market by unit volume.</p>
+      <p class="letter-section__text">Simultaneously I managed the factory test software team, responsible for more than 150 acceptance tests per production unit. I owned test design, implementation scope, and validation methodology, and served as the release authority for production shipment decisions during ramp. Within two years I was promoted to Senior Engineer and Technical Lead for the next-generation SLS platform, where I served as hiring manager for full-time engineers and interns, directed design reviews, and owned the technical direction for the program's highest-risk subsystems. When early-stage architectural uncertainty stalled the program, I independently scoped and executed a technical investigation of the optical subsystem, produced the first concrete engineering foundation for the program direction, and unblocked development.</p>
+      <p class="letter-section__text">That progression — from individual contributor to program manager to technical lead — reflects a consistent pattern: I move toward the hardest coordination and decision-making problems on a program, not away from them. Managing a team integrating polymer AM machines into OPUS is exactly that kind of problem, and it's the scope I want to be running.</p>
+    </div>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Process Physics Knowledge That Makes the Management Better</h2>
+      <p class="letter-section__text">The difference between a manager who can direct this team and one who can lead it well is whether they understand what the team is actually building. I've characterized SLS behavior at the process physics level: laser power and scan strategies, optical beam quality and focus consistency, thermal chamber dynamics, powder refresh and reuse cycles, and the relationships between those variables and part geometry, density, and dimensional accuracy. That work had to translate into production machines performing consistently across thousands of units in varied environments. I authored more than 30 technical reports documenting process behavior and contributed to patent disclosures spanning printer architecture and process-physics-driven improvements.</p>
+      <p class="letter-section__text">At Georgia Tech I went further: I developed Radio Frequency Additive Manufacturing (RFAM), a new polymer powder bed AM modality that replaces laser raster scanning with selective dopant deposition followed by volumetric RF heating at 13.56 MHz. After securing approximately $150,000 in research funding plus approximately $170,000 from the NSF GRFP, I built the first RFAM platform from scratch within a year. That required characterizing dopant ink rheology at 50 wt% loading to define the jetting operating window, developing process-physics-driven experiments to map heating uniformity, sintering shrinkage, and void formation, and building the DAQ and analysis pipelines that convert sensor data into calibration inputs. Every experiment was a characterization problem with no reference point.</p>
+      <p class="letter-section__text">This depth changes what I can do as a manager. Defining meaningful machine state models, identifying telemetry signals worth capturing, setting acceptance criteria tied to actual part quality, deciding which failure modes the team should instrument for first — those are judgment calls that require knowing how polymer powder bed sintering physically works and what goes wrong at each stage. I can make those calls, and I can evaluate whether my team's technical direction is right.</p>
+    </div>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Building Diagnostics and Integration Infrastructure at Production Scale</h2>
+      <p class="letter-section__text">A core challenge for deployed SLS systems is that factory calibration doesn't hold across geographic and seasonal variation. I addressed this at Formlabs by developing two field-deployed diagnostic tools used directly by customers across thousands of systems globally. The first reduced dimensional error from approximately &plusmn;300&thinsp;&mu;m to &plusmn;100&thinsp;&micro;m — a three-fold improvement — using purpose-designed calibration artifacts and standard calipers, with no on-site technician required. This tool directly enabled LEGO's global factory deployment of Fuse SLS printers. The second was a thermal diagnostic using engineered artifacts with torque-driven spinners to detect process drift inside the machine without disassembly. Both remain in active use more than three years after deployment.</p>
+      <p class="letter-section__text">At Georgia Tech I built a low-cost scanner-based diagnostics pipeline for jetting fidelity and dopant distribution that replaced a $50,000&ndash;$100,000 metrology stack with approximately a $100 workflow. Using Bayesian Gaussian Mixture Models, the system classifies ink concentration with 98.9% accuracy while simultaneously measuring spatial placement error. The underlying question — what signal actually tells you the process is in control, and how do you capture it reliably — is the same question the OPUS integration work has to answer for polymer AM machines.</p>
+    </div>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Why This Role at Hadrian</h2>
+      <p class="letter-section__text">OPUS is attempting something most of the AM industry hasn't managed: treating AM machines as fully integrated production assets with real machine state models, telemetry, traceability, and scheduling. Most polymer AM deployments in production environments still run on operator judgment and post-process inspection because the machines don't generate the data that would enable anything better. The team building that infrastructure for polymer AM needs a manager who can set technical direction on the process side — what to measure, what constitutes a valid acceptance state, what drift looks like before a part fails — and who can lead a cross-functional team to build it.</p>
+      <p class="letter-section__text">That's a narrow set of qualifications. I have them. I want to apply them somewhere that matters for production, and the OPUS roadmap is the right place to do it.</p>
+    </div>
+
+    <div class="letter-closing">
+      <p class="letter-closing__text">I'd welcome the opportunity to talk through any part of this in more detail. My portfolio and additional background are at matthewmccoy.info.</p>
+      <p class="letter-closing__sign-off">Best regards,</p>
+      <p class="letter-closing__name">Matthew McCoy</p>
+      <div class="letter-closing__links">
+        <a href="https://matthewmccoy.info" class="letter-closing__link">matthewmccoy.info</a>
+        <a href="https://linkedin.com/in/matthewlmccoy" class="letter-closing__link" target="_blank">LinkedIn</a>
+        <a href="mailto:mail@matthewmccoy.info" class="letter-closing__link">mail@matthewmccoy.info</a>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
