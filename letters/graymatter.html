@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="">
+  <title>Matt McCoy | GrayMatter Robotics</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal: #3CBBB1;
+      --teal-dark: #2A9D8F;
+      --white: #FAFAFA;
+      --gray-100: #E0E0E0;
+      --gray-200: #C0C0C0;
+      --gray-400: #808080;
+      --gray-600: #505050;
+      --gray-800: #202020;
+      --black: #0A0A0A;
+      --font-sans: 'Space Grotesk', -apple-system, sans-serif;
+      --font-serif: 'Instrument Serif', Georgia, serif;
+      --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--gray-800);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 { font-family: var(--font-serif); font-weight: 400; line-height: 1.1; }
+    em { font-family: var(--font-serif); font-style: italic; }
+    a { color: inherit; text-decoration: none; }
+    strong { font-weight: 600; }
+
+    .letter-header {
+      background: var(--black);
+      color: var(--white);
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .letter-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(60, 187, 177, 0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .letter-header__inner { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; }
+
+    .letter-header__label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--teal);
+      margin-bottom: 1.5rem;
+    }
+
+    .letter-header__title { font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 1rem; color: var(--white); }
+    .letter-header__subtitle { font-size: 1.125rem; color: var(--gray-200); font-weight: 300; max-width: 600px; }
+
+    .letter-header__meta {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .letter-header__meta-item { font-size: 0.8rem; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.1em; }
+    .letter-header__meta-item span { display: block; color: var(--white); font-size: 0.9rem; text-transform: none; letter-spacing: 0; margin-top: 0.25rem; font-weight: 400; }
+
+    .letter-body { max-width: 800px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+    .letter-greeting { font-size: 1.1rem; margin-bottom: 1.5rem; font-weight: 500; }
+    .letter-intro { font-size: 1.05rem; line-height: 1.7; margin-bottom: 2.5rem; color: var(--gray-800); }
+    .letter-section { margin-bottom: 2.5rem; }
+
+    .letter-section__title {
+      font-size: 1.25rem;
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--teal-dark);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .letter-section__text { font-size: 0.95rem; line-height: 1.8; color: var(--gray-600); }
+    .letter-section__text + .letter-section__text { margin-top: 1rem; }
+
+    .letter-closing { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--gray-100); }
+    .letter-closing__text { font-size: 0.95rem; line-height: 1.8; color: var(--gray-600); margin-bottom: 2rem; }
+    .letter-closing__sign-off { font-size: 1rem; margin-bottom: 0.25rem; color: var(--gray-800); }
+    .letter-closing__name { font-family: var(--font-serif); font-size: 1.5rem; color: var(--black); }
+    .letter-closing__links { display: flex; gap: 1.5rem; margin-top: 1rem; }
+
+    .letter-closing__link {
+      font-size: 0.85rem;
+      color: var(--teal-dark);
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--transition);
+    }
+    .letter-closing__link:hover { border-bottom-color: var(--teal-dark); }
+
+    .back-link {
+      position: fixed;
+      top: 1.5rem;
+      left: 2rem;
+      font-size: 0.85rem;
+      color: var(--white);
+      opacity: 0.6;
+      transition: opacity var(--transition);
+      z-index: 100;
+    }
+    .back-link:hover { opacity: 1; }
+
+    @media (max-width: 768px) {
+      .letter-header { padding: 5rem 1.5rem 3rem; }
+      .letter-header__meta { flex-direction: column; gap: 1rem; }
+      .letter-body { padding: 3rem 1.5rem 4rem; }
+      .letter-closing__links { flex-direction: column; gap: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="../" class="back-link">&larr; matthewmccoy.info</a>
+
+  <header class="letter-header">
+    <div class="letter-header__inner">
+      <span class="letter-header__label">Cover Letter</span>
+      <h1 class="letter-header__title">Robotics Engineer,<br><em>Process</em></h1>
+      <p class="letter-header__subtitle">GrayMatter Robotics &middot; Carson, CA</p>
+      <div class="letter-header__meta">
+        <div class="letter-header__meta-item">
+          From
+          <span>Matthew McCoy</span>
+        </div>
+        <div class="letter-header__meta-item">
+          Current Role
+          <span>PhD Candidate, Georgia Tech</span>
+        </div>
+        <div class="letter-header__meta-item">
+          Previous
+          <span>Sr. Engineer & Lead, Formlabs</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="letter-body">
+    <p class="letter-greeting">Dear GrayMatter Robotics Hiring Team,</p>
+
+    <p class="letter-intro">I'm applying for the Robotics Engineer: Process role. My background isn't in surface finishing specifically, but it is in the deeper discipline this role depends on: developing manufacturing processes from scratch, characterizing material behavior under novel conditions, and building the data infrastructure to understand what's actually happening in a system so you can improve it. I've done that work in selective laser sintering and in a new RF-based additive process I designed during my Ph.D. at Georgia Tech. The materials and the equipment are different from GrayMatter's; the methodology isn't.</p>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Process Development from First Principles</h2>
+      <p class="letter-section__text">At Formlabs I owned optical and thermal system process development for the Fuse series of SLS printers. SLS is a materials-intensive process: polymer powder with specific particle size distributions, flow characteristics, and thermal properties that interact with a laser energy source in ways that determine whether you get a good part or a bad one. Characterizing that interaction, understanding which process parameters matter and how much, and translating that understanding into calibration protocols that held up across thousands of deployed machines was the core of my job.</p>
+      <p class="letter-section__text">I ran Central Composite Designs to characterize variable-focus laser behavior across the full process parameter space, developed Gage R&amp;R-based protocols to verify measurement system capability before trusting process data, and authored more than 30 technical reports documenting the experimental basis for engineering decisions. When a process drifted in the field, I designed the diagnostic tools to detect it and the corrective procedures to address it. That cycle of characterize, instrument, diagnose, and correct is the same one surface finishing process development requires, regardless of whether the energy source is a laser or a sanding head.</p>
+    </div>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Material Science in Manufacturing Contexts</h2>
+      <p class="letter-section__text">SLS powder behavior sits squarely in materials science: thermal degradation from repeated powder cycling, particle morphology changes affecting flow and packing density, surface energy effects on inter-layer bonding. Understanding how material properties translate to process outcomes, and how to measure that relationship reliably, was foundational to the work I did at Formlabs. The calibration artifacts I designed to detect thermal drift in deployed machines were essentially material science experiments run at scale on the production floor.</p>
+      <p class="letter-section__text">In my Ph.D. research at Georgia Tech I've extended into different material territory. Radio Frequency Additive Manufacturing uses selectively deposited RF-absorbing dopants to drive volumetric heating in a polymer powder bed. Formulating the dopant ink, characterizing its rheological properties for reliable jetting at 50 wt% loading, and understanding how dopant spatial distribution maps to electromagnetic coupling and heat generation required working at the intersection of materials science, fluid mechanics, and electromagnetic theory. I'm not coming in with a surface finishing background, but I am coming in with a real understanding of how material properties drive process behavior, and with the experimental habits to build that understanding in a new domain quickly.</p>
+    </div>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Data-Driven Optimization and Customer-Facing Deployment</h2>
+      <p class="letter-section__text">Process optimization without reliable data is guesswork. At Formlabs and in my Ph.D., I've built the software infrastructure to collect, process, and interpret process data alongside the experiments themselves. At Formlabs that meant Python-based analysis pipelines for large-scale calibration data, statistical frameworks for separating systemic process variation from measurement noise, and a scanner-based metrology toolkit for in-situ analysis of print quality. In my Ph.D. I built OpenCV-based pipelines for high-resolution imaging data, Bayesian Gaussian Mixture Models for ink concentration classification, and Gaussian Process regression models for process parameter mapping. The goal in both cases was the same: build enough quantitative understanding of the process to make reliable predictions and catch problems before they become failures.</p>
+      <p class="letter-section__text">The customer-facing dimension of this role is one I've worked in before. At Formlabs, the dimensional accuracy tool and thermal diagnostic tool I developed were designed for direct customer use, deployed across thousands of machines, and had to work reliably without a technician present. Getting those tools right required understanding what a customer actually needed to accomplish, not just what the technical specification said. Sitting with customers to understand their specific material and application requirements, and tailoring a process to their constraints, is work I've done and find the most concrete part of process engineering.</p>
+    </div>
+
+    <div class="letter-closing">
+      <p class="letter-closing__text">GrayMatter's model, getting smart robots onto shop floors doing the jobs that are hardest on people, is one I think is worth working on. The process engineering challenge of making robotic surface finishing reliable and adaptive across real shop floor variability is genuinely hard, and it's the kind of problem I'd want to dig into. I'd love to talk through how my background maps to where the team is headed.</p>
+      <p class="letter-closing__sign-off">Best regards,</p>
+      <p class="letter-closing__name">Matthew McCoy</p>
+      <div class="letter-closing__links">
+        <a href="https://matthewmccoy.info" class="letter-closing__link">matthewmccoy.info</a>
+        <a href="https://linkedin.com/in/matthewlmccoy" class="letter-closing__link" target="_blank">LinkedIn</a>
+        <a href="mailto:mail@matthewmccoy.info" class="letter-closing__link">mail@matthewmccoy.info</a>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

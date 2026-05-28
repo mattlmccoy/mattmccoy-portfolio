@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="">
+  <title>Matt McCoy | Machina Labs</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal: #3CBBB1;
+      --teal-dark: #2A9D8F;
+      --white: #FAFAFA;
+      --gray-100: #E0E0E0;
+      --gray-200: #C0C0C0;
+      --gray-400: #808080;
+      --gray-600: #505050;
+      --gray-800: #202020;
+      --black: #0A0A0A;
+      --font-sans: 'Space Grotesk', -apple-system, sans-serif;
+      --font-serif: 'Instrument Serif', Georgia, serif;
+      --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--gray-800);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 { font-family: var(--font-serif); font-weight: 400; line-height: 1.1; }
+    em { font-family: var(--font-serif); font-style: italic; }
+    a { color: inherit; text-decoration: none; }
+    strong { font-weight: 600; }
+
+    .letter-header {
+      background: var(--black);
+      color: var(--white);
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .letter-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(60, 187, 177, 0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .letter-header__inner { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; }
+
+    .letter-header__label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--teal);
+      margin-bottom: 1.5rem;
+    }
+
+    .letter-header__title { font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 1rem; color: var(--white); }
+    .letter-header__subtitle { font-size: 1.125rem; color: var(--gray-200); font-weight: 300; max-width: 600px; }
+
+    .letter-header__meta {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .letter-header__meta-item { font-size: 0.8rem; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.1em; }
+    .letter-header__meta-item span { display: block; color: var(--white); font-size: 0.9rem; text-transform: none; letter-spacing: 0; margin-top: 0.25rem; font-weight: 400; }
+
+    .letter-body { max-width: 800px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+
+    .letter-greeting { font-size: 1.1rem; margin-bottom: 1.5rem; font-weight: 500; }
+
+    .letter-intro { font-size: 1.05rem; line-height: 1.7; margin-bottom: 2.5rem; color: var(--gray-800); }
+
+    .letter-section { margin-bottom: 2.5rem; }
+
+    .letter-section__title {
+      font-size: 1.25rem;
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--teal-dark);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .letter-section__text { font-size: 0.95rem; line-height: 1.8; color: var(--gray-600); }
+    .letter-section__text + .letter-section__text { margin-top: 1rem; }
+
+    .letter-closing { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--gray-100); }
+    .letter-closing__text { font-size: 0.95rem; line-height: 1.8; color: var(--gray-600); margin-bottom: 2rem; }
+    .letter-closing__sign-off { font-size: 1rem; margin-bottom: 0.25rem; color: var(--gray-800); }
+    .letter-closing__name { font-family: var(--font-serif); font-size: 1.5rem; color: var(--black); }
+
+    .letter-closing__links { display: flex; gap: 1.5rem; margin-top: 1rem; }
+
+    .letter-closing__link {
+      font-size: 0.85rem;
+      color: var(--teal-dark);
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--transition);
+    }
+    .letter-closing__link:hover { border-bottom-color: var(--teal-dark); }
+
+    .back-link {
+      position: fixed;
+      top: 1.5rem;
+      left: 2rem;
+      font-size: 0.85rem;
+      color: var(--white);
+      opacity: 0.6;
+      transition: opacity var(--transition);
+      z-index: 100;
+    }
+    .back-link:hover { opacity: 1; }
+
+    @media (max-width: 768px) {
+      .letter-header { padding: 5rem 1.5rem 3rem; }
+      .letter-header__meta { flex-direction: column; gap: 1rem; }
+      .letter-body { padding: 3rem 1.5rem 4rem; }
+      .letter-closing__links { flex-direction: column; gap: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="../" class="back-link">&larr; matthewmccoy.info</a>
+
+  <header class="letter-header">
+    <div class="letter-header__inner">
+      <span class="letter-header__label">Cover Letter</span>
+      <h1 class="letter-header__title">Senior Product Manager,<br><em>Pre-Cell Software</em></h1>
+      <p class="letter-header__subtitle">Machina Labs &middot; Chatsworth, CA</p>
+      <div class="letter-header__meta">
+        <div class="letter-header__meta-item">
+          From
+          <span>Matthew McCoy</span>
+        </div>
+        <div class="letter-header__meta-item">
+          Current Role
+          <span>PhD Candidate, Georgia Tech</span>
+        </div>
+        <div class="letter-header__meta-item">
+          Previous
+          <span>Sr. Engineer & Lead, Formlabs</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="letter-body">
+    <p class="letter-greeting">Dear Machina Labs Hiring Team,</p>
+
+    <p class="letter-intro">I'm applying for the Senior Product Manager role on the pre-cell software team. My background is unusual for a PM role: I'm a manufacturing engineer by training, a program manager by practice, and someone who has shipped software tools that process engineers and factory operators actually depend on. I've been on both sides of the digital-to-physical handoff that Machina Labs' path planning and simulation software is trying to solve, and that perspective is the main reason I'm writing.</p>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Building Software That Manufacturing Teams Use</h2>
+      <p class="letter-section__text">At Formlabs I led the factory test software team as part of my Technical Program Manager role on the Fuse 1+ 30W platform. That team was responsible for more than 150 acceptance tests run on every unit off the production line. I owned the software roadmap for that system: prioritizing what got built, sequencing it against production milestones, and working with the firmware and software engineers to ship features that factory operators could actually run without a manual. The constraint was always the same as any internal tooling PM faces: the users are captive, they'll tolerate rough edges up to a point, and then they'll find a workaround that makes the data unreliable.</p>
+      <p class="letter-section__text">Beyond the test software, I designed and shipped two customer-facing diagnostic tools that stayed in active deployment for more than three years. The first used purpose-designed calibration artifacts and an inexpensive caliper to reduce dimensional error by a factor of three, from &plusmn;300&thinsp;&micro;m to &plusmn;100&thinsp;&micro;m, without technician visits. The second detected thermal drift inside deployed machines using engineered geometric print artifacts. Both required the same PM discipline: understanding what the user was actually trying to accomplish, stripping the feature set down to what was essential, and shipping something reliable enough to trust at scale. The calibration tool enabled LEGO's global factory deployment of Fuse printers. That's the bar I hold tooling software to.</p>
+      <p class="letter-section__text">In my Ph.D. at Georgia Tech I've extended this further. I built an open-source scanner-based metrology toolkit used internally for jetting diagnostics and ink concentration analysis, and designed the HEATR simulation platform, a purpose-built 2.5D electrothermal simulation tool for rapid geometry and parameter space exploration. Both started as research infrastructure and ended up being the daily tools my collaborators and I depend on. Figuring out how to make a technically complex tool feel obvious to someone under deadline pressure is something I've been doing for years under a different title.</p>
+    </div>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Program Management That Looks a Lot Like PM</h2>
+      <p class="letter-section__text">My TPM role at Formlabs was, in practice, product management for a hardware program. I owned scope definition, prioritization across competing engineering workstreams, milestone planning, risk tracking, and stakeholder communication from the engineering floor to the executive team. Coordinating more than 130 engineering change orders through a full NPI cycle, across mechanical, electrical, firmware, software, and manufacturing process teams, is exactly the kind of cross-functional orchestration a senior PM runs day to day. We shipped the Fuse 1+ 30W in nine months from prototype to production. The software team was part of that, and keeping their roadmap in sync with hardware milestones was one of the harder parts of the job.</p>
+      <p class="letter-section__text">My doctoral research has added a different dimension: self-directed program management without structure. I pitched the RFAM concept, secured approximately $150,000 in funding including the NSF GRFP, scoped the full system architecture, and built the first platform from the ground up within a year. Managing what gets built when, against a research program that has no external forcing function except the one you create, builds a particular muscle for prioritization under ambiguity. That muscle is what early-stage internal tooling requires, where the roadmap is yours to define and the user feedback loop is brutally short.</p>
+    </div>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Understanding the User from the Inside</h2>
+      <p class="letter-section__text">The user Machina Labs needs this PM to serve is a process engineer trying to turn a CAD file into a robot program with confidence that it won't crash the toolhead or produce a bad part. I know that user because I've been that user. At Formlabs, the process engineers I worked alongside were dealing with exactly the same translation problem: a digital design with nominal geometry, a physical process with process-dependent deviation, and tooling software that bridged the gap with varying degrees of success. The moments where the software forced a workaround, or produced output the engineer couldn't interpret, or silently gave the wrong answer, were the moments that drove the most frustration and the most risk.</p>
+      <p class="letter-section__text">That understanding is hard to develop from a requirements document. It comes from running the process, reading the failure modes, and knowing which simplifying assumptions in the simulation actually matter in practice. My work on RF heating simulation (HEATR), laser path characterization at Formlabs, and in-situ imaging analysis in my Ph.D. all live in the same territory: computationally complex geometry and physics problems where the software has to give an engineer enough confidence to commit to a run. Building the product roadmap for Machina's path planning and simulation tools from that vantage point is a job I'd find genuinely challenging and worth doing.</p>
+    </div>
+
+    <div class="letter-closing">
+      <p class="letter-closing__text">Machina Labs is building the kind of factory I've been working toward in my research: software-defined, physically grounded, and fast enough to be useful before the design is stale. The pre-cell software is what makes that possible, and getting it right requires someone who understands the manufacturing problem at depth. I'd love to talk through the role in more detail.</p>
+      <p class="letter-closing__sign-off">Best regards,</p>
+      <p class="letter-closing__name">Matthew McCoy</p>
+      <div class="letter-closing__links">
+        <a href="https://matthewmccoy.info" class="letter-closing__link">matthewmccoy.info</a>
+        <a href="https://linkedin.com/in/matthewlmccoy" class="letter-closing__link" target="_blank">LinkedIn</a>
+        <a href="mailto:mail@matthewmccoy.info" class="letter-closing__link">mail@matthewmccoy.info</a>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
