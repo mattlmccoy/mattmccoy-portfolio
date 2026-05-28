@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="">
+  <title>Matt McCoy | Hadrian Special Projects PM</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal: #3CBBB1; --teal-dark: #2A9D8F; --white: #FAFAFA; --off-white: #F5F5F5;
+      --gray-50: #F0F0F0; --gray-100: #E0E0E0; --gray-200: #C0C0C0; --gray-400: #808080;
+      --gray-600: #505050; --gray-800: #202020; --black: #0A0A0A;
+      --font-sans: 'Space Grotesk', -apple-system, sans-serif;
+      --font-serif: 'Instrument Serif', Georgia, serif;
+      --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-sans); font-size: 1rem; line-height: 1.6; color: var(--gray-800); background: var(--white); overflow-x: hidden; }
+    h1, h2, h3 { font-family: var(--font-serif); font-weight: 400; line-height: 1.1; }
+    h4, h5, h6 { font-family: var(--font-sans); font-weight: 500; }
+    em { font-family: var(--font-serif); font-style: italic; }
+    a { color: inherit; text-decoration: none; }
+    strong { font-weight: 600; }
+    .letter-header { background: var(--black); color: var(--white); padding: 6rem 2rem 4rem; position: relative; overflow: hidden; }
+    .letter-header::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(60, 187, 177, 0.15) 0%, transparent 60%); pointer-events: none; }
+    .letter-header__inner { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; }
+    .letter-header__label { display: inline-block; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.15em; color: var(--teal); margin-bottom: 1.5rem; }
+    .letter-header__title { font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 1rem; color: var(--white); }
+    .letter-header__subtitle { font-size: 1.125rem; color: var(--gray-200); font-weight: 300; max-width: 600px; }
+    .letter-header__meta { display: flex; gap: 2rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+    .letter-header__meta-item { font-size: 0.8rem; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.1em; }
+    .letter-header__meta-item span { display: block; color: var(--white); font-size: 0.9rem; text-transform: none; letter-spacing: 0; margin-top: 0.25rem; font-weight: 400; }
+    .letter-body { max-width: 800px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+    .letter-greeting { font-size: 1.1rem; margin-bottom: 1.5rem; font-weight: 500; }
+    .letter-intro { font-size: 1.05rem; line-height: 1.7; margin-bottom: 2.5rem; color: var(--gray-800); }
+    .letter-section { margin-bottom: 2.5rem; }
+    .letter-section__title { font-size: 1.25rem; font-family: var(--font-serif); font-style: italic; color: var(--teal-dark); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--gray-100); }
+    .letter-section__text { font-size: 0.95rem; line-height: 1.8; color: var(--gray-600); }
+    .letter-section__text + .letter-section__text { margin-top: 1rem; }
+    .letter-closing { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--gray-100); }
+    .letter-closing__text { font-size: 0.95rem; line-height: 1.8; color: var(--gray-600); margin-bottom: 2rem; }
+    .letter-closing__sign-off { font-size: 1rem; margin-bottom: 0.25rem; color: var(--gray-800); }
+    .letter-closing__name { font-family: var(--font-serif); font-size: 1.5rem; color: var(--black); }
+    .letter-closing__links { display: flex; gap: 1.5rem; margin-top: 1rem; }
+    .letter-closing__link { font-size: 0.85rem; color: var(--teal-dark); border-bottom: 1px solid transparent; transition: border-color var(--transition); }
+    .letter-closing__link:hover { border-bottom-color: var(--teal-dark); }
+    .back-link { position: fixed; top: 1.5rem; left: 2rem; font-size: 0.85rem; color: var(--white); opacity: 0.6; transition: opacity var(--transition); z-index: 100; text-decoration: none; }
+    .back-link:hover { opacity: 1; }
+    @media (max-width: 768px) {
+      .letter-header { padding: 5rem 1.5rem 3rem; }
+      .letter-header__meta { flex-direction: column; gap: 1rem; }
+      .letter-body { padding: 3rem 1.5rem 4rem; }
+      .letter-closing__links { flex-direction: column; gap: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="../" class="back-link">&larr; matthewmccoy.info</a>
+
+  <header class="letter-header">
+    <div class="letter-header__inner">
+      <span class="letter-header__label">Cover Letter</span>
+      <h1 class="letter-header__title">Program Manager,<br><em>Special Projects</em></h1>
+      <p class="letter-header__subtitle">Hadrian &middot; Los Angeles, CA</p>
+      <div class="letter-header__meta">
+        <div class="letter-header__meta-item">
+          From
+          <span>Matthew McCoy</span>
+        </div>
+        <div class="letter-header__meta-item">
+          Current Role
+          <span>PhD Candidate, Georgia Tech</span>
+        </div>
+        <div class="letter-header__meta-item">
+          Previous
+          <span>TPM & Sr. Engineer, Formlabs</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="letter-body">
+    <p class="letter-greeting">Dear Hadrian Hiring Team,</p>
+
+    <p class="letter-intro">I've run complex cross-functional programs in fast-moving environments without a defined playbook: as TPM at Formlabs coordinating 30+ engineers through the fastest product launch in company history, as Technical Lead on a next-generation platform where I independently scoped and executed the investigation that unblocked program development, and as a self-directed researcher who took a novel manufacturing concept from a pitch to a funded, operational system within a year. The Program Manager, Special Projects role is the kind of work I'm built for — owning execution across programs that are high-stakes, cross-functional, and don't come with a standard methodology.</p>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Program Execution Under Pressure, With Real Accountability</h2>
+      <p class="letter-section__text">Three months into my role at Formlabs, I took on Technical Program Management for the Fuse 1+ 30W — a ground-up platform redesign involving more than 30 engineers across mechanical, electrical, firmware, software, and manufacturing process disciplines. I managed more than 130 engineering change orders through EVT and DVT, ran daily dependency syncs, co-hosted go/no-go gate meetings, and translated executive timelines into achievable engineering milestones. We delivered Formlabs' fastest-ever printer launch: prototype to production in nine months. The Fuse 1+ 30W went on to capture approximately 55% of the global SLS market by unit volume.</p>
+      <p class="letter-section__text">I also served as release authority for production shipment decisions during ramp, which meant owning the customer-facing accountability for quality and schedule simultaneously. When production issues arose, I led failure investigations to root cause, drove containment and corrective actions into the factory workflow, and ran post-milestone retrospectives to close the loop. That's the end-to-end program ownership the Special Projects role requires: not just tracking milestones but being accountable for the outcome.</p>
+      <p class="letter-section__text">Promoted to Technical Lead within two years, I authored more than 30 technical reports and built the requirements and verification artifact set (test plans, procedures, reports, data sheets) that aligned cross-functional stakeholders and supported release decisions. Producing clear, persuasive program deliverables for internal and external audiences is something I've done at scale.</p>
+    </div>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Running Programs Without Structure in Ambiguous Settings</h2>
+      <p class="letter-section__text">The job description specifically calls out experience in "ambiguous or high-stakes settings" and draws a parallel to management consulting backgrounds. My equivalent is running programs where the scope, methodology, and team structure all have to be built from scratch. My doctoral research at Georgia Tech is the clearest example: I pitched the concept for Radio Frequency Additive Manufacturing, secured approximately $150,000 in internal research funding plus approximately $170,000 from the NSF Graduate Research Fellowship, and built the first RFAM platform from the ground up within a year. No formal program structure, no inherited roadmap, no pre-defined milestones. Just a concept, a budget, and a timeline that had to work.</p>
+      <p class="letter-section__text">That platform integrates sub-100&thinsp;&mu;m motion control, high-viscosity inkjet deposition, a 600 W RF energy delivery system, and a complete sensor and diagnostic stack. Getting from concept to operational required managing scope across hardware, software, instrumentation, and process development simultaneously — making scope tradeoffs when budget or timeline pressure forced them, and maintaining progress visibility across parallel workstreams without a formal project management infrastructure.</p>
+      <p class="letter-section__text">The "special projects" framing at Hadrian — R&D capability buildouts, greenfield factory scoping with defense customers, high-priority programs that don't fit neatly into existing delivery tracks — is exactly this operating mode. I'm comfortable building the structure where it doesn't exist and maintaining delivery momentum through ambiguity.</p>
+    </div>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Technical Depth for Aerospace and Defense Manufacturing Programs</h2>
+      <p class="letter-section__text">For a company delivering manufacturing capability to aerospace and defense customers, the program manager's ability to engage credibly with the technical scope matters. I understand advanced manufacturing — SLS process characterization, polymer powder bed AM, system integration across motion control, fluidics, RF energy, and sensor instrumentation — at a level that lets me scope programs accurately, identify where the real technical risk lives, and have substantive conversations with engineering teams about what's achievable on what timeline.</p>
+      <p class="letter-section__text">When Hadrian is scoping a new AM capability buildout or partnering with a defense customer on a greenfield factory, someone in the PM seat who can evaluate the technical claims being made — not just the schedule — makes the program go better. At Formlabs, that technical credibility was what let me move the next-generation platform forward when the engineering team was stuck in architectural uncertainty: I could engage with the technical substance, scope an investigation, and produce a foundation the team could build on. That's the same value a Special Projects PM needs to bring to Hadrian's programs.</p>
+    </div>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Why This Role at Hadrian</h2>
+      <p class="letter-section__text">Rebuilding manufacturing capacity for aerospace and defense is one of the more consequential problems in the sector right now. Hadrian is executing on it at scale — Factory 3 in Mesa, the Maritime expansion, the FAAS model — and the Special Projects function is where the highest-complexity, highest-stakes programs land. That's the scope I want to be operating at. I'm prepared to travel extensively and to own execution on programs that are already in motion alongside ones that are still being scoped.</p>
+    </div>
+
+    <div class="letter-closing">
+      <p class="letter-closing__text">I'd welcome the opportunity to talk through how my background applies to what you're working on. My portfolio is at matthewmccoy.info.</p>
+      <p class="letter-closing__sign-off">Best regards,</p>
+      <p class="letter-closing__name">Matthew McCoy</p>
+      <div class="letter-closing__links">
+        <a href="https://matthewmccoy.info" class="letter-closing__link">matthewmccoy.info</a>
+        <a href="https://linkedin.com/in/matthewlmccoy" class="letter-closing__link" target="_blank">LinkedIn</a>
+        <a href="mailto:mail@matthewmccoy.info" class="letter-closing__link">mail@matthewmccoy.info</a>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

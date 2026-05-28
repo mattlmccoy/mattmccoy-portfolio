@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="">
+  <title>Matt McCoy | Hadrian Product Manager</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal: #3CBBB1; --teal-dark: #2A9D8F; --white: #FAFAFA; --off-white: #F5F5F5;
+      --gray-50: #F0F0F0; --gray-100: #E0E0E0; --gray-200: #C0C0C0; --gray-400: #808080;
+      --gray-600: #505050; --gray-800: #202020; --black: #0A0A0A;
+      --font-sans: 'Space Grotesk', -apple-system, sans-serif;
+      --font-serif: 'Instrument Serif', Georgia, serif;
+      --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-sans); font-size: 1rem; line-height: 1.6; color: var(--gray-800); background: var(--white); overflow-x: hidden; }
+    h1, h2, h3 { font-family: var(--font-serif); font-weight: 400; line-height: 1.1; }
+    h4, h5, h6 { font-family: var(--font-sans); font-weight: 500; }
+    em { font-family: var(--font-serif); font-style: italic; }
+    a { color: inherit; text-decoration: none; }
+    strong { font-weight: 600; }
+    .letter-header { background: var(--black); color: var(--white); padding: 6rem 2rem 4rem; position: relative; overflow: hidden; }
+    .letter-header::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(60, 187, 177, 0.15) 0%, transparent 60%); pointer-events: none; }
+    .letter-header__inner { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; }
+    .letter-header__label { display: inline-block; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.15em; color: var(--teal); margin-bottom: 1.5rem; }
+    .letter-header__title { font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 1rem; color: var(--white); }
+    .letter-header__subtitle { font-size: 1.125rem; color: var(--gray-200); font-weight: 300; max-width: 600px; }
+    .letter-header__meta { display: flex; gap: 2rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+    .letter-header__meta-item { font-size: 0.8rem; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.1em; }
+    .letter-header__meta-item span { display: block; color: var(--white); font-size: 0.9rem; text-transform: none; letter-spacing: 0; margin-top: 0.25rem; font-weight: 400; }
+    .letter-body { max-width: 800px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+    .letter-greeting { font-size: 1.1rem; margin-bottom: 1.5rem; font-weight: 500; }
+    .letter-intro { font-size: 1.05rem; line-height: 1.7; margin-bottom: 2.5rem; color: var(--gray-800); }
+    .letter-section { margin-bottom: 2.5rem; }
+    .letter-section__title { font-size: 1.25rem; font-family: var(--font-serif); font-style: italic; color: var(--teal-dark); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--gray-100); }
+    .letter-section__text { font-size: 0.95rem; line-height: 1.8; color: var(--gray-600); }
+    .letter-section__text + .letter-section__text { margin-top: 1rem; }
+    .letter-closing { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--gray-100); }
+    .letter-closing__text { font-size: 0.95rem; line-height: 1.8; color: var(--gray-600); margin-bottom: 2rem; }
+    .letter-closing__sign-off { font-size: 1rem; margin-bottom: 0.25rem; color: var(--gray-800); }
+    .letter-closing__name { font-family: var(--font-serif); font-size: 1.5rem; color: var(--black); }
+    .letter-closing__links { display: flex; gap: 1.5rem; margin-top: 1rem; }
+    .letter-closing__link { font-size: 0.85rem; color: var(--teal-dark); border-bottom: 1px solid transparent; transition: border-color var(--transition); }
+    .letter-closing__link:hover { border-bottom-color: var(--teal-dark); }
+    .back-link { position: fixed; top: 1.5rem; left: 2rem; font-size: 0.85rem; color: var(--white); opacity: 0.6; transition: opacity var(--transition); z-index: 100; text-decoration: none; }
+    .back-link:hover { opacity: 1; }
+    @media (max-width: 768px) {
+      .letter-header { padding: 5rem 1.5rem 3rem; }
+      .letter-header__meta { flex-direction: column; gap: 1rem; }
+      .letter-body { padding: 3rem 1.5rem 4rem; }
+      .letter-closing__links { flex-direction: column; gap: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="../" class="back-link">&larr; matthewmccoy.info</a>
+
+  <header class="letter-header">
+    <div class="letter-header__inner">
+      <span class="letter-header__label">Cover Letter</span>
+      <h1 class="letter-header__title">Product Manager,<br><em>Automation &amp; Enablement</em></h1>
+      <p class="letter-header__subtitle">Hadrian &middot; Los Angeles, CA</p>
+      <div class="letter-header__meta">
+        <div class="letter-header__meta-item">
+          From
+          <span>Matthew McCoy</span>
+        </div>
+        <div class="letter-header__meta-item">
+          Current Role
+          <span>PhD Candidate, Georgia Tech</span>
+        </div>
+        <div class="letter-header__meta-item">
+          Previous
+          <span>Sr. Engineer & Lead, Formlabs SLS R&D</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="letter-body">
+    <p class="letter-greeting">Dear Hadrian Hiring Team,</p>
+
+    <p class="letter-intro">My path to product management runs through engineering rather than the traditional PM track. I've owned factory test software roadmaps, shipped customer-facing diagnostic tools deployed across thousands of production systems globally, and led cross-functional teams in translating manufacturing workflows into working systems. At Hadrian, where the product is a factory operating system and the users are technicians, manufacturing engineers, and operations leadership, that combination — real product ownership experience grounded in deep manufacturing knowledge — is a stronger foundation than PM process credentials alone.</p>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Product Ownership From Requirements Through Production Deployment</h2>
+      <p class="letter-section__text">At Formlabs I owned the factory test software as a product. The team I managed was responsible for more than 150 acceptance tests per production unit, covering every major subsystem. I owned test design, implementation scope, and validation methodology, and served as the release authority for production shipment decisions during ramp. Managing that product required the same discipline as any software PM role: defining what "done" looks like, maintaining coverage against a moving hardware target, and making scope tradeoffs under schedule pressure.</p>
+      <p class="letter-section__text">In parallel I designed and shipped two customer-facing diagnostic tools deployed across Formlabs' global installed base. The first reduced dimensional error from approximately &plusmn;300&thinsp;&mu;m to &plusmn;100&thinsp;&mu;m and directly enabled LEGO's factory-wide SLS deployment. The second allowed customers to detect thermal drift and recalibrate without on-site technician visits that previously cost $5,000&ndash;$10,000 per call. Both required genuine user research: what can an untrained factory operator reliably do? What level of accuracy is achievable without specialized tooling? What does the failure mode look like in the field? The answers shaped every design decision. Both tools remain in active use more than three years after deployment.</p>
+      <p class="letter-section__text">At Georgia Tech I built a low-cost scanner-based diagnostics pipeline that replaced a $50,000&ndash;$100,000 metrology stack with a $100 workflow. That system used Bayesian Gaussian Mixture Models to classify ink concentration with 98.9% accuracy while simultaneously measuring spatial placement error. Going from "we need a diagnostics capability" to "here is a validated system with defined performance metrics" is the same arc as any product development cycle.</p>
+    </div>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Understanding the Users This Product Is Built For</h2>
+      <p class="letter-section__text">The job description lists the users I'd be designing for: technicians, CAD programmers, manufacturing engineers, operations leadership. I've worked alongside all of them, not as a PM observing from the outside but as the engineer running experiments, writing process specifications, and fielding questions from the factory floor. My diagnostic tools at Formlabs had to work in real production environments, operated by people whose job is running a factory, not troubleshooting printers. Understanding those constraints — what a technician will actually do versus what the documentation says they should do — is how those tools achieved adoption at scale.</p>
+      <p class="letter-section__text">My doctoral research at Georgia Tech runs in the same direction. I built a complete Radio Frequency Additive Manufacturing platform from scratch, which required designing for the operators who would use it: what level of setup complexity is acceptable, what feedback does the system need to provide, how do you make a process that involves RF energy and high-viscosity inkjet deposition operationally safe and repeatable. The population was small (my own lab), but the design thinking is the same.</p>
+    </div>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Cross-Functional Alignment and Roadmap Execution</h2>
+      <p class="letter-section__text">Three months into my role at Formlabs, I assumed Technical Program Management ownership of the Fuse 1+ 30W SLS platform, coordinating more than 30 engineers across mechanical, electrical, firmware, software, and manufacturing process disciplines. I ran daily dependency syncs, co-hosted go/no-go gate meetings, managed more than 130 engineering change orders through EVT and DVT, and drove the program from prototype to production in nine months. That was Formlabs' fastest NPI cycle. Managing software team priorities against hardware milestones while maintaining stakeholder alignment across engineering, operations, and supply chain is the exact coordination pattern the PM role requires.</p>
+      <p class="letter-section__text">Promoted to Technical Lead within two years, I led design reviews, authored requirements and verification artifacts (test plans, procedures, reports, data sheets), and served as hiring manager for engineering roles. The 30+ technical reports I authored weren't just documentation — they were the product communication layer that aligned cross-functional stakeholders on program direction and supported release decisions.</p>
+    </div>
+
+    <div class="letter-section">
+      <h2 class="letter-section__title">Manufacturing Domain Knowledge as a Product Advantage</h2>
+      <p class="letter-section__text">The job description notes familiarity with additive manufacturing, MES/ERP systems, or factory automation as preferred. My AM depth is more than familiarity — I've characterized SLS process behavior at the physics level, built a novel polymer powder bed AM process from scratch, and designed the instrumentation and data pipelines that make both systems controllable. For a PM working on OPUS, this matters: writing requirements for machine state models and telemetry integration, assessing whether a proposed approach will actually capture meaningful process signals, understanding what "acceptance criteria" means for an AM part — all of these require knowing how the machines work from the inside.</p>
+      <p class="letter-section__text">Most AM deployments in production environments still run on operator intuition because the machines don't generate the structured data that would enable anything better. Hadrian is building the software infrastructure to change that. A PM who can evaluate the technical substance of what the engineering team is proposing — not just whether it's on schedule — makes better product decisions at every stage of that build.</p>
+    </div>
+
+    <div class="letter-closing">
+      <p class="letter-closing__text">I'd welcome the opportunity to talk through how my background maps to what you're building. My portfolio and additional background are at matthewmccoy.info.</p>
+      <p class="letter-closing__sign-off">Best regards,</p>
+      <p class="letter-closing__name">Matthew McCoy</p>
+      <div class="letter-closing__links">
+        <a href="https://matthewmccoy.info" class="letter-closing__link">matthewmccoy.info</a>
+        <a href="https://linkedin.com/in/matthewlmccoy" class="letter-closing__link" target="_blank">LinkedIn</a>
+        <a href="mailto:mail@matthewmccoy.info" class="letter-closing__link">mail@matthewmccoy.info</a>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
