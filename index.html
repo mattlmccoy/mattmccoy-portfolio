@@ -800,6 +800,42 @@
             <p><strong>HEATR is a coupled 2.5D electrothermal simulation platform</strong> I built to rapidly explore the RFAM process design space. In RFAM, heating is driven by electro-quasi-static (EQS) coupling between the applied RF field and a carbon black doped nylon susceptor. Part geometry directly determines how energy couples into the material, which drives everything downstream: heating, melting, and densification. Understanding and compensating for this geometry-dependent coupling is essential to making good parts. HEATR provides a way to do that quickly, sweeping geometry types, compensation strategies, and exposure parameters in minutes rather than the hours-to-days required by general-purpose FEA tools like COMSOL.</p>
           </div>
 
+          <!-- ============================================================
+               HEATR case-study animation embed — paste-in block
+               Target: index.html  →  <div class="modal" id="modal-heatr">
+                       →  <div class="modal__body">
+               Paste this immediately AFTER the closing </div> of the
+               first  <div class="modal__intro"> … </div>  (i.e. right
+               below the opening paragraph, before the existing images).
+
+               Requires: copy heatr-tutorial.html and heatr-splash.html
+               into  assets/heatr/  in the portfolio repo (any path works —
+               just match the two iframe src= attributes below).
+               Reuses the site's existing .modal__section / .modal__video
+               styles, so it inherits the case-study look automatically.
+               ============================================================ -->
+
+          <div class="modal__section">
+            <h4>See it in motion</h4>
+            <p style="margin-bottom: 1rem;">A short field guide to HEATR — the electrothermal pipeline (field solve &rarr; RF power &rarr; melt &rarr; densification), then launching a run and reading the results.</p>
+          </div>
+          <div class="modal__videos">
+            <div class="modal__video">
+              <iframe src="assets/heatr/heatr-tutorial.html" title="HEATR field guide" loading="lazy" allow="autoplay" style="border:0;"></iframe>
+            </div>
+          </div>
+          <p style="text-align: center; color: var(--gray-600); font-size: 0.8rem; margin-bottom: 2rem;">HEATR field guide &bull; loops automatically &bull; drag the scrubber to review any moment</p>
+
+          <div class="modal__section">
+            <h4>Brand splash</h4>
+            <p style="margin-bottom: 1rem;">The tool's identity moment: a doped part heats corner-first through HEATR's thermal colormap as the wordmark resolves.</p>
+          </div>
+          <div class="modal__videos">
+            <div class="modal__video">
+              <iframe src="assets/heatr/heatr-splash.html" title="HEATR splash" loading="lazy" allow="autoplay" style="border:0;"></iframe>
+            </div>
+          </div>
+
           <div class="modal__stats-grid">
             <div class="modal__stat">
               <span class="modal__stat-value">17+</span>
