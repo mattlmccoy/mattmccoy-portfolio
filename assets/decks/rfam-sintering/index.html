@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geometry-dependent sintering nonuniformity in RFAM — Matthew McCoy</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Libre+Franklin:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+<style>
+:root{--font-display:'Spectral',Georgia,serif;--font-sans:'Libre Franklin',system-ui,sans-serif;--font-mono:'Space Mono',ui-monospace,monospace}
+
+  @import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Libre+Franklin:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+  body{margin:0;background:#33342f}
+  .deck{display:flex;flex-direction:column;align-items:center;gap:28px;padding:28px 0;
+    --ink:#0F2231;--base:#EDF1F5;--panel:#FFFFFF;--muted:#566672;--line:#DBE2E7;--line2:#C6D0D7;
+    --gold:#B3A369;--goldm:#9C8850;--blue:#2E6FB0;--teal:#3E8E9C;--coral:#E4633A;--green:#3E9B6B}
+  .slide{position:relative;box-sizing:border-box;width:1280px;height:720px;overflow:hidden;font-family:var(--font-sans);
+    background:var(--base);color:var(--ink);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+  .prail{position:absolute;top:0;left:0;right:0;height:6px;background:rgba(179,163,105,.22);z-index:4}
+  .pfill{height:100%;width:0;background:var(--gold);transition:width .2s}
+  .eyb{font-family:var(--font-mono);font-size:18px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--goldm);display:inline-flex;align-items:center;gap:14px}
+  .eyb span.tick{width:34px;height:2px;background:currentColor;opacity:.7}
+  .dh{font-family:var(--font-display);font-weight:600;letter-spacing:-.02em;color:var(--ink);margin:0}
+  .foot{position:absolute;left:76px;right:76px;bottom:26px;display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .plate{border:1px solid var(--line2);display:flex;flex-direction:column;background:var(--panel);overflow:hidden;border-radius:2px}
+  .capbar{display:flex;justify-content:space-between;align-items:center;background:var(--ink);padding:12px 18px;font-family:var(--font-mono);font-size:15px;letter-spacing:.05em;text-transform:uppercase;color:#EAF0F4}
+  .capbar.lite{background:var(--panel);color:var(--muted);border-bottom:1px solid var(--line2)}
+  .fig{flex:1;min-height:0;background:#fff;display:flex;align-items:center;justify-content:center;padding:18px}
+  .fig img{max-width:100%;max-height:100%;object-fit:contain}
+  .bl{display:flex;gap:14px;font-size:21px;line-height:1.5;color:var(--ink)}
+  .bl .mk{color:var(--blue);font-size:21px;line-height:1.45}
+  .rdt{width:100%;border-collapse:collapse;font-family:var(--font-mono);font-size:18px;color:var(--ink)}
+  .rdt td{padding:12px 0}
+  .rdt tr{border-bottom:1px solid var(--line)}
+  .rdt .k{color:var(--muted)}
+  .rdt .v{text-align:right;font-weight:700}
+  .lbl{font-family:var(--font-mono);font-size:15px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+  .notes{display:none;box-sizing:border-box;width:1280px;margin:0 auto;background:#16202b;color:#dbe4ea;border-left:4px solid #B3A369;border-radius:0 6px 6px 0;padding:16px 24px;font-family:var(--font-sans);font-size:20px;line-height:1.55}
+  .notes .nlabel{font-family:var(--font-mono);font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:#B3A369;margin-bottom:6px}
+  body.show-notes .notes{display:block}
+  .notes-toggle{position:fixed;right:18px;bottom:18px;z-index:1000;font-family:var(--font-mono);font-size:15px;letter-spacing:.08em;text-transform:uppercase;background:#16202b;color:#dbe4ea;border:1px solid #B3A369;border-radius:6px;padding:9px 14px;cursor:pointer}
+
+html{scroll-behavior:smooth}
+.deck{gap:0;padding:0}
+.slide{scroll-snap-align:center;flex:0 0 auto}
+.stagewrap{height:100vh;overflow-y:auto;scroll-snap-type:y mandatory;background:#33342f}
+.scaler{display:flex;justify-content:center}
+.slide{margin:0 auto}
+.bar{position:fixed;left:0;right:0;bottom:0;height:46px;display:flex;align-items:center;justify-content:center;gap:18px;background:rgba(15,34,49,.92);color:#EAF0F4;font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;z-index:60}
+.bar button{background:none;border:1px solid rgba(179,163,105,.5);color:#EAF0F4;font:inherit;padding:5px 12px;border-radius:4px;cursor:pointer}
+.bar button:hover{background:rgba(179,163,105,.22)}
+</style>
+</head><body>
+<div class="stagewrap" id="stage">
+
+<div class="deck">
+  
+  
+
+  <!-- 01 · TITLE -->
+  <section class="slide" data-speaker-notes="RFAM selectively fuses a doped PA-12 powder by dielectric heating at 13.56 MHz; the whole doped cross-section melts at once, so build time is nearly layer-count-independent. Open problem this work solves: heating is dictated by part geometry, so parts sinter nonuniformly. Contribution: HEATR (a coupled EM-thermal-sintering solver) plus a simulation-guided compensation framework — dopant grading, exposure scheduling, and a design-for-RFAM capability envelope." style="display:flex;flex-direction:column;justify-content:center;padding:64px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <img src="figures/logo-gtme.webp" alt="Georgia Institute of Technology — George W. Woodruff School of Mechanical Engineering" style="align-self:flex-start;width:auto;height:46px;margin-bottom:28px">
+    <div class="eyb" style="margin-bottom:20px"><span class="tick"></span>Georgia Institute of Technology</div>
+    <h1 class="dh" style="font-family: var(--font-display); font-weight: 700; font-size: 51px; line-height: 1.05; letter-spacing: -.022em; max-width: 1040px; width: 1040px; height: 123px">Geometry-dependent sintering nonuniformity in radio-frequency additive manufacturing</h1>
+    <div style="height:1px;background:var(--line2);margin:24px 0 20px;max-width:1040px"></div>
+    <p style="font-size:21px;color:#3C5061;margin:0;max-width:860px">A computational framework for process compensation</p>
+    <div style="margin-top:34px;display:flex;gap:52px;font-family:var(--font-mono);font-size:16px;color:#2C3E4D">
+      <div><div style="color:var(--muted);letter-spacing:.1em;margin-bottom:5px">AUTHOR</div>Matthew McCoy</div>
+      <div><div style="color:var(--muted);letter-spacing:.1em;margin-bottom:5px">ADVISORS</div>Carolyn C. Seepersad · Christopher J. Saldaña</div>
+      <div><div style="color:var(--muted);letter-spacing:.1em;margin-bottom:5px">SCHOOL</div>Woodruff School of ME · Georgia Tech</div>
+    </div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>RFAM selectively fuses a doped PA-12 powder by dielectric heating at 13.56 MHz; the whole doped cross-section melts at once, so build time is nearly layer-count-independent. Open problem this work solves: heating is dictated by part geometry, so parts sinter nonuniformly. Contribution: HEATR (a coupled EM-thermal-sintering solver) plus a simulation-guided compensation framework — dopant grading, exposure scheduling, and a design-for-RFAM capability envelope.</div>
+
+  <!-- 02 · OUTLINE -->
+  
+
+  <section class="slide" data-speaker-notes="Five parts: process + geometry problem; HEATR forward model; comparison vs COMSOL and vs IR measurements of real prints; compensation by graded dopant; 3-D extension and design envelope. ~15 min; appendix holds exposure optimizer, numerics, method-selection map, bit-depth, densification and the two-lever comparison for questions." style="display:flex;flex-direction:column;justify-content:center;padding:50px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div class="eyb" style="margin-bottom:16px"><span class="tick"></span>Simulation-guided compensation</div>
+    <h2 class="dh" style="font-size:44px;line-height:1.05;margin-bottom:36px">Outline</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px 60px;max-width:1090px">
+      <div style="display:flex;gap:22px;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:18px"><span style="font-family:var(--font-display);font-weight:700;font-size:34px;color:var(--gold);min-width:48px">01</span><div><div style="font-size:21px;font-weight:600;color:var(--ink)">The process and the problem</div><div style="font-size:20px;color:var(--muted);margin-top:3px">RF sintering, and why heating is shape dependent</div></div></div>
+      <div style="display:flex;gap:22px;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:18px"><span style="font-family:var(--font-display);font-weight:700;font-size:34px;color:var(--gold);min-width:48px">02</span><div><div style="font-size:21px;font-weight:600;color:var(--ink)">Predicting the thermal field</div><div style="font-size:20px;color:var(--muted);margin-top:3px">HEATR, a coupled electro-thermal solver</div></div></div>
+      <div style="display:flex;gap:22px;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:18px"><span style="font-family:var(--font-display);font-weight:700;font-size:34px;color:var(--gold);min-width:48px">03</span><div><div style="font-size:21px;font-weight:600;color:var(--ink)">Does it match reality?</div><div style="font-size:20px;color:var(--muted);margin-top:3px">IR imaging, and printed parts vs simulation</div></div></div>
+      <div style="display:flex;gap:22px;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:18px"><span style="font-family:var(--font-display);font-weight:700;font-size:34px;color:var(--gold);min-width:48px">04</span><div><div style="font-size:21px;font-weight:600;color:var(--ink)">Compensation via dopant grading <br>(and extended techniques)</div><div style="font-size:20px;color:var(--muted);margin-top:3px">Solving for the graded dopant map</div></div></div>
+      <div style="display:flex;gap:22px;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:18px"><span style="font-family:var(--font-display);font-weight:700;font-size:34px;color:var(--gold);min-width:48px">05</span><div><div style="font-size:21px;font-weight:600;color:var(--ink)">3D Implementation</div><div style="font-size:20px;color:var(--muted);margin-top:3px">Grading through the full volume of a part</div></div></div>
+    </div>
+    <div class="foot"><span>RFAM · Simulation-guided compensation</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Five parts: process + geometry problem; HEATR forward model; comparison vs COMSOL and vs IR measurements of real prints; compensation by graded dopant; 3-D extension and design envelope. ~15 min; appendix holds exposure optimizer, numerics, method-selection map, bit-depth, densification and the two-lever comparison for questions.</div>
+
+  
+
+  <!-- INTRO · section divider -->
+  <section class="slide" data-speaker-notes="Part one: how RFAM physically works, the machine we built, and why geometry (not the operator) sets sintering uniformity." style="display:flex;flex-direction:column;justify-content:center;padding:60px 76px 56px 76px;overflow:hidden">
+    <div class="prail"><div class="pfill"></div></div>
+    <div class="ghostnum" style="position:absolute;right:-30px;top:-70px;font-family:var(--font-display);font-weight:700;font-size:480px;line-height:1;color:rgba(179,163,105,.16)">01</div>
+    <div style="font-family:var(--font-mono);font-size:18px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin-bottom:24px;position:relative">Part one</div>
+    <h1 class="dh" style="font-family:var(--font-display);font-weight:700;font-size:64px;line-height:1.02;letter-spacing:-.022em;position:relative;max-width:900px">The process and the problem</h1>
+    <div style="height:4px;width:96px;background:var(--gold);margin:30px 0 0;position:relative"></div>
+    <p style="font-size:21px;line-height:1.5;color:#3C5061;margin:26px 0 0;max-width:800px;position:relative">How RF additive manufacturing fuses a doped powder, and why the heating mechanism is driven by geometry.</p>
+    <div class="foot"><span>RFAM · Simulation-guided compensation</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Part one: how RFAM physically works, the machine we built, and why geometry (not the operator) sets sintering uniformity.</div>
+
+  <!-- 03 · PROCESS (mechanism) -->
+  <section class="slide" data-speaker-notes="PA-12 is nearly RF-transparent; a percolating carbon-black dopant (~25 wt% in the ink) raises dielectric loss so only doped regions absorb power. Dopant is inkjet-patterned per layer like binder jetting, then a capacitive field between parallel electrodes drives volumetric heating. Loss is set by local dopant, so the deposited grayscale pattern IS the process control variable — the basis for everything that follows." style="display:flex;flex-direction:column;padding:44px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px">
+      <div>
+        <div class="eyb" style="margin-bottom:10px"><span class="tick"></span>process</div>
+        <h2 class="dh" style="font-size:35px;line-height:1.05">Fusing doped powder with RF heating</h2>
+        
+      </div>
+      <div class="lbl" style="text-align:right;margin:0">carbon Black-doped nylon-12<br>fused between parallel electrodes at 13.56 MHz</div>
+    </div>
+    <div class="plate" style="flex:1;min-height:0"><div class="capbar"><span>FIG. 1 — the RFAM sintering mechanism</span><span style="color:var(--gold)">dopant → RF absorption → coalescence</span></div><div class="fig" style="padding:14px"><img src="figures/fig_process_mechanism.webp" alt="Six-panel RFAM sintering mechanism: dopant deposition, electrode plates, doped particles inserted, RF activated, graphite coupling, particle coalescence"></div></div>
+    <div class="foot"><span>RFAM · Background</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>PA-12 is nearly RF-transparent; a percolating carbon-black dopant (~25 wt% in the ink) raises dielectric loss so only doped regions absorb power. Dopant is inkjet-patterned per layer like binder jetting, then a capacitive field between parallel electrodes drives volumetric heating. Loss is set by local dopant, so the deposited grayscale pattern IS the process control variable — the basis for everything that follows.</div>
+
+  <!-- 04 · MACHINE (video embed) -->
+  
+
+  <!-- 04a · GEOMETRY SETS THE HEATING -->
+  <section class="slide" data-speaker-notes="Volumetric power Q = 1/2 w e0 e''(c) |E|^2 — dopant sets loss e'', but field magnitude |E| is set by cross-section shape. Convex corners/tips concentrate the field (over-melt, scorch); broad flanks and interiors starve (never fully melt). Under the standardized voltage protocol baseline melt-onset spread runs from 4.9 C on the square to 60 C on the T-shape, with the diamond at 32 C and the equilateral triangle at 41 C. The large coefficient of variation belongs to the HEATING field Q_rf (190-212% across shapes), not to temperature, and it carries no information about which lever will fix a given shape. Uniform doping cannot fix a geometry-imposed field, and hand-tuning does not transfer between shapes." style="display:grid;grid-template-columns:1.02fr 1.1fr;gap:46px;align-items:center;padding:46px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div>
+      <div class="eyb" style="margin-bottom:12px;color:var(--coral)"><span class="tick"></span>problem</div>
+      <h2 class="dh" style="font-size:37px;line-height:1.06;margin-bottom:8px">RF heating is geometry driven</h2>
+      
+      <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px">
+        <li class="bl" style="font-size:21px"><span class="mk" style="color:var(--coral)">▹</span><span>Local heating is dielectric loss × field strength, and the field concentrates at convex corners.</span></li>
+        <li class="bl" style="font-size:21px"><span class="mk" style="color:var(--coral)">▹</span><span>Sharp regions overheat and scorch while interiors never reach full melt, in the same part.</span></li>
+        <li class="bl" style="font-size:21px"><span class="mk" style="color:var(--coral)">▹</span><span>A single dopant level cannot fix it because the field pattern is set by the shape itself.</span></li>
+      </ul>
+      <img src="figures/eq_heating.webp" alt="Local heating Q equals one half omega epsilon-0 epsilon-double-prime times E-squared; local heating equals dopant loss times field strength squared" style="display: block; width: 562px; max-width: 521px; height: 131px; margin-top: 18px">
+      <div style="margin-top: 10px; font-family: var(--font-mono); font-size: 14px; color: var(--muted); line-height: 1.5; width: 535px; height: 66px"><em style="font-family: Spectral, serif; color: var(--coral); font-size: 22px">ε″</em> = how strongly the doped powder absorbs RF (set by dopant)&nbsp; <br><em style="font-family: Spectral, serif; color: var(--coral); font-size: 18px">|E|</em> = local field strength (set by the shape)</div>
+    </div>
+    <div class="plate" style="align-self:stretch;margin:30px 0"><div class="capbar"><span>FIG. 2 — geometry-dependent field concentration</span></div><div class="fig" style="padding:16px"><img src="figures/fig_field_concentration.webp" alt="Schematic of RF field between parallel plates: a square concentrates field at convex corners; a circle couples uniformly around its perimeter"></div></div>
+    <div class="foot"><span>RFAM · PROBLEM</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Volumetric power Q = 1/2 w e0 e''(c) |E|^2 — dopant sets loss e'', but field magnitude |E| is set by cross-section shape. Convex corners/tips concentrate the field (over-melt, scorch); broad flanks and interiors starve (never fully melt). Under the standardized voltage protocol baseline melt-onset spread runs from 4.9 C on the square to 60 C on the T-shape, with the diamond at 32 C and the equilateral triangle at 41 C. The large coefficient of variation belongs to the HEATING field Q_rf (190-212% across shapes), not to temperature, and it carries no information about which lever will fix a given shape. Uniform doping cannot fix a geometry-imposed field, and hand-tuning does not transfer between shapes.</div>
+
+  <!-- 04b · NOMINAL RUN (field -> thermal) -->
+  <section class="slide" data-speaker-notes="Nominal forward run on a uniformly doped circle. Top (fig 4.5): the EQS potential |V| is smooth, but |E| and the RF heating Qrf concentrate at the doped boundary and on faces perpendicular to the applied field — the field-concentration mechanism that drives all later nonuniformity. Bottom (fig 4.6): the thermal output inherits that asymmetry — a hot, fully melted interior versus cooler, lagging parallel-to-E faces. This is the unmodified response, not a quality target." style="display:flex;flex-direction:column;padding:38px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:12px">
+      <div>
+        <div class="eyb" style="margin-bottom:10px;color:var(--coral)"><span class="tick"></span>Nominal run</div>
+        <h2 class="dh" style="font-size:34px;line-height:1.05">From field concentration to melt pattern</h2>
+      </div>
+      <div class="lbl" style="text-align:right;margin:0">uniformly doped circle · 500 W<br></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0;width:1040px;align-self:center">
+      <div class="plate" style="flex:1;min-height:0"><div class="capbar"><span>FIG. 3 — EQS potential, field &amp; RF heating</span></div><div class="fig" style="padding:8px"><img src="figures/ch3/fig_nominal_efield.webp" alt="Nominal forward run stage one: EQS potential magnitude, electric-field magnitude with in-plane field lines, and RF volumetric heating Qrf, all concentrating at the doped boundary and perpendicular faces"></div></div>
+      <div class="plate" style="flex:1;min-height:0"><div class="capbar"><span>FIG. 4 — resulting temperature, melt fraction &amp; density</span></div><div class="fig" style="padding:8px"><img src="figures/ch3/fig_nominal_thermal.webp" alt="Coupled thermal output at end of exposure: final temperature, melt fraction over the part, and relative density, inheriting the heating asymmetry"></div></div>
+    </div>
+    <div class="foot"><span>RFAM · PROBLEM</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Nominal forward run on a uniformly doped circle. Top (fig 4.5): the EQS potential |V| is smooth, but |E| and the RF heating Qrf concentrate at the doped boundary and on faces perpendicular to the applied field — the field-concentration mechanism that drives all later nonuniformity. Bottom (fig 4.6): the thermal output inherits that asymmetry — a hot, fully melted interior versus cooler, lagging parallel-to-E faces. This is the unmodified response, not a quality target.</div>
+
+  <!-- 07 · SECTION 01 -->
+  <section class="slide" data-speaker-notes="Part two: HEATR, the forward model that predicts, for any cross-section, where it runs hot and cold." style="display:flex;flex-direction:column;justify-content:center;padding:60px 76px 56px 76px;overflow:hidden">
+    <div class="prail"><div class="pfill"></div></div>
+    <div class="ghostnum" style="position:absolute;right:-30px;top:-70px;font-family:var(--font-display);font-weight:700;font-size:480px;line-height:1;color:rgba(179,163,105,.16)">02</div>
+    <div style="font-family:var(--font-mono);font-size:18px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin-bottom:24px;position:relative">Part two</div>
+    <h1 class="dh" style="font-family:var(--font-display);font-weight:700;font-size:64px;line-height:1.02;letter-spacing:-.022em;position:relative;max-width:900px">Predicting the thermal field</h1>
+    <div style="height:4px;width:96px;background:var(--gold);margin:30px 0 0;position:relative"></div>
+    <p style="font-size:21px;line-height:1.5;color:#3C5061;margin:26px 0 0;max-width:760px;position:relative">HEATR: a coupled electromagnetic-thermal solver that determines the temperature field and densification regimes for 2D (&amp; 3D) geometries.</p>
+    <div class="foot"><span>RFAM · Simulation-guided compensation</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Part two: HEATR, the forward model that predicts, for any cross-section, where it runs hot and cold.</div>
+
+  <!-- HEATR TOOL WALKTHROUGH (video embed) -->
+  
+  <div class="notes"><div class="nlabel">Speaker notes</div>HEATR = High-frequency Electrothermal Additive Thermal Resolver, an in-house 2-D/2.5-D solver. Import a cross-section, set power and exposure; it returns RF field, transient temperature, melt fraction and relative density in one coupled pass — fast enough (a few hundred seconds) to sit inside an optimization loop.</div>
+
+<!-- GOVERNING EQUATIONS -->
+  <section class="slide" data-speaker-notes="HEATR = High-frequency Electrothermal Additive Thermal Resolver, an in-house 2-D/2.5-D solver. Import a cross-section, set power and exposure; it returns RF field, transient temperature, melt fraction and relative density in one coupled pass — fast enough (a few hundred seconds) to sit inside an optimization loop." style="display:grid;grid-template-columns:1.35fr 1fr;gap:48px;align-items:center;padding:52px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div class="plate" style="align-self:center"><div class="capbar"><span>FIG. 5 — HEATR — interactive solver</span><span style="color:var(--gold)">walkthrough</span></div><video src="figures/heatr_tutorial.mp4" controls="controls" muted="muted" playsInline="playsInline" preload="metadata" style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:var(--ink)"></video></div>
+    <div>
+      <div class="eyb" style="margin-bottom:14px"><span class="tick"></span>tool</div>
+      <h2 class="dh" style="font-size:38px;line-height:1.06;margin-bottom:6px">HEATR</h2>
+      
+      <p style="font-size:21px;line-height:1.55;color:var(--ink);margin:0 0 20px">A short walkthrough of the interactive solver: load a cross-section, set the exposure, and read back the field, temperature, melt fraction, and density in one pass.</p>
+      
+    </div>
+    <div class="foot"><span>RFAM · HEATR</span><span class="pg"></span></div>
+  </section><section class="slide" data-speaker-notes="The coupled model HEATR solves, sequentially on the part grid each outer step. (1) An electroquasistatic potential sets the electric field E inside the part. (2) Volumetric RF heating Q = 1/2 w e0 e''(c) |E|^2: the doped powder's dielectric loss e'' times the local field strength E, squared. (3) That heat conducts, with a DSC-calibrated apparent heat capacity carrying the latent heat of melting. (4) The molten powder densifies by viscous-capillary sintering. The dopant field c(x) enters ONLY through the loss e'', which is what makes it a clean single control handle. All results are solved at 27.12 MHz, the band of the material data. The uniformity metric used throughout is sigma_T, the standard deviation of T_phi90 -- the temperature at which each cell first reaches 90 percent melt." style="display:flex;flex-direction:column;justify-content:center;padding:34px 76px 58px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div class="eyb" style="margin-bottom:10px"><span class="tick"></span>model</div>
+    <h2 class="dh" style="font-size:32px;line-height:1.04;margin-bottom:14px">How the coupled model works</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:4px"><div style="border:1px solid var(--line2);border-left:4px solid var(--blue);border-radius:5px;padding:24px 26px;background:var(--panel)"><div style="font-family: var(--font-mono); font-size: 17px; letter-spacing: .06em; text-transform: uppercase; color: var(--blue); margin-bottom: 9px">01 · field</div><div style="font-family:Spectral,Georgia,serif;font-style:italic;font-size:26px;color:var(--ink);margin:4px 0 15px;line-height:1.5;white-space:nowrap">∇·[(σ + jωε)∇V] = 0</div><div style="font-size: 17px; line-height: 1.4; color: var(--muted)">An RF voltage sets the electric field E inside the part.</div></div><div style="border:1px solid var(--line2);border-left:4px solid var(--coral);border-radius:5px;padding:24px 26px;background:var(--panel)"><div style="font-family: var(--font-mono); font-size: 17px; letter-spacing: .06em; text-transform: uppercase; color: var(--coral); margin-bottom: 9px">02 · heat</div><div style="font-family:Spectral,Georgia,serif;font-style:italic;font-size:26px;color:var(--ink);margin:4px 0 15px;line-height:1.5;white-space:nowrap">Q = ½ ω ε<sub style="font-style:normal;font-size:.58em;line-height:1;vertical-align:-.18em">0</sub> ε″<sub style="font-style:normal;font-size:.58em;line-height:1;vertical-align:-.18em">eff</sub> |E|<sup style="font-style:normal;font-size:.58em;line-height:1;vertical-align:.5em">2</sup></div><div style="font-size: 17px; line-height: 1.4; color: var(--muted)">The doped powder's effective loss ε″<sub style="font-style: normal; font-size: 0.58em; line-height: 1; vertical-align: -0.18em;">eff</sub>&nbsp;(conduction included) times field strength |E|, squared.</div></div><div style="border:1px solid var(--line2);border-left:4px solid var(--goldm);border-radius:5px;padding:24px 26px;background:var(--panel)"><div style="font-family: var(--font-mono); font-size: 17px; letter-spacing: .06em; text-transform: uppercase; color: var(--goldm); margin-bottom: 9px">03 · melt</div><div style="font-family:Spectral,Georgia,serif;font-style:italic;font-size:26px;color:var(--ink);margin:4px 0 15px;line-height:1.5;white-space:nowrap"><span style="font-size:.82em">ρ c<sub style="font-style:normal;font-size:.58em;line-height:1;vertical-align:-.18em">p</sub><sup style="font-style:normal;font-size:.58em;line-height:1;vertical-align:.5em">app</sup> ∂<sub style="font-style:normal;font-size:.58em;line-height:1;vertical-align:-.18em">t</sub>T = ∇·(k∇T) + Q − h<sub style="font-style:normal;font-size:.58em;line-height:1;vertical-align:-.18em">conv</sub> a<sub style="font-style:normal;font-size:.58em;line-height:1;vertical-align:-.18em">v</sub>(T − T<sub style="font-style:normal;font-size:.58em;line-height:1;vertical-align:-.18em">∞</sub>)</span></div><div style="font-size: 17px; line-height: 1.4; color: var(--muted)">Heat conducts, an apparent heat capacity soaks up the latent heat, and exposed surfaces lose heat convectively.</div></div><div style="border:1px solid var(--line2);border-left:4px solid var(--green);border-radius:5px;padding:24px 26px;background:var(--panel)"><div style="font-family: var(--font-mono); font-size: 17px; letter-spacing: .06em; text-transform: uppercase; color: var(--green); margin-bottom: 9px">04 · density</div><div style="font-family:Spectral,Georgia,serif;font-style:italic;font-size:26px;color:var(--ink);margin:4px 0 15px;line-height:1.5;white-space:nowrap">∂ρ/∂t = k(T, φ)(1 − ρ)</div><div style="font-size: 17px; line-height: 1.4; color: var(--muted)">Molten powder densifies by viscous-capillary sintering into ρ.</div></div></div>
+    <div style="margin-top:18px;border-left:3px solid var(--teal);background:rgba(62,142,156,.1);border-radius:4px;padding:13px 20px;font-size:18px;color:var(--ink)">The dopant sets <em style="font-family: Spectral, Georgia, serif; font-style: italic;">σ</em>(x), so it enters <b>both</b> the field operator ① and the heating ② — which is why grading can redistribute the field, not just the absorption. Solved sequentially each step at 13.56 or 27.12 MHz.</div>
+    <div class="foot"><span>RFAM · HEATR</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>The coupled model HEATR solves, sequentially on the part grid each outer step. (1) An electroquasistatic potential sets the electric field E inside the part. (2) Volumetric RF heating Q = 1/2 w e0 e''(c) |E|^2: the doped powder's dielectric loss e'' times the local field strength E, squared. (3) That heat conducts, with a DSC-calibrated apparent heat capacity carrying the latent heat of melting. (4) The molten powder densifies by viscous-capillary sintering. The dopant field c(x) enters ONLY through the loss e'', which is what makes it a clean single control handle. All results are solved at 27.12 MHz, the band of the material data. The uniformity metric used throughout is sigma_T, the standard deviation of T_phi90 -- the temperature at which each cell first reaches 90 percent melt.</div>
+
+  <!-- 10 · VALIDATION -->
+  <section class="slide" data-speaker-notes="HEATR cross-checked against a full COMSOL finite-element model. The EQS solve reproduces COMSOL's peak in-part RF heat source to within about 10 percent (peak ratio 1.10). Part-mean temperature agrees to +9.9 C at 5 minutes and +7.8 C at 10 minutes, and 5 minutes is the melt-onset mark where the uniformity metric sigma_T, which drives every design conclusion here, is read, so the design sits inside the validated window. Late in time the two solvers spread to +89.7 C by 60 minutes under HEATR's insulating wall; with the physically-anchored powder heat-loss boundary condition enabled (h_eff about 2350, a plausible 10.6 mm conduction path, not a curve fit) HEATR recovers COMSOL's 60-minute plateau to within 0.1 C. Honest disclosure, not headline: the absorbed-power match is a normalization, not an independent check; and the spatial field agreement is only moderate (Pearson 0.38, Spearman 0.64), reflecting a single-skin versus double-skin electrode-geometry difference and a coarse grid (6 cells across the part, no grid-convergence study on record). Spatial fidelity is established against IR measurement on the next slides, not here. Why we do not ultimately run with the heat-loss BC: every design conclusion is read in the 6 to 10 minute heating-dominated window, where boundary losses are negligible and the default model already matches COMSOL; the BC is a demonstration that the late-time divergence is a physically-anchored, closable modeling choice, not a solver error, so we do not carry it or its extra calibrated parameter into the design work." style="display:flex;flex-direction:column;padding:36px 68px 44px 68px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div class="eyb" style="margin-bottom:8px"><span class="tick"></span>Validation</div>
+    <h2 class="dh" style="font-size:33px;line-height:1.04;margin-bottom:4px">Cross-checked against COMSOL</h2>
+    <p style="font-size:18px;color:var(--muted);margin:0 0 14px;max-width:1000px">HEATR against a full finite-element model (COMSOL): the heat source, the early transient, and the temporal plateau.</p>
+    <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:24px;flex:1;min-height:0;margin-bottom:12px">
+      <div class="plate" style="display:flex;flex-direction:column"><div class="capbar"><span>FIG. 6 heat source and part-mean temperature</span><span style="color:var(--goldm)">EQS cross-check</span></div><div class="fig" style="flex:1;min-height:0;padding:12px;display:flex;align-items:center;justify-content:center"><img src="figures/ch3/fig_heatr_comsol_xval.webp" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block" alt="HEATR vs COMSOL RF heat-source maps and part-mean temperature versus time"></div></div>
+      <div class="plate" style="display:flex;flex-direction:column"><div class="capbar"><span>FIG. 7 TEMPORAL PLATEAU</span><span style="color:var(--goldm)">heat-loss BC</span></div><div class="fig" style="flex:1;min-height:0;padding:12px;display:flex;align-items:center;justify-content:center"><img src="figures/ch3/fig_heatr_comsol_heatloss.webp" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block" alt="Part-mean temperature to 60 minutes: HEATR default diverges to plus 90 C, the calibrated heat-loss boundary condition recovers COMSOL to minus 0.1 C"></div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px">
+      <div style="border-left:4px solid var(--blue);padding-left:16px"><div style="font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1;color:var(--ink)">10%</div><div style="font-size:16px;line-height:1.35;color:var(--muted);margin-top:5px">peak RF heat source (ratio 1.10)</div></div>
+      <div style="border-left:4px solid var(--teal);padding-left:16px"><div style="font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1;color:var(--ink)">+9.9 °C</div><div style="font-size:16px;line-height:1.35;color:var(--muted);margin-top:5px">T at 5 min — the melt-onset point the metric is read at</div></div>
+      <div style="border-left:4px solid var(--green);padding-left:16px"><div style="font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1;color:var(--ink)">0.1 °C</div><div style="font-size:16px;line-height:1.35;color:var(--muted);margin-top:5px">60-min plateau recovered, heat-loss BC on</div></div>
+    </div>
+    
+    <div class="foot"><span>RFAM · HEATR</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>HEATR cross-checked against a full COMSOL finite-element model. The EQS solve reproduces COMSOL's peak in-part RF heat source to within about 10 percent (peak ratio 1.10). Part-mean temperature agrees to +9.9 C at 5 minutes and +7.8 C at 10 minutes, and 5 minutes is the melt-onset mark where the uniformity metric sigma_T, which drives every design conclusion here, is read, so the design sits inside the validated window. Late in time the two solvers spread to +89.7 C by 60 minutes under HEATR's insulating wall; with the physically-anchored powder heat-loss boundary condition enabled (h_eff about 2350, a plausible 10.6 mm conduction path, not a curve fit) HEATR recovers COMSOL's 60-minute plateau to within 0.1 C. Honest disclosure, not headline: the absorbed-power match is a normalization, not an independent check; and the spatial field agreement is only moderate (Pearson 0.38, Spearman 0.64), reflecting a single-skin versus double-skin electrode-geometry difference and a coarse grid (6 cells across the part, no grid-convergence study on record). Spatial fidelity is established against IR measurement on the next slides, not here. Why we do not ultimately run with the heat-loss BC: every design conclusion is read in the 6 to 10 minute heating-dominated window, where boundary losses are negligible and the default model already matches COMSOL; the BC is a demonstration that the late-time divergence is a physically-anchored, closable modeling choice, not a solver error, so we do not carry it or its extra calibrated parameter into the design work.</div>
+
+  <!-- 08 · HEATR MODEL -->
+  
+
+  <!-- 09 · FIGURE HEATR -->
+  
+
+  <!-- 09b · FIGURE HEATR (GT logo, limit) -->
+  
+
+  <!-- DFR · reentrant shadow -->
+
+
+
+
+
+<!-- MAKING IT REAL · section divider -->
+  
+
+  <section class="slide" data-speaker-notes="Part three: does HEATR match hardware? Validation against infrared measurements of real prints, not just another solver." style="display:flex;flex-direction:column;justify-content:center;padding:60px 76px 56px 76px;overflow:hidden">
+    <div class="prail"><div class="pfill"></div></div>
+    <div class="ghostnum" style="position:absolute;right:-30px;top:-70px;font-family:var(--font-display);font-weight:700;font-size:480px;line-height:1;color:rgba(179,163,105,.16)">03</div>
+    <div style="font-family:var(--font-mono);font-size:18px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin-bottom:24px;position:relative">Part three</div>
+    <h1 class="dh" style="font-family:var(--font-display);font-weight:700;font-size:64px;line-height:1.02;letter-spacing:-.022em;position:relative;max-width:960px">Does it match reality?</h1>
+    <div style="height:4px;width:96px;background:var(--gold);margin:30px 0 0;position:relative"></div>
+    <p style="font-size:21px;line-height:1.5;color:#3C5061;margin:26px 0 0;max-width:800px;position:relative">A model is only useful if it matches hardware. Before using HEATR to design parts, it is checked against untuned printed parts and IR measurements.</p>
+    <div class="foot"><span>RFAM · Simulation-guided compensation</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Part three: does HEATR match hardware? Validation against infrared measurements of real prints, not just another solver.</div>
+
+  <section class="slide" data-speaker-notes="Hardware we built: binder-jet dopant head over a PA-12 bed inside a parallel-plate applicator — T&amp;C AG0613 generator into an AIT-600R tuner at 13.56 MHz. Video is the SFF 2025 print routine. Point: the simulation work is anchored to a real experimental platform, not hypothetical." style="display:grid;grid-template-columns:1.35fr 1fr;gap:48px;align-items:center;padding:52px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div class="plate" style="align-self:center"><div class="capbar"><span>FIG. 8 — RFAM printer — print routine</span></div><video src="figures/rfam_print.mp4" controls="controls" muted="muted" playsInline="playsInline" preload="metadata" style="width:100%;aspect-ratio:16/9;object-fit:contain;display:block;background:#000"></video></div>
+    <div>
+      <div class="eyb" style="margin-bottom:14px"><span class="tick"></span>machine</div>
+      <h2 class="dh" style="font-size:38px;line-height:1.06;margin-bottom:18px">RFAM printer hardware</h2>
+      <p style="font-size: 20px; line-height: 1.55; color: var(--ink); margin: 0 0 22px">A high-viscosity inkjet head patterns CB ink over a nylon-12 powder bed, fused by a parallel plate RF applicator.</p>
+      <table class="rdt"><tbody>
+        <tr><td class="k" style="font-size: 17px">RF generator</td><td class="v" style="font-size: 17px">T&amp;C Power AG0613</td></tr>
+        <tr><td class="k" style="font-size: 17px">matching tuner</td><td class="v" style="font-size: 17px">T&amp;C Power AIT-600R</td></tr>
+        <tr><td class="k" style="font-size: 17px">drive frequency</td><td class="v" style="font-size: 17px">13.56 MHz</td></tr>
+        <tr style="border-bottom:0"><td class="k" style="font-size: 17px">dopant</td><td class="v" style="font-size: 17px">25 wt% carbon black IPA ink</td></tr>
+      </tbody></table>
+    </div>
+    <div class="foot"><span>RFAM · MACHINE</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Hardware we built: binder-jet dopant head over a PA-12 bed inside a parallel-plate applicator — T&amp;C AG0613 generator into an AIT-600R tuner at 13.56 MHz. Video is the SFF 2025 print routine. Point: the simulation work is anchored to a real experimental platform, not hypothetical.</div>
+
+  <!-- EXPERIMENTAL · validation group -->
+  <section class="slide" data-speaker-notes="Experimental validation (exp1): FLIR E60 IR vs HEATR 2-D at 500 W, effective conductivity sigma ~0.043 S/m. Measured surface peak (T_max, T_p99) tracks the predicted part maximum across the full 10-min exposure and reaches the 185 C phase change together, The single coupling constant was calibrated once to the end-time peak, so the -4.5 C endpoint gap (sim 209.6 C vs measured 214.1 C at the as-recorded eps 0.95) is that fit's residual, not a prediction. Emissivity uncertainty is one-sided: any lower eps raises the reconstructed measurement (to ~230 C at eps 0.85), so -4.5 C is the minimum discrepancy. The unfitted checks are what validate the model - time to the 185 C phase change within ~9% (+35 s) and the shape of the whole transient. Panels b and c put the measured top view beside a companion HEATR plan-view run on one scale; both carry the corner-X heating signature, and the comparison is like-for-like. Note also that the fitted coupling is specific to this session's drive and part, not a population coupling." style="display:flex;flex-direction:column;padding:44px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px">
+      <div>
+        <div class="eyb" style="margin-bottom:10px"><span class="tick"></span>Experimental comparison</div>
+        <h2 class="dh" style="font-size:34px;line-height:1.05">HEATR tracks the measured heating curve well</h2>
+      </div>
+      <div class="lbl" style="text-align:right;margin:0">FLIR E60 IR vs HEATR 2D · 500 W<br>unfitted: melt timing within ~9%</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:32px;flex:1;min-height:0">
+      <div style="display:flex;flex-direction:column;gap:5px;min-height:0"><div class="plate" style="flex:1;min-height:0"><div class="capbar"><span>FIG. 9 — measured IR frames, t = 0 → 10 min</span></div><div class="fig" style="padding:12px;flex:1;min-height:0;display:flex"><img src="figures/fig_ir_progression.webp" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;margin:auto" alt="Eight cropped infrared frames of the square part heating from 24 C to 214 C, with the white 185 C melt contour appearing and growing after 6 minutes"></div></div><div style="font-family:var(--font-mono);font-size:15px;font-style:italic;color:var(--muted);line-height:1.35">Fig. 9 — IR thermography data courtesy of <br>Allison J., RF Additive Manufacturing, PhD thesis, UT Austin, 2020.</div></div>
+      <div style="display:flex;flex-direction:column;gap:5px;min-height:0"><div class="plate" style="flex:1;min-height:0"><div class="capbar"><span>FIG. 10 — MEASURED VS HEATR: TRANSIENT, EMISSIVITY BAND</span></div><div class="fig" style="padding:12px;flex:1;min-height:0;display:flex"><img src="figures/val/fig_ir_exp1_calibration.webp" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;margin:auto" alt="Measured infrared peak temperature with its emissivity band versus the HEATR predicted maximum, rising together through the 185 C phase-change line, with the measured final frame and the simulated final field shown on one temperature scale"></div></div><div style="font-family:var(--font-mono);font-size:15px;line-height:1.35;color:transparent" aria-hidden="true">.</div></div>
+    </div>
+    <div class="foot"><span>RFAM · HEATR</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Experimental validation (exp1): FLIR E60 IR vs HEATR 2-D at 500 W, effective conductivity sigma ~0.043 S/m. Measured surface peak (T_max, T_p99) tracks the predicted part maximum across the full 10-min exposure and reaches the 185 C phase change together, The single coupling constant was calibrated once to the end-time peak, so the -4.5 C endpoint gap (sim 209.6 C vs measured 214.1 C at the as-recorded eps 0.95) is that fit's residual, not a prediction. Emissivity uncertainty is one-sided: any lower eps raises the reconstructed measurement (to ~230 C at eps 0.85), so -4.5 C is the minimum discrepancy. The unfitted checks are what validate the model - time to the 185 C phase change within ~9% (+35 s) and the shape of the whole transient. Panels b and c put the measured top view beside a companion HEATR plan-view run on one scale; both carry the corner-X heating signature, and the comparison is like-for-like. Note also that the fitted coupling is specific to this session's drive and part, not a population coupling.</div>
+
+<!-- EXPERIMENTAL vs SIMULATED (spatial) -->
+  <section class="slide" data-speaker-notes="Spatial comparison, scoped carefully: probe points agree within 6-13 C, and the two fields share the same gross structure - a hot interior bounded by a cool border, coolest on the faces parallel to E - while differing in fine structure, the measurement peaking in a central cross where the model heats the interior more evenly; so this is field-structure consistency with an independent prior measurement - it is not a calibrated agreement and not on its own a validation of HEATR (n=1, measured by other authors). Fused-part photo shows the physical consequence (warp, uneven fusion). The model reproduces WHERE a real part runs hot — what compensation needs, not just an average." style="display:flex;flex-direction:column;padding:44px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px">
+      <div>
+        <div class="eyb" style="margin-bottom:10px"><span class="tick"></span>Experimental comparison</div>
+        <h2 class="dh" style="font-size:36px;line-height:1.05">The predicted pattern matches the real part</h2>
+      </div>
+      <div class="lbl" style="text-align:right;margin:0">measured IR vs HEATR, square<br>probe points agree within 6–13 °C</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1.45fr 1fr;gap:30px;flex:1;min-height:0">
+      <div class="plate"><div class="capbar"><span>FIG. 11 — MEASURED IR VS SIMULATED FIELD, SQUARE PART</span></div><div class="fig" style="padding:3px"><img src="figures/ch3/rfam_exp_vs_sim.webp" alt="Side-by-side of the measured infrared temperature field and the HEATR-simulated field for a square part, with three probe points agreeing within 6 to 13 degrees"></div></div>
+      <div style="display:flex;flex-direction:column;gap:12px;min-height:0">
+        <div class="plate" style="flex:1;min-height:0"><div class="capbar"><span>FIG. 12 — fused parts · uniform dopant</span></div><div class="fig" style="padding:6px"><img src="figures/parts_square.webp" alt="Photographs of RF-fused nylon-12 parts showing warped edges and uneven fusion"></div></div>
+        
+        <div style="border-left:4px solid var(--blue);padding-left:16px"><div style="font-family: var(--font-display); font-weight: 700; font-size: 38px; color: var(--ink); line-height: 1">6–13 °C</div><div style="font-size: 19px; color: var(--muted); margin-top: 4px">measured vs predicted probe points</div></div>
+        <div style="font-family:var(--font-mono);font-size:15px;font-style:italic;color:var(--muted);line-height:1.35;margin-top:2px">Fig. 11 — IR thermography data courtesy of<br>Allison J., RF Additive Manufacturing, PhD thesis, UT Austin, 2020.</div>
+      </div>
+    </div>
+    <div class="foot"><span>RFAM · HEATR</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Spatial comparison, scoped carefully: probe points agree within 6-13 C, and the two fields share the same gross structure - a hot interior bounded by a cool border, coolest on the faces parallel to E - while differing in fine structure, the measurement peaking in a central cross where the model heats the interior more evenly; so this is field-structure consistency with an independent prior measurement - it is not a calibrated agreement and not on its own a validation of HEATR (n=1, measured by other authors). Fused-part photo shows the physical consequence (warp, uneven fusion). The model reproduces WHERE a real part runs hot — what compensation needs, not just an average.</div>
+
+<section class="slide" data-speaker-notes="Part four: compensation — a cheap field inversion warm-starts a direct adjoint solve for the graded dopant map." style="display:flex;flex-direction:column;justify-content:center;padding:60px 76px 56px 76px;overflow:hidden">
+    <div class="prail"><div class="pfill"></div></div>
+    <div class="ghostnum" style="position:absolute;right:-30px;top:-70px;font-family:var(--font-display);font-weight:700;font-size:480px;line-height:1;color:rgba(179,163,105,.16)">04</div>
+    <div style="font-family:var(--font-mono);font-size:18px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin-bottom:24px;position:relative">Part four</div>
+    <h1 class="dh" style="font-family:var(--font-display);font-weight:700;font-size:64px;line-height:1.02;letter-spacing:-.022em;position:relative;max-width:960px">Compensation via dopant grading (and extended techniques)</h1>
+    <div style="height:4px;width:96px;background:var(--gold);margin:30px 0 0;position:relative"></div>
+    <p style="font-size:21px;line-height:1.5;color:#3C5061;margin:26px 0 0;max-width:760px;position:relative">Solve for a graded dopant map (functionally graded map) that varies the dopant to flatten the temperature field and achieve nominal part geometries.</p>
+    <div class="foot"><span>RFAM · Simulation-guided compensation</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Part four: compensation — a cheap field inversion warm-starts a direct adjoint solve for the graded dopant map.</div>
+
+  <!-- 12 · FGM CONCEPT -->
+  <section class="slide" data-speaker-notes="The compensation thesis in one before-and-after. Left, a uniform dopant over the hexagon: RF heating runs away at the core and the melt front bulges into a blob well outside the part outline (melt-region fidelity 0.76). Right, a graded carbon-black map at the same total power pulls dopant off the hot core and onto the starved faces, so the melt front becomes the hexagon (fidelity 0.98). The correction is only the deposited grayscale pattern, no hardware change. Two ways to get that graded map follow: a cheap one-shot field inversion as a warm start, then a direct adjoint solve that nails the shape." style="display:flex;flex-direction:column;padding:30px 46px 42px 46px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="margin-bottom:10px">
+      <div class="eyb" style="margin-bottom:7px"><span class="tick"></span>Dopant grading</div>
+      <h2 class="dh" style="font-size: 36px; line-height: 1.05">Grade the dopant to even out the temperature field</h2>
+      
+    </div>
+    <div class="plate" style="flex:1;min-height:0;display:flex;flex-direction:column;background:#0e1013;border:1px solid #262a30"><div class="capbar"><span>FIG. 13 hexagon, uniform dopant (left) vs the graded map (right), end-state temperature</span><span style="color:var(--gold)">same part · same power</span></div><div class="fig" style="flex:1;min-height:0;padding:4px;display:flex;align-items:center;justify-content:center;background:#0e1013"><img src="figures/solve/fig_hexagon_ungraded_vs_graded.webp" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block" alt="Hexagon under uniform dopant melts into a tall blob far outside the part, versus the graded dopant map whose melt front matches the hexagon outline, at the same total power"></div></div>
+    <div class="foot"><span>RFAM · Dopant grading</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>The compensation thesis in one before-and-after. Left, a uniform dopant over the hexagon: RF heating runs away at the core and the melt front bulges into a blob well outside the part outline (melt-region fidelity 0.76). Right, a graded carbon-black map at the same total power pulls dopant off the hot core and onto the starved faces, so the melt front becomes the hexagon (fidelity 0.98). The correction is only the deposited grayscale pattern, no hardware change. Two ways to get that graded map follow: a cheap one-shot field inversion as a warm start, then a direct adjoint solve that nails the shape.</div>
+
+
+  <!-- SOLVE METHOD -->
+  <section class="slide" data-speaker-notes="Step two, the core new result, on a shape where it clearly wins. Left, INVERT: the best stored proportional-inverse mask, one fixed guess, J_phi 69.6 and IoU 0.921 at its 202 second stop. Right, SOLVE: the adjoint optimizer drives a printable 4-bit-per-pixel map through the coupled physics, objective visibly dropping, to J_phi 22.2 and IoU 0.977 at its 448 second stop. Head-to-head the solve wins on both: J down 68 percent, IoU 0.921 to 0.977, melt-region framing, grid 120. Provenance: stored arms HIST_best and A1_4bpp in fgm_solve_campaign/out_lib/hexagon.json, each re-run reproducing its stop, J and IoU exactly. The iterate-sweep segment is process visualization; the captioned numbers are the stored library deliverables. Each method is shown at its own optimal exposure; that per-arm stop is part of each method's recipe, and forcing a common time would contradict the campaign's quoted numbers." style="display:flex;flex-direction:column;padding:30px 46px 42px 46px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="margin-bottom:10px">
+      <div class="eyb" style="margin-bottom:7px"><span class="tick"></span>Dopant GradinG</div>
+      <h2 class="dh" style="font-size:29px;line-height:1.05">Solve for the map, not just field inversion</h2>
+      
+    </div>
+    <div class="plate" style="flex:1;min-height:0;display:flex;flex-direction:column;background:#0e1013;border:1px solid #262a30"><div class="capbar"><span>FIG. 14 ONE FIXED INVERSE GUESS (LEFT) VS PHYSICS SOLVED MAP (RIGHT)</span></div><div class="fig" style="flex:1;min-height:0;padding:4px;display:flex;align-items:center;justify-content:center;background:#0e1013"><img src="figures/solve/gif_solve_vs_inversion_hexagon.webp" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block" alt="Hexagon: left a fixed inverse dopant mask and its melt front, right the dopant map evolving across adjoint evaluations with the objective dropping; the solved map melt front matches the hexagon and beats the inverse guess on J and IoU"></div></div>
+    <div class="foot"><span>RFAM · Dopant grading</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Step two, the core new result, on a shape where it clearly wins. Left, INVERT: the best stored proportional-inverse mask, one fixed guess, J_phi 69.6 and IoU 0.921 at its 202 second stop. Right, SOLVE: the adjoint optimizer drives a printable 4-bit-per-pixel map through the coupled physics, objective visibly dropping, to J_phi 22.2 and IoU 0.977 at its 448 second stop. Head-to-head the solve wins on both: J down 68 percent, IoU 0.921 to 0.977, melt-region framing, grid 120. Provenance: stored arms HIST_best and A1_4bpp in fgm_solve_campaign/out_lib/hexagon.json, each re-run reproducing its stop, J and IoU exactly. The iterate-sweep segment is process visualization; the captioned numbers are the stored library deliverables. Each method is shown at its own optimal exposure; that per-arm stop is part of each method's recipe, and forcing a common time would contradict the campaign's quoted numbers.</div>
+
+
+
+<!-- SOLVE CENSUS -->
+  <!-- SOLVE LOOP MECHANISM -->
+  <section class="slide" data-speaker-notes="How the solve actually works, one cheap loop. Step one seeds a dopant map inside the nominal part indicator chi. Step two marches the coupled RF heating and conduction forward to the run's own optimal stop. Step three reads the mismatch, the melt fraction minus chi, squared over the whole bed: red is melt spilled beyond the part, blue is powder left unmelted inside it. Step four is one adjoint backward sweep in time that returns the gradient dJ/ds at every cell for about the cost of a single forward run (measured 0.44 to 2.16 forward-equivalents per gradient). Step five moves the map downhill through the 1.0 mm physical filter so it stays smooth and printable, and the loop repeats. This is the same filter-only solve behind the previous slide's animation and the census: no projection stage, and the objective is melt-region fidelity, not density. It has two exits when J stops falling: the map quantizes to a 4-bit-per-pixel production raster re-run through the real forward model, and the heat stops at the optimal stop t*, the run's own argmin of J. J plateaus above zero by design, the melted region is matched to the outline, not driven to a perfect solve." style="display:flex;flex-direction:column;padding:30px 46px 42px 46px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="margin-bottom:10px">
+      <div class="eyb" style="margin-bottom:7px"><span class="tick"></span><span style="letter-spacing: 2.88px;">Dopant GradinG</span></div>
+      <h2 class="dh" style="font-size:29px;line-height:1.05">How the optimizer creates the dopant map</h2>
+      
+    </div>
+    <div class="plate" style="flex:1;min-height:0;display:flex;flex-direction:column;background:#0e1013;border:1px solid #262a30"><div class="capbar"><span>FIG. 15 the shape-fidelity solve loop</span><span style="color:var(--gold)">filter-only</span></div><div class="fig" style="flex:1;min-height:0;padding:4px;display:flex;align-items:center;justify-content:center;background:#0e1013"><img src="figures/solve/fig_solve_loop_schematic.webp" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block" alt="Five-stage shape-fidelity solve loop: seed the dopant map inside the nominal part, march the coupled RF-thermal model forward to its optimal stop, read the squared melt-vs-nominal mismatch J, take one adjoint backward sweep for the gradient, update the map downhill through the 1.0 mm filter, and repeat; a sparkline shows J falling across evaluations and plateauing, with two exits, a 4 bpp production raster and the optimal stop"></div></div>
+    <div class="foot"><span>RFAM · Dopant grading</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>How the solve actually works, one cheap loop. Step one seeds a dopant map inside the nominal part indicator chi. Step two marches the coupled RF heating and conduction forward to the run's own optimal stop. Step three reads the mismatch, the melt fraction minus chi, squared over the whole bed: red is melt spilled beyond the part, blue is powder left unmelted inside it. Step four is one adjoint backward sweep in time that returns the gradient dJ/ds at every cell for about the cost of a single forward run (measured 0.44 to 2.16 forward-equivalents per gradient). Step five moves the map downhill through the 1.0 mm physical filter so it stays smooth and printable, and the loop repeats. This is the same filter-only solve behind the previous slide's animation and the census: no projection stage, and the objective is melt-region fidelity, not density. It has two exits when J stops falling: the map quantizes to a 4-bit-per-pixel production raster re-run through the real forward model, and the heat stops at the optimal stop t*, the run's own argmin of J. J plateaus above zero by design, the melted region is matched to the outline, not driven to a perfect solve.</div>
+
+  <section class="slide" data-speaker-notes="The result across the whole shape library. Each row is a geometry; the left panel is shape fidelity (intersection over union of the melted region with the nominal part, higher is better), the right panel is the thermal objective J relative to the best dopant map the campaign had ever stored by any method. The solved, printable, single-pass map beats that best stored inverse mask on 13 of 18 shapes for shape fidelity and 13 of 18 for the thermal objective, and reaches a melt footprint within 5 percent of the nominal part on 7 of 18. The wins are large on the convex and moderately concave shapes: circle plus 72 percent on J with fidelity going 0.95 to 0.99, hexagon plus 68 percent, ellipse plus 81, trapezoid plus 78. Honesty for questions: on the square and rounded rectangle the stored inverse mask was already essentially solved, so the solve does not beat it there; and a few tight-notch reentrant shapes, the cross and the six-point star, are not rescued by dopant alone and need the rotation lever. Quoting box for questions: IoU is at grid 120 and arms are not dose-matched; 13 of 18 is against the deployable best-stored oracle (16 of 18 vs the standardized mask, and 17 of 18 with the model-only permittivity channel, which is not yet material-calibrated). Headline-safe single wins: square 1.0000 filter-only, circle 0.9616 at the held-out grid, cross 0.9829 with the solved map plus its asymmetric dwell program." style="display:flex;flex-direction:column;padding:30px 46px 42px 46px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="margin-bottom:10px">
+      <div class="eyb" style="margin-bottom:7px"><span class="tick"></span><span style="letter-spacing: 2.88px;">Dopant GradinG</span>| Solved vs inverted</div>
+      <h2 class="dh" style="font-size:29px;line-height:1.05">The solved map improves nearly every geometry</h2>
+      
+    </div>
+    <div class="plate" style="flex:1;min-height:0;display:flex;flex-direction:column;background:#0e1013;border:1px solid #262a30"><div class="capbar"><span>FIG. 16 shape fidelity (left) and thermal objective J vs the best stored mask (right), per geometry</span></div><div class="fig" style="flex:1;min-height:0;padding:4px;display:flex;align-items:center;justify-content:center;background:#0e1013"><img src="figures/solve/fig_solve_census_wide.webp" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block" alt="Two-panel census: left, intersection-over-union of the melted region with the nominal part for the solved map versus the best stored mask across eighteen shapes; right, percent reduction in the thermal objective J; the solved printable map improves both on the large majority"></div></div>
+    <div class="foot"><span>RFAM · Dopant grading</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>The result across the whole shape library. Each row is a geometry; the left panel is shape fidelity (intersection over union of the melted region with the nominal part, higher is better), the right panel is the thermal objective J relative to the best dopant map the campaign had ever stored by any method. The solved, printable, single-pass map beats that best stored inverse mask on 13 of 18 shapes for shape fidelity and 13 of 18 for the thermal objective, and reaches a melt footprint within 5 percent of the nominal part on 7 of 18. The wins are large on the convex and moderately concave shapes: circle plus 72 percent on J with fidelity going 0.95 to 0.99, hexagon plus 68 percent, ellipse plus 81, trapezoid plus 78. Honesty for questions: on the square and rounded rectangle the stored inverse mask was already essentially solved, so the solve does not beat it there; and a few tight-notch reentrant shapes, the cross and the six-point star, are not rescued by dopant alone and need the rotation lever. Quoting box for questions: IoU is at grid 120 and arms are not dose-matched; 13 of 18 is against the deployable best-stored oracle (16 of 18 vs the standardized mask, and 17 of 18 with the model-only permittivity channel, which is not yet material-calibrated). Headline-safe single wins: square 1.0000 filter-only, circle 0.9616 at the held-out grid, cross 0.9829 with the solved map plus its asymmetric dwell program.</div>
+
+
+
+  <!-- 15 · TAXONOMY -->
+  
+
+
+
+  <!-- LIMIT · why the field cannot be steered -->
+  
+
+  <section class="slide" data-speaker-notes="Why rotation is needed. Under uniform dopant the part-frame RF heating kernel of the cross is biased along the electrode axis: the vertical limbs heat and the horizontal limbs starve (melt-region fidelity 0.55). Continuous rotation smears this into an annular average, and 90-degree indexing rebuilds the four-fold pattern, lifting fidelity to 0.85-0.87. Rotation averages the field so no limb sits permanently in shadow. Scoping: this is the 2-D cross-section engine; the 3-D rotation feature inherits the same schema with dopant co-rotation by construction." style="display:flex;flex-direction:column;padding:30px 46px 42px 46px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="margin-bottom:10px">
+      <div class="eyb" style="margin-bottom:7px"><span class="tick"></span>Rotation</div>
+      <h2 class="dh" style="font-size:29px;line-height:1.05">Rotation fixes uneven RF heating</h2>
+      
+    </div>
+    <div class="plate" style="flex:1;min-height:0;display:flex;flex-direction:column;background:#0e1013;border:1px solid #262a30"><div class="capbar"><span>FIG. 17 RF HEATING: STATIC, CONTINUOUS ROTATION, 90-DEGREE INDEX</span><span style="color:var(--gold)">uniform dopant</span></div><div class="fig" style="flex:1;min-height:0;padding:4px;display:flex;align-items:center;justify-content:center;background:#0e1013"><img src="figures/solve/gif_rotation_kernels.webp" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block" alt="Cross heating kernel morphing from static electrode-axis bands to an annular continuous-rotation average to a four-fold pattern restored by 90-degree indexing"></div></div>
+    <div class="foot"><span>RFAM · Rotation</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Why rotation is needed. Under uniform dopant the part-frame RF heating kernel of the cross is biased along the electrode axis: the vertical limbs heat and the horizontal limbs starve (melt-region fidelity 0.55). Continuous rotation smears this into an annular average, and 90-degree indexing rebuilds the four-fold pattern, lifting fidelity to 0.85-0.87. Rotation averages the field so no limb sits permanently in shadow. Scoping: this is the 2-D cross-section engine; the 3-D rotation feature inherits the same schema with dopant co-rotation by construction.</div>
+
+  <section class="slide" data-speaker-notes="The dwell schedule itself is solved, the same way the dopant map is. The cross marches under an optimized asymmetric turntable dwell program (indexing with tuned hold times at 0/90/180/270 degrees). Temperature and relative density end even across all four limbs, with the melt front matching the nominal part: thermal objective 34.2 and fidelity 0.985 at the solver-recommended stop of 471.5 seconds. Constant RF power throughout. Scoping: 2-D cross-section engine; the 3-D rotation feature inherits this schedule schema with dopant co-rotation by construction. Context inset: the same cross with NO correction, static orientation and uniform dopant, sits at IoU 0.55 (J 463) at its own stop; the solved spin schedule plus solved dopant map lifts it to about 0.98. Both are grid-120 numbers, the solve and deployment grid; the ranking, static loses badly and the co-solve wins, holds at every grid tested." style="display:flex;flex-direction:column;padding:30px 46px 42px 46px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="margin-bottom:10px">
+      <div class="eyb" style="margin-bottom:7px"><span class="tick"></span>Dwell schedule</div>
+      <h2 class="dh" style="font-size:29px;line-height:1.05">Dwell and rotation scheduling flattens temperature field on complex geometries</h2>
+      
+    </div>
+    <div class="plate" style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;background:#0e1013;border:1px solid #262a30"><div class="capbar"><span>FIG. 18 cross under its solved asymmetric dwell program</span><span style="color:var(--gold)">J 34.2 · IoU 0.985</span></div><div class="fig" style="flex:1;min-height:0;padding:4px;display:flex;align-items:center;justify-content:center;background:#0e1013"><img src="figures/solve/gif_dwell_cross.webp" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block" alt="Cross marching under its solved asymmetric turntable dwell program, temperature and relative density, ending crisp at the recommended stop"></div><div style="position:absolute;top:42px;left:16px;z-index:5;width:150px"><div style="font-family:var(--font-mono);font-size:12px;color:#e5e7ea;margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em">No correction</div><img src="figures/solve/fig_cross_static_uniform_thumb.webp" style="width:150px;height:150px;display:block;border:1px solid #3a3f46;border-radius:3px" alt="Cross with no correction: static, uniform dopant. The vertical bar over-melts and spills past the outline while both horizontal limbs stay cold and unmelted; IoU 0.55."></div></div>
+    <div class="foot"><span>RFAM · Rotation</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>The dwell schedule itself is solved, the same way the dopant map is. The cross marches under an optimized asymmetric turntable dwell program (indexing with tuned hold times at 0/90/180/270 degrees). Temperature and relative density end even across all four limbs, with the melt front matching the nominal part: thermal objective 34.2 and fidelity 0.985 at the solver-recommended stop of 471.5 seconds. Constant RF power throughout. Scoping: 2-D cross-section engine; the 3-D rotation feature inherits this schedule schema with dopant co-rotation by construction. Context inset: the same cross with NO correction, static orientation and uniform dopant, sits at IoU 0.55 (J 463) at its own stop; the solved spin schedule plus solved dopant map lifts it to about 0.98. Both are grid-120 numbers, the solve and deployment grid; the ranking, static loses badly and the co-solve wins, holds at every grid tested.</div>
+
+  <section class="slide" data-speaker-notes="A hard, asymmetric part shows the schedule is path-dependent. The L cannot melt in one exposure: held at 90 degrees for 465 seconds the horizontal foot melts while the vertical upright stays cold, then a quarter turn to 0 degrees grows the upright while the melted foot holds. That two-phase program is itself a solved deliverable. Honest scope: even this best-on-record sequential program reaches only melt-region fidelity 0.72 (J_phi 276) at its 594 second stop; the L is a frontier case, not a clean solve like the cross. It shows both the reach of scheduled dwell and where the method still struggles. 2-D cross-section engine, stored campaign arm." style="display:flex;flex-direction:column;padding:30px 46px 42px 46px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="margin-bottom:10px">
+      <div class="eyb" style="margin-bottom:7px"><span class="tick"></span>Sequential dwell</div>
+      <h2 class="dh" style="font-size:29px;line-height:1.05">Asymmetric parts can be scheduled to melt "limb-by-limb"</h2>
+      
+    </div>
+    <div class="plate" style="flex:1;min-height:0;display:flex;flex-direction:column;background:#0e1013;border:1px solid #262a30"><div class="capbar"><span>FIG. 19 L-SHAPE UNDER SEQUENTIAL DWELL PROGRAM: FOOT FIRST, THEN UPRIGHT</span></div><div class="fig" style="flex:1;min-height:0;padding:4px;display:flex;align-items:center;justify-content:center;background:#0e1013"><img src="figures/solve/gif_sequential_L.webp" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block" alt="L-shape marching under a two-phase turntable dwell program: phase one at 90 degrees melts the horizontal foot, phase two at 0 degrees grows the vertical upright, ending with the whole L melted at modest fidelity"></div></div>
+    <div class="foot"><span>RFAM · Rotation</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>A hard, asymmetric part shows the schedule is path-dependent. The L cannot melt in one exposure: held at 90 degrees for 465 seconds the horizontal foot melts while the vertical upright stays cold, then a quarter turn to 0 degrees grows the upright while the melted foot holds. That two-phase program is itself a solved deliverable. Honest scope: even this best-on-record sequential program reaches only melt-region fidelity 0.72 (J_phi 276) at its 594 second stop; the L is a frontier case, not a clean solve like the cross. It shows both the reach of scheduled dwell and where the method still struggles. 2-D cross-section engine, stored campaign arm.</div>
+
+  <!-- LIMIT: geometry pre-warp (ILT) -->
+  
+
+  <!-- SECTION · Extending to 3-D -->
+  <section class="slide" data-speaker-notes="Part five: extend the same solver to 3-D and characterize what can actually be built." style="display:flex;flex-direction:column;justify-content:center;padding:60px 76px 56px 76px;overflow:hidden">
+    <div class="prail"><div class="pfill"></div></div>
+    <div class="ghostnum" style="position:absolute;right:-30px;top:-70px;font-family:var(--font-display);font-weight:700;font-size:480px;line-height:1;color:rgba(179,163,105,.16)">05</div>
+    <div style="font-family:var(--font-mono);font-size:18px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin-bottom:24px;position:relative">Part five</div>
+    <h1 class="dh" style="font-family:var(--font-display);font-weight:700;font-size:64px;line-height:1.02;letter-spacing:-.022em;position:relative;max-width:980px">3D Implementation</h1>
+    <div style="height:4px;width:96px;background:var(--gold);margin:30px 0 0;position:relative"></div>
+    <p style="font-size:21px;line-height:1.5;color:#3C5061;margin:26px 0 0;max-width:800px;position:relative">The same solver runs on a voxel grid, so the field, melt, and shrinkage can be graded through the full volume of a part.</p>
+    <div class="foot"><span>RFAM · Simulation-guided compensation</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Part five: extend the same solver to 3-D and characterize what can actually be built.</div>
+
+
+
+  <!-- 17 · 3D -->
+  
+
+    <!-- HARDWARE turntable -->
+  
+
+  <!-- HARDWARE realizing rotation -->
+  
+
+  <section class="slide" data-speaker-notes="How the 3-D solve works, the same loop as 2-D, one step bigger. (1) Seed a uniform dopant field on every design cell inside the part. (2) Forward-march the coupled RF-heating and conduction model to the run's own stop and read the melt fraction. (3) Read the mismatch, melt fraction minus the target shape, through the whole volume, every cell, not a slice. (4) One adjoint backward sweep returns the gradient dJ/ds at all 24442 design cells at once, X, Y and Z together, never per layer, for about the cost of one forward run. (5) Push the gradient through the 1.0 mm filter and move the whole 3-D map downhill together, then repeat. J falls across the 12 gradient evaluations and is still descending at the budget, so the reported 58 percent gain is a lower bound. Reading the figure honestly: the diverging colours in stages 3 and 4 are centred on the background, so brightness means a cell drives the update, not that it is matched, and the stage-4 colour saturates at the 75th percentile of the gradient magnitude, so colours are relative leverage, not absolute values. Filter-only arm; the steady adjoint is proven in the D1 spike and the transient adjoint is finite-difference gated in Phase B; simulation-only; stage 4 is a real recomputed gradient whose forward reproduces the stored objective to the last bit." style="display:flex;flex-direction:column;padding:30px 46px 42px 46px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="margin-bottom:10px">
+      <div class="eyb" style="margin-bottom:7px"><span class="tick"></span>3D Implementation</div>
+      <h2 class="dh" style="font-size:32px;line-height:1.05">How the 3-D solve works</h2>
+      
+    </div>
+    <div class="plate" style="flex:1;min-height:0;display:flex;flex-direction:column;background:#0e1013;border:1px solid #262a30"><div class="capbar"><span>FIG. 20 the 3-D solve loop: seed, march, mismatch, adjoint sweep, filter, repeat</span></div><div class="fig" style="flex:1;min-height:0;padding:4px;display:flex;align-items:center;justify-content:center;background:#0e1013"><img src="figures/threed/fig_deck_solve_loop_3d.webp" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block" alt="Five-stage 3-D solve loop on the pyramid: seed a uniform dopant field, forward-march the coupled model to its stop, read the melt-fraction mismatch through the whole volume, take one adjoint backward sweep that returns the gradient at all 24442 design cells at once across X, Y and Z, then filter and update the whole 3-D map and repeat; a J-descent plot shows the objective falling across twelve gradient evaluations"></div></div>
+    <div class="foot"><span>RFAM · 3-D extension</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>How the 3-D solve works, the same loop as 2-D, one step bigger. (1) Seed a uniform dopant field on every design cell inside the part. (2) Forward-march the coupled RF-heating and conduction model to the run's own stop and read the melt fraction. (3) Read the mismatch, melt fraction minus the target shape, through the whole volume, every cell, not a slice. (4) One adjoint backward sweep returns the gradient dJ/ds at all 24442 design cells at once, X, Y and Z together, never per layer, for about the cost of one forward run. (5) Push the gradient through the 1.0 mm filter and move the whole 3-D map downhill together, then repeat. J falls across the 12 gradient evaluations and is still descending at the budget, so the reported 58 percent gain is a lower bound. Reading the figure honestly: the diverging colours in stages 3 and 4 are centred on the background, so brightness means a cell drives the update, not that it is matched, and the stage-4 colour saturates at the 75th percentile of the gradient magnitude, so colours are relative leverage, not absolute values. Filter-only arm; the steady adjoint is proven in the D1 spike and the transient adjoint is finite-difference gated in Phase B; simulation-only; stage 4 is a real recomputed gradient whose forward reproduces the stored objective to the last bit.</div>
+
+  <section class="slide" data-speaker-notes="The 3-D solve made visceral, and the correction to how we describe it: this is one 3-D solve, not a stack of independent 2-D layers. Two quarter-cut pyramids, uniform dopant versus the solve, colored by the real 3-D melt fraction on the full solve mesh of 18172 nodes; the 96-cubed sampling was checked against the FEM scorer, 0.38/0.67 on the grid versus 0.39/0.68 from the FEM, a weighting difference only with zero missed in-part points. Each arm is read at its own envelope stop, 418 s uniform and 639 s for the solve, each at its own optimum. The solve does not only melt more: it pushes melt out to the outer slant faces at mid-height, where the uniform arm leaves a cold skin. Mean melt fraction rises 0.39 to 0.68 and melt IoU 0.185 to 0.380. This is the filter-only arm of the 3-D adjoint solve, budget-limited and still descending, simulation-only; it does not carry a formal solved or validated label. Rendering note: the fine horizontal banding on the faces is the marching-cubes staircase from the 96-cubed sampling, not physics." style="display:flex;flex-direction:column;padding:30px 46px 42px 46px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="margin-bottom:10px">
+      <div class="eyb" style="margin-bottom:7px"><span class="tick"></span>3D Implementation</div>
+      <h2 class="dh" style="font-size:32px;line-height:1.05">Uniform densification vs. solved volumetric dopant map</h2>
+      
+    </div>
+    <div class="plate" style="flex:1;min-height:0;display:flex;flex-direction:column;background:#0e1013;border:1px solid #262a30"><div class="capbar"><span>FIG. 21 PYRAMID MELT FRACTION: UNIFORM VS SOLVE</span><span style="color:var(--gold)">MEAN MELT FRACTION 0.39 VS 0.68</span></div><div class="fig" style="flex:1;min-height:0;padding:4px;display:flex;align-items:center;justify-content:center;background:#0e1013"><img src="figures/threed/fig_deck_pyramid_cutaway3d.webp" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block" alt="Two quarter-cut 3-D pyramids side by side, uniform dopant versus the solve, colored by melt fraction: the uniform arm melts a low central dome and leaves the upper part and slant faces cold, while the solve fills more of the volume and pushes bright melt out to the outer slant faces at mid-height; mean melt fraction 0.39 versus 0.68, melt IoU 0.185 versus 0.380"></div></div>
+    <div class="foot"><span>RFAM · 3-D extension</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>The 3-D solve made visceral, and the correction to how we describe it: this is one 3-D solve, not a stack of independent 2-D layers. Two quarter-cut pyramids, uniform dopant versus the solve, colored by the real 3-D melt fraction on the full solve mesh of 18172 nodes; the 96-cubed sampling was checked against the FEM scorer, 0.38/0.67 on the grid versus 0.39/0.68 from the FEM, a weighting difference only with zero missed in-part points. Each arm is read at its own envelope stop, 418 s uniform and 639 s for the solve, each at its own optimum. The solve does not only melt more: it pushes melt out to the outer slant faces at mid-height, where the uniform arm leaves a cold skin. Mean melt fraction rises 0.39 to 0.68 and melt IoU 0.185 to 0.380. This is the filter-only arm of the 3-D adjoint solve, budget-limited and still descending, simulation-only; it does not carry a formal solved or validated label. Rendering note: the fine horizontal banding on the faces is the marching-cubes staircase from the 96-cubed sampling, not physics.</div>
+
+  <section class="slide" data-speaker-notes="The frontier result: grading the dopant as a true 3-D field, through the build height, not layer by layer. Left, the solved dopant map on four z-slabs of the pyramid: it EMPTIES the base to mean saturation 0.63 and saturates to 1.00 higher up, and the profile rises from base to apex. This is the OPPOSITE of the hand-built grading law, which loaded the base and failed to beat uniform; the optimizer discovered that intuition grades the wrong direction. Right, uniform versus solved section through the pyramid centre: on the same mesh the solve lifts mean melt fraction 0.39 to 0.68 (x1.72), roughly doubles melt-region IoU 0.185 to 0.380 (x2.06), pulls the melt front in 3.06 to 1.63 mm (-47%), and halves the objective (-58%); the cross-mesh gain is -54%. Honest gate state: the smoothing-robustness gate passes (1.5% change against a 10% band) and the mesh hold-out passes all five shape metrics, but it FAILS the objective J on hold-out from stop-time sensitivity at the apex corner, so this map does NOT carry the formal solved label; that apex question is escalated to the COMSOL anchor. The gains stand on both meshes, the map transfer conserved dopant to 0.041%, and on shape metrics the solved arm is more mesh-stable than uniform. Budget-limited and still descending, so these are lower bounds; simulation-only, no physical validation." style="display:flex;flex-direction:column;padding:30px 46px 42px 46px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="margin-bottom:10px">
+      <div class="eyb" style="margin-bottom:7px"><span class="tick"></span>3D Implementation</div>
+      <h2 class="dh" style="font-size:32px;line-height:1.05">Solving the dopant maps through X, Y, and Z</h2>
+      
+    </div>
+    <div class="plate" style="flex:1;min-height:0;display:flex;flex-direction:column;background:#0e1013;border:1px solid #262a30"><div class="capbar"><span>FIG. 22 PYRAMID: SOLVED DOPANT THROUGH Z (L); UNIFORM VS SOLVED MELT (R)</span><span style="color: var(--gold); text-align: right">MELT FRACTION V. IDEAL GEOMETRY −58%</span></div><div class="fig" style="flex:1;min-height:0;padding:4px;display:flex;align-items:center;justify-content:center;background:#0e1013"><img src="figures/threed/fig_deck_pyramid_solved.webp" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block" alt="Pyramid dopant solve: four z-slabs of the solved dopant map emptying the base at mean saturation 0.63 and saturating upward to 1.00, a mean-saturation versus build-height profile, and uniform versus solved vertical melt sections with a numbers block showing mean melt fraction up 1.72x, IoU up 2.06x, front distance down 47 percent, objective down 58 percent"></div></div>
+    <div class="foot"><span>RFAM · 3-D extension</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>The frontier result: grading the dopant as a true 3-D field, through the build height, not layer by layer. Left, the solved dopant map on four z-slabs of the pyramid: it EMPTIES the base to mean saturation 0.63 and saturates to 1.00 higher up, and the profile rises from base to apex. This is the OPPOSITE of the hand-built grading law, which loaded the base and failed to beat uniform; the optimizer discovered that intuition grades the wrong direction. Right, uniform versus solved section through the pyramid centre: on the same mesh the solve lifts mean melt fraction 0.39 to 0.68 (x1.72), roughly doubles melt-region IoU 0.185 to 0.380 (x2.06), pulls the melt front in 3.06 to 1.63 mm (-47%), and halves the objective (-58%); the cross-mesh gain is -54%. Honest gate state: the smoothing-robustness gate passes (1.5% change against a 10% band) and the mesh hold-out passes all five shape metrics, but it FAILS the objective J on hold-out from stop-time sensitivity at the apex corner, so this map does NOT carry the formal solved label; that apex question is escalated to the COMSOL anchor. The gains stand on both meshes, the map transfer conserved dopant to 0.041%, and on shape metrics the solved arm is more mesh-stable than uniform. Budget-limited and still descending, so these are lower bounds; simulation-only, no physical validation.</div>
+
+  <section class="slide" data-speaker-notes="The cube: the part that would form, with and without correction, each arm read at its own envelope stop. No correction, uniform dopant: the melt forms 64 percent of the part, the baseline. The hand-built grading law makes it WORSE, 58 percent and +50 percent on the objective J; intuition grades the wrong way. The solve, filter-only arm, fills 75 percent and cuts the objective 46 percent. Amber is melted material inside the part, red is melt outside it, cyan wireframe is the part we asked for; the bottom row is a vertical cut with the no-correction melt boundary repeated as a white dashed line, so amber beyond the dash is what the correction added. Honesty: the melt body is phi at or above 0.9 on a 96-cube render grid and the JSON out-of-part number integrates continuous phi, a different quantity, so no arm is a zero-spill claim; the surface is lightly display-smoothed and no metric uses the smoothed field; filter-only arm, budget-limited and still descending, simulation-only." style="display:flex;flex-direction:column;padding:30px 46px 42px 46px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="margin-bottom:10px">
+      <div class="eyb" style="margin-bottom:7px"><span class="tick"></span>3D Implementation</div>
+      <h2 class="dh" style="font-size:32px;line-height:1.05">Same solving method applied to a cube</h2>
+      
+    </div>
+    <div class="plate" style="flex:1;min-height:0;display:flex;flex-direction:column;background:#0e1013;border:1px solid #262a30"><div class="capbar"><span>FIG. 23 CUBE: MELTED BODY (AMBER) VS NOMINAL PART (CYAN)</span><span style="color:var(--gold)"><br></span></div><div class="fig" style="flex:1;min-height:0;padding:4px;display:flex;align-items:center;justify-content:center;background:#0e1013"><img src="figures/threed/fig_deck_cube_three_arms.webp" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block" alt="Three cubes side by side, the melted body as an amber solid inside a cyan part wireframe: no correction melts 64 percent, the hand-built grading law melts 58 percent (worse), the solve melts 75 percent; below, vertical section cuts with a white dashed line marking where the uncorrected melt reached"></div></div>
+    <div class="foot"><span>RFAM · 3-D extension</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>The cube: the part that would form, with and without correction, each arm read at its own envelope stop. No correction, uniform dopant: the melt forms 64 percent of the part, the baseline. The hand-built grading law makes it WORSE, 58 percent and +50 percent on the objective J; intuition grades the wrong way. The solve, filter-only arm, fills 75 percent and cuts the objective 46 percent. Amber is melted material inside the part, red is melt outside it, cyan wireframe is the part we asked for; the bottom row is a vertical cut with the no-correction melt boundary repeated as a white dashed line, so amber beyond the dash is what the correction added. Honesty: the melt body is phi at or above 0.9 on a 96-cube render grid and the JSON out-of-part number integrates continuous phi, a different quantity, so no arm is a zero-spill claim; the surface is lightly display-smoothed and no metric uses the smoothed field; filter-only arm, budget-limited and still descending, simulation-only.</div>
+
+  <section class="slide" data-speaker-notes="What the solve did to the cube dopant map, 24042 design cells. The map pulls dopant off the faces and fills the interior through the build height. Against uniform it lifts mean melt fraction 0.64 to 0.75 (x1.18), melt-region IoU 0.600 to 0.738 (x1.23), pulls the melt front in 1.94 to 1.20 mm (-38 percent), cuts the below-floor volume 31 percent, and drops the objective 46 percent. Filter-only arm, budget-limited and still descending, simulation-only." style="display:flex;flex-direction:column;padding:30px 46px 42px 46px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="margin-bottom:10px">
+      <div class="eyb" style="margin-bottom:7px"><span class="tick"></span>3D Implementation</div>
+      <h2 class="dh" style="font-size:32px;line-height:1.05">Cube dopant map, solved through Z</h2>
+      
+    </div>
+    <div class="plate" style="flex:1;min-height:0;display:flex;flex-direction:column;background:#0e1013;border:1px solid #262a30"><div class="capbar"><span>FIG. 24 CUBE: SOLVED DOPANT THROUGH Z</span></div><div class="fig" style="flex:1;min-height:0;padding:4px;display:flex;align-items:center;justify-content:center;background:#0e1013"><img src="figures/threed/fig_deck_cube_solved_map.webp" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block" alt="Cube dopant solve: four z-slabs of the solved dopant map with mean saturation near 0.60 at the top and bottom and 0.75 in the middle, a mean-saturation versus build-height profile, the map rendered on the 3-D cube, and a numbers table showing mean melt fraction up 18 percent, IoU up 23 percent, objective down 46 percent"></div></div>
+    <div class="foot"><span>RFAM · 3-D extension</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>What the solve did to the cube dopant map, 24042 design cells. The map pulls dopant off the faces and fills the interior through the build height. Against uniform it lifts mean melt fraction 0.64 to 0.75 (x1.18), melt-region IoU 0.600 to 0.738 (x1.23), pulls the melt front in 1.94 to 1.20 mm (-38 percent), cuts the below-floor volume 31 percent, and drops the objective 46 percent. Filter-only arm, budget-limited and still descending, simulation-only.</div>
+
+  
+
+  
+
+  
+
+  <!-- ACKNOWLEDGEMENTS -->
+  <section class="slide" data-speaker-notes="Acknowledgements. NAZDAR Ink Technologies -- Saminu Magami (UK R&amp;D Manager) and Martin Burns (Market Manager, OEM Inks) for the doped ink chemistry. NSF Graduate Research Fellowship, grant DGE-2039655. Georgia Tech -- advisors Carolyn Seepersad and Chris Saldana, and Keenan Vaughn. University of Texas at Austin -- John Pearce and Jared Allison, whose prior RFAM work this builds on." style="display:flex;flex-direction:column;justify-content:center;padding:52px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    
+    <h2 class="dh" style="font-size:40px;line-height:1.04;margin-bottom:28px">Acknowledgements</h2>
+    <div style="display:flex;flex-direction:column;max-width:1040px;border-bottom:1px solid var(--line)">
+      <div style="display:grid;grid-template-columns:150px 1fr;gap:24px;align-items:center;border-top:1px solid var(--line);padding:14px 0">
+        <div style="height:56px;display:flex;align-items:center"><img src="figures/ack_nazdar.webp" alt="" style="max-height:56px;max-width:150px;object-fit:contain"></div>
+        <div><div style="font-family:var(--font-display);font-size:21px;font-weight:600;color:var(--ink);line-height:1.2">NAZDAR Ink Technologies</div><div style="font-size:20px;color:var(--muted);margin-top:5px">Saminu Magami, PhD, CChem · Martin Burns</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:150px 1fr;gap:24px;align-items:center;border-top:1px solid var(--line);padding:14px 0">
+        <div style="height:56px;display:flex;align-items:center"><img src="figures/ack_nsf.webp" alt="" style="max-height: 56px; max-width: 150px; object-fit: contain; position: static"></div>
+        <div><div style="font-family:var(--font-display);font-size:21px;font-weight:600;color:var(--ink);line-height:1.2">NSF Graduate Research Fellowship</div><div style="font-size:20px;color:var(--muted);margin-top:5px">Grant No. DGE-2039655</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:150px 1fr;gap:24px;align-items:center;border-top:1px solid var(--line);padding:14px 0">
+        <div style="height:56px;display:flex;align-items:center"><img src="figures/ack_gt.webp" alt="" style="max-height:56px;max-width:150px;object-fit:contain"></div>
+        <div><div style="font-family:var(--font-display);font-size:21px;font-weight:600;color:var(--ink);line-height:1.2">George W. Woodruff School of Mechanical Engineering</div><div style="font-size:20px;color:var(--muted);margin-top:5px">Dr. Carolyn Seepersad · Dr. Chris Saldaña · Keenan Vaughn</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:150px 1fr;gap:24px;align-items:center;border-top:1px solid var(--line);padding:14px 0">
+        <div style="height:56px;display:flex;align-items:center"><img src="figures/ack_ut.webp" alt="" style="max-height:56px;max-width:150px;object-fit:contain"></div>
+        <div><div style="font-family:var(--font-display);font-size:21px;font-weight:600;color:var(--ink);line-height:1.2">Prior RFAM work</div><div style="font-size:20px;color:var(--muted);margin-top:5px">Dr. John Pearce · Jared Allison, PhD</div></div>
+      </div>
+    </div>
+    <div class="foot"><span>RFAM · Simulation-guided compensation</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Acknowledgements. NAZDAR Ink Technologies -- Saminu Magami (UK R&amp;D Manager) and Martin Burns (Market Manager, OEM Inks) for the doped ink chemistry. NSF Graduate Research Fellowship, grant DGE-2039655. Georgia Tech -- advisors Carolyn Seepersad and Chris Saldana, and Keenan Vaughn. University of Texas at Austin -- John Pearce and Jared Allison, whose prior RFAM work this builds on.</div>
+
+  <section class="slide" data-speaker-notes="Three takeaways, and a highlight from each part of the talk. Predict: HEATR is a coupled electroquasistatic, thermal and densification solver; it resolves geometry-driven melt nonuniformity up front, agrees with COMSOL to about 10 percent on the peak in-part heat source, and tracks the measured infrared heating curve of real printed parts to +9.9 C at the 5-minute melt-onset mark. Compensate: an adjoint solve, warm-started by a one-shot field inversion, grades a printable 4-bit-per-pixel dopant map so the melted region matches the nominal shape, improving 13 of 18 shapes in a single pass with no hardware change. Generalize: the same solve runs as one 3-D field through X, Y and Z, and drives a solved rotation-and-dwell schedule for the shapes dopant alone cannot fix; a capability envelope bounds what RFAM can build. All simulation results; the 3-D solve is budget-limited and still descending." style="display:grid;grid-template-columns:1fr 1.06fr;gap:44px;align-items:center;padding:44px 72px 52px 72px;overflow:hidden">
+    <div class="prail"><div class="pfill"></div></div>
+    <div>
+      <div class="eyb" style="margin-bottom:14px"><span class="tick"></span>Summary</div>
+      <h2 class="dh" style="font-size:38px;line-height:1.04;margin-bottom:22px;max-width:600px">HEATR predicts the field and compensates for it</h2>
+      <div style="display:flex;flex-direction:column;gap:15px;max-width:600px">
+        <div style="display:flex;gap:14px"><span style="font-family:var(--font-mono);font-size:16px;color:var(--gold);flex:none;margin-top:3px">›</span><div style="font-size:18px;line-height:1.45;color:var(--ink)"><b>Predict:&nbsp;</b>HEATR, a coupled EQS → thermal → densification solver, resolves geometry-driven melt nonuniformity: 10% peak-heat-source agreement with COMSOL, and it tracks the measured IR thermography data.</div></div>
+        <div style="display:flex;gap:14px"><span style="font-family:var(--font-mono);font-size:16px;color:var(--gold);flex:none;margin-top:3px">›</span><div style="font-size:18px;line-height:1.45;color:var(--ink)"><b>Compensate:&nbsp;</b>&nbsp;an adjoint solve grades a printable 4-bpp dopant map so the melt matches the nominal shape.</div></div>
+        <div style="display:flex;gap:14px"><span style="font-family:var(--font-mono);font-size:16px;color:var(--gold);flex:none;margin-top:3px">›</span><div style="font-size:18px;line-height:1.45;color:var(--ink)"><b>Generalize:&nbsp;</b>the same solve runs through X, Y and Z in 3D and drives a solved rotation/dwell lever.</div></div>
+      </div>
+      <div style="margin-top:26px;border-top:1px solid var(--line);padding-top:16px;display:flex;align-items:center;gap:18px">
+        
+        <div style="line-height:1.45"><div style="font-family: var(--font-display); font-size: 25px; font-weight: 600; color: var(--ink)">Matt McCoy</div><div style="font-family: var(--font-mono); font-size: 17px; color: var(--muted)">matthew.mccoy@gatech.edu www.matthewmccoy.info</div></div><img src="figures/logo-gtme.webp" alt="Georgia Tech · Woodruff School of ME" style="width:auto;height:40px;flex:none">
+      </div>
+    </div>
+    <div>
+      <div style="font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--goldm);margin-bottom:10px">Highlights across the talk</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div style="position:relative;border:1px solid var(--line2);border-radius:4px;overflow:hidden;background:#0e1013;aspect-ratio:16/10"><div style="position:absolute;bottom:0;left:0;right:0;background:rgba(15,34,49,.85);color:#eef2f5;font-family:var(--font-mono);font-size:11px;padding:3px 8px;text-transform:uppercase;letter-spacing:.06em">The problem</div><img src="figures/fig_field_concentration.webp" style="width:100%;height:100%;object-fit:contain;display:block" alt="The problem highlight thumbnail"></div><div style="position:relative;border:1px solid var(--line2);border-radius:4px;overflow:hidden;background:#0e1013;aspect-ratio:16/10"><img src="figures/ch3/rfam_exp_vs_sim.webp" style="width:100%;height:100%;object-fit:contain;display:block" alt="Validation highlight thumbnail"><div style="position:absolute;bottom:0;left:0;right:0;background:rgba(15,34,49,.85);color:#eef2f5;font-family:var(--font-mono);font-size:11px;padding:3px 8px;text-transform:uppercase;letter-spacing:.06em">Validation</div></div><div style="position:relative;border:1px solid var(--line2);border-radius:4px;overflow:hidden;background:#0e1013;aspect-ratio:16/10"><img src="figures/solve/gif_solve_vs_inversion_hexagon.webp" style="width:100%;height:100%;object-fit:contain;display:block" alt="The solve highlight thumbnail"><div style="position:absolute;bottom:0;left:0;right:0;background:rgba(15,34,49,.85);color:#eef2f5;font-family:var(--font-mono);font-size:11px;padding:3px 8px;text-transform:uppercase;letter-spacing:.06em">The solve</div></div><div style="position:relative;border:1px solid var(--line2);border-radius:4px;overflow:hidden;background:#0e1013;aspect-ratio:16/10"><img src="figures/solve/fig_solve_census_wide.webp" style="width:100%;height:100%;object-fit:contain;display:block" alt="13 of 18 shapes highlight thumbnail"><div style="position:absolute;bottom:0;left:0;right:0;background:rgba(15,34,49,.85);color:#eef2f5;font-family:var(--font-mono);font-size:11px;padding:3px 8px;text-transform:uppercase;letter-spacing:.06em">SHAPE LIBRARY</div></div><div style="position:relative;border:1px solid var(--line2);border-radius:4px;overflow:hidden;background:#0e1013;aspect-ratio:16/10"><img src="figures/solve/gif_dwell_cross.webp" style="width:100%;height:100%;object-fit:contain;display:block" alt="Rotation lever highlight thumbnail"><div style="position:absolute;bottom:0;left:0;right:0;background:rgba(15,34,49,.85);color:#eef2f5;font-family:var(--font-mono);font-size:11px;padding:3px 8px;text-transform:uppercase;letter-spacing:.06em">ROTATION LEVERS</div></div><div style="position:relative;border:1px solid var(--line2);border-radius:4px;overflow:hidden;background:#0e1013;aspect-ratio:16/10"><img src="figures/threed/fig_deck_pyramid_cutaway3d.webp" style="width:100%;height:100%;object-fit:contain;display:block" alt="Into 3-D highlight thumbnail"><div style="position:absolute;bottom:0;left:0;right:0;background:rgba(15,34,49,.85);color:#eef2f5;font-family:var(--font-mono);font-size:11px;padding:3px 8px;text-transform:uppercase;letter-spacing:.06em">3D EXTENSION</div></div></div>
+    </div>
+    <div class="foot"><span>RFAM · Simulation-guided compensation</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Three takeaways, and a highlight from each part of the talk. Predict: HEATR is a coupled electroquasistatic, thermal and densification solver; it resolves geometry-driven melt nonuniformity up front, agrees with COMSOL to about 10 percent on the peak in-part heat source, and tracks the measured infrared heating curve of real printed parts to +9.9 C at the 5-minute melt-onset mark. Compensate: an adjoint solve, warm-started by a one-shot field inversion, grades a printable 4-bit-per-pixel dopant map so the melted region matches the nominal shape, improving 13 of 18 shapes in a single pass with no hardware change. Generalize: the same solve runs as one 3-D field through X, Y and Z, and drives a solved rotation-and-dwell schedule for the shapes dopant alone cannot fix; a capability envelope bounds what RFAM can build. All simulation results; the 3-D solve is budget-limited and still descending.</div>
+
+  <!-- BACKUP · section divider -->
+  <section class="slide" data-speaker-notes="Appendix / backup slides for Q&amp;A." style="display:flex;flex-direction:column;justify-content:center;padding:60px 76px 56px 76px;overflow:hidden">
+    <div class="prail"><div class="pfill"></div></div>
+    <div class="ghostnum" style="position:absolute;right:-30px;top:-70px;font-family:var(--font-display);font-weight:700;font-size:360px;line-height:1;color:rgba(179,163,105,.14)">+</div>
+    
+    <h1 class="dh" style="font-family:var(--font-display);font-weight:700;font-size:60px;line-height:1.02;letter-spacing:-.022em;position:relative;max-width:900px">Backup slides</h1>
+    <div style="height:4px;width:96px;background:var(--gold);margin:30px 0 0;position:relative"></div>
+    <div class="foot"><span>RFAM · Backup</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Appendix / backup slides for Q&amp;A.</div>
+
+  <!-- BACKUP · geometry classification (moved from main) -->
+  <section class="slide" data-speaker-notes="Geometry taxonomy / decision map, now backed by the standardized 19-shape sweep: 12 of 19 improve, 1 neutral, 6 harmful (sharp/re-entrant), L-shape never melts. Convex and smooth (circle, ellipse, hexagon, octagon): grading alone flattens them. Square/rectangle: already uniform, grading neutral. Sharp tips and re-entrant corners (diamond, triangle, L, star): field-starved, dopant not enough, hardware required." style="display:grid;grid-template-columns:1.28fr 1fr;gap:46px;align-items:center;padding:46px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="display:flex;flex-direction:column;height:100%;justify-content:center">
+      <div class="eyb" style="margin-bottom:12px"><span class="tick"></span>Method selection</div>
+      <h2 class="dh" style="font-size: 34px; line-height: 1.05; margin-bottom: 16px">Geometry classification (inverted maps)</h2>
+      <div class="plate" style="height:440px"><div class="capbar"><span>FIG. 25 — graded maps · 12 geometries</span><span style="color:var(--goldm)">4 bpp</span></div><div class="fig" style="padding: 12px; width: 1079px; height: 354px"><img src="figures/ch3/fig_printer_fgm_maps.webp" alt="Quantized dopant maps across twelve geometries with residual nonuniformity"></div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      
+      
+      
+    </div>
+    <div class="foot"><span>RFAM · Dopant grading</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Geometry taxonomy / decision map, now backed by the standardized 19-shape sweep: 12 of 19 improve, 1 neutral, 6 harmful (sharp/re-entrant), L-shape never melts. Convex and smooth (circle, ellipse, hexagon, octagon): grading alone flattens them. Square/rectangle: already uniform, grading neutral. Sharp tips and re-entrant corners (diamond, triangle, L, star): field-starved, dopant not enough, hardware required.</div>
+
+  <section class="slide" data-speaker-notes="IMPORTANT: this figure is the FGM-compensated converged iterate (circle INTEGRAL m007 n30 iter9), not an uncompensated baseline. As shown it holds a ~25 C hot-to-cold gap (208 C hotspot vs 183 C cool face), mean density 0.807. The uncompensated circle at the same power is far worse: 267.1 C down to 178.3 C, an 88.8 C gap at density 0.925. Quote the 89 C figure when motivating the problem and the 25 C figure as the compensated result; do not present the compensated run as the baseline." style="display:grid;grid-template-columns:1.55fr .8fr;padding:40px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div class="plate">
+      <div class="capbar"><span>FIG. 26 — full HEATR solve · circle</span><span style="color:var(--gold)">convex · after grading (iter 9)</span></div>
+      <div class="fig"><img src="figures/ch3/fig_fgm_circle_result.webp" alt="HEATR panel for a circle cross-section: thermal field, RF potential, densification and exposure curves"></div>
+    </div>
+    <div style="padding:6px 0 6px 30px;display:flex;flex-direction:column;justify-content:center">
+      <div class="eyb" style="margin-bottom:14px;font-size:16px;color:var(--green)"><span class="tick"></span>Convex — resolvable</div>
+      <table class="rdt"><tbody>
+        <tr><td class="k">hottest point</td><td class="v" style="color:var(--coral)">208 °C</td></tr>
+        <tr><td class="k">coolest face</td><td class="v" style="color:var(--blue)">183 °C</td></tr>
+        <tr><td class="k">mean density ρ</td><td class="v">0.807</td></tr>
+        <tr><td class="k">exposure</td><td class="v">6 min</td></tr>
+        <tr style="border-bottom:0"><td class="k">generator power</td><td class="v">500 W</td></tr>
+      </tbody></table>
+      <p style="font-size:20px;line-height:1.5;color:var(--muted);margin:22px 0 0">The divergent integral iterate-9 upper bound holds this convex part to a 25 °C gap. The deployable single step is 7.1 °C, not this.</p>
+    </div>
+    <div class="foot"><span>RFAM · Worked examples</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>IMPORTANT: this figure is the FGM-compensated converged iterate (circle INTEGRAL m007 n30 iter9), not an uncompensated baseline. As shown it holds a ~25 C hot-to-cold gap (208 C hotspot vs 183 C cool face), mean density 0.807. The uncompensated circle at the same power is far worse: 267.1 C down to 178.3 C, an 88.8 C gap at density 0.925. Quote the 89 C figure when motivating the problem and the 25 C figure as the compensated result; do not present the compensated run as the baseline.</div>
+
+  <section class="slide" data-speaker-notes="IMPORTANT: these numbers are FGM iterate 1, not the uncompensated run. Even after grading the concave notch sits in a field shadow and stays cold: 81 C spread (223.8 down to 142.8 C), mean density 0.61. The uncompensated GT-logo is 304.3 down to 135.8 C, a 168.5 C spread at density 0.627 — so grading roughly halves the spread and still cannot close it, because the field does not reach the recess. Motivates characterizing the hard geometric limits." style="display:grid;grid-template-columns:1.55fr .8fr;padding:40px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div class="plate">
+      <div class="capbar"><span>FIG. 27 — full HEATR solve · GT-logo</span><span style="color:var(--gold)">re-entrant · after grading (iter 1)</span></div>
+      <div class="fig"><img src="figures/ch3/fig_gtlogo_result.webp" alt="HEATR panel for the GT-logo cross-section: thermal field, RF potential, densification and exposure curves"></div>
+    </div>
+    <div style="padding:6px 0 6px 30px;display:flex;flex-direction:column;justify-content:center">
+      <div class="eyb" style="margin-bottom:14px;font-size:16px;color:var(--coral)"><span class="tick"></span>Re-entrant — a limit case</div>
+      <table class="rdt"><tbody>
+        <tr><td class="k">hottest point</td><td class="v" style="color:var(--coral)">224 °C</td></tr>
+        <tr><td class="k">coolest face</td><td class="v" style="color:var(--blue)">143 °C</td></tr>
+        <tr><td class="k">mean density ρ</td><td class="v">0.611</td></tr>
+        <tr><td class="k">exposure</td><td class="v">4 min</td></tr>
+        <tr style="border-bottom:0"><td class="k">generator power</td><td class="v">500 W</td></tr>
+      </tbody></table>
+      <p style="font-size:20px;line-height:1.5;color:var(--ink);margin:22px 0 0">Even after grading, the concave notch stays cold at an <strong>81 °C</strong> gap. Compensation narrows it; geometry sets a floor it can't cross.</p>
+    </div>
+    <div class="foot"><span>RFAM · Worked examples</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>IMPORTANT: these numbers are FGM iterate 1, not the uncompensated run. Even after grading the concave notch sits in a field shadow and stays cold: 81 C spread (223.8 down to 142.8 C), mean density 0.61. The uncompensated GT-logo is 304.3 down to 135.8 C, a 168.5 C spread at density 0.627 — so grading roughly halves the spread and still cannot close it, because the field does not reach the recess. Motivates characterizing the hard geometric limits.</div>
+
+  <section class="slide" data-speaker-notes="Rotating a part in an air gap would break the capacitive coupling RFAM depends on. Two realizations avoid that. (1) A switchable / commutated electrode array electronically re-aims the field across orientations with no moving part. (2) Immerse the build cylinder in a low-loss silicone-oil dielectric bath: the liquid fills the would-be air gap and maintains capacitive coupling as the cylinder physically rotates, giving the rotational field averaging an air gap would otherwise defeat (the subject of a pending patent disclosure)." style="display:flex;flex-direction:column;padding:40px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:12px">
+      <div>
+        <div class="eyb" style="margin-bottom:10px"><span class="tick"></span>Rotation hardware</div>
+        <h2 class="dh" style="font-size:32px;line-height:1.04">Two ways to rotate without losing coupling</h2>
+      </div>
+      <div class="lbl" style="text-align:right;margin:0">an air gap would defeat capacitive coupling<br>switch the field electronically, or immerse in a dielectric bath</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1.25fr 1fr;gap:30px;flex:1;min-height:0">
+      <div class="plate"><div class="capbar"><span>FIG. 28 — silicone-oil immersion, rotating build</span><span style="color:var(--gold)">conceptual</span></div><div class="fig" style="padding:10px"><img src="figures/fig_dielectric_bath_c.webp" alt="Immersion concept: the build cylinder rotates inside a vessel of low-loss silicone oil between two electrodes contacting the vessel walls; the oil fills the would-be air gap so capacitive coupling is maintained as the cylinder turns"></div></div>
+      <div class="plate"><div class="capbar"><span>FIG. 29 — switchable electrode array</span><span style="color:var(--gold)">no moving part</span></div><div class="fig" style="padding:14px"><img src="figures/fig_commutated_electrode_v2.webp" alt="Commutated multi-orientation electrode array: two electrode pairs around the build medium, a switching network fed by an RF source and stepped by a controller commutates the dominant field orientation between the pairs with no moving part"></div></div>
+    </div>
+    <div class="foot"><span>RFAM · Hardware &amp; layout</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Rotating a part in an air gap would break the capacitive coupling RFAM depends on. Two realizations avoid that. (1) A switchable / commutated electrode array electronically re-aims the field across orientations with no moving part. (2) Immerse the build cylinder in a low-loss silicone-oil dielectric bath: the liquid fills the would-be air gap and maintains capacitive coupling as the cylinder physically rotates, giving the rotational field averaging an air gap would otherwise defeat (the subject of a pending patent disclosure).</div>
+
+  <!-- SOLVER NUMERICS -->
+  <section class="slide" data-speaker-notes="Backup: solver credibility — cumulative energy balance closes to about 0% of deposited energy on a clean run (-4.6 J/m), while a deliberately forced non-conserving step drives the same ledger to 22.2%, so the diagnostic is a working guard rather than a decorative one, adaptive time-stepping holds sub-degree dT/step with zero clipped cells, and uniformity index + densification kinetics are logged live each run." style="display:grid;grid-template-columns:1.6fr .9fr;padding:40px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div class="plate"><div class="capbar"><span>FIG. 30 — HEATR validation report</span><span style="color:var(--gold)">378 s run</span></div><div class="fig" style="padding:12px"><img src="figures/ch3/fig_heatr_validation.webp" alt="HEATR self-validation: cumulative energy balance and residual, RF power/generator control, per-step temperature stability, temperature statistics and densification kinetics"></div></div>
+    <div style="padding:28px 0 28px 32px;display:flex;flex-direction:column;justify-content:center">
+      <div class="eyb" style="margin-bottom:16px;font-size:16px"><span class="tick"></span>Numerics &amp; conservation</div>
+      <h2 class="dh" style="font-size:30px;line-height:1.1;margin-bottom:18px">Checked on every run</h2>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="border-left:4px solid var(--blue);padding-left:16px"><div style="font-family:var(--font-display);font-weight:700;font-size:32px;color:var(--ink);line-height:1">&lt; 1.5%</div><div style="font-size:18px;color:var(--muted);margin-top:4px">energy balance closes to ≈0% on clean runs</div></div>
+        <div style="border-left:4px solid var(--teal);padding-left:16px"><div style="font-family:var(--font-display);font-weight:700;font-size:32px;color:var(--ink);line-height:1">0 cells</div><div style="font-size:18px;color:var(--muted);margin-top:4px">clipped — adaptive ΔT/step stays sub-degree</div></div>
+        <div style="border-left:4px solid var(--green);padding-left:16px"><div style="font-family:var(--font-display);font-weight:700;font-size:32px;color:var(--ink);line-height:1">tracked</div><div style="font-size:18px;color:var(--muted);margin-top:4px">uniformity index and densification kinetics logged live</div></div>
+      </div>
+    </div>
+    <div class="foot"><span>RFAM · HEATR</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Backup: solver credibility — cumulative energy balance closes to about 0% of deposited energy on a clean run (-4.6 J/m), while a deliberately forced non-conserving step drives the same ledger to 22.2%, so the diagnostic is a working guard rather than a decorative one, adaptive time-stepping holds sub-degree dT/step with zero clipped cells, and uniformity index + densification kinetics are logged live each run.</div>
+  <!-- EXPOSURE-TIME OPTIMIZER -->
+  <section class="slide" data-speaker-notes="Backup: exposure-time optimizer — the temporal complement to spatial grading. Grading fixes WHERE heat lands; exposure fixes HOW LONG. On this hexagon the two criteria CONFLICT and the optimizer reports it rather than hiding it: full melt (phi&gt;=0.90) is not reached until 318.5 s, but the 250 C scorch ceiling is already crossed at 258.0 s, so the melt stop overshoots the ceiling by 60.5 s and 16.4 C. That is the honest reading - this geometry cannot reach full melt under the ceiling at this drive, which is exactly the trade the schedule lever exists to expose." style="display:grid;grid-template-columns:1.6fr .9fr;padding:40px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div class="plate"><div class="capbar"><span>FIG. 31 — exposure-time optimizer</span><span style="color:var(--gold)">melt criterion vs ceiling</span></div><div class="fig" style="padding:12px"><img src="figures/ch3/fig_exposure_optimizer.webp" alt="Exposure-time optimizer: temperature, melt fraction and density versus time with the recommended stop at the melt criterion, ahead of the thermal ceiling"></div></div>
+    <div style="padding:26px 0 26px 32px;display:flex;flex-direction:column;justify-content:center">
+      <div class="eyb" style="margin-bottom:16px;font-size:16px"><span class="tick"></span>Exposure timing</div>
+      <h2 class="dh" style="font-size:30px;line-height:1.1;margin-bottom:18px">Temporal optimizer</h2>
+      <p style="font-size:20px;line-height:1.55;color:var(--muted);margin:0 0 18px">The dopant map fixes <em>where</em> heat lands; exposure time fixes <em>how long</em>. HEATR reports where the melt criterion and the scorch ceiling actually fall — on this hexagon they conflict.</p>
+      <div style="display:flex;gap:26px">
+        <div><div style="font-family:var(--font-display);font-weight:700;font-size:34px;color:var(--blue);line-height:1">318 s</div><div class="lbl" style="margin-top:4px">melt criterion φ ≥ 0.90</div></div>
+        <div><div style="font-family:var(--font-display);font-weight:700;font-size:34px;color:var(--coral);line-height:1">+16 °C</div><div class="lbl" style="margin-top:4px">ceiling <em>exceeded</em> at the melt stop</div></div>
+      </div>
+    </div>
+    <div class="foot"><span>RFAM · Process schedule</span><span class="pg"></span></div>
+  </section>
+
+  <div class="notes"><div class="nlabel">Speaker notes</div>Backup: solver credibility — cumulative energy balance closes to about 0% of deposited energy on a clean run (-4.6 J/m), while a deliberately forced non-conserving step drives the same ledger to 22.2%, so the diagnostic is a working guard rather than a decorative one, adaptive time-stepping holds sub-degree dT/step with zero clipped cells, and uniformity index + densification kinetics are logged live each run.</div>
+
+  <!-- 13 · CONVERGENCE -->
+  <section class="slide" data-speaker-notes="Defensible mechanism: because Q is proportional to eps''*|E|^2 and each cell's dopant chiefly sets its own loss, the map-to-temperature sensitivity is dominated by its diagonal, so a single proportional inversion behaves like one diagonally-preconditioned step and lands near the achievable floor at iteration 1. Say dominated-by-the-diagonal, not near-diagonal: the true sensitivity is non-local, since changing conductivity at one point alters Q_rf everywhere through the elliptic EQS problem, and that non-locality is what caps the iterative methods (circle 19.3 -&gt; 7.0 C). Density topology-optimization / optimality-criteria updates assume a monotone self-adjoint compliance-type objective; here the fixed point drifts, so iterating past step 1 climbs back to a ~16 C ceiling (one step beats 25 OC iterations). An integral accumulating update injects loop gain that breaks the fixed point and reaches 4.4 C at iter 9, but is only conditionally stable and diverges if over-iterated. Policy: take the single-step inversion, add bounded integral action for convex shapes." style="display:flex;flex-direction:column;padding:34px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:12px">
+      <div>
+        <div class="eyb" style="margin-bottom:8px"><span class="tick"></span>Inversion floor</div>
+        <h2 class="dh" style="font-size:32px;line-height:1.04">The update rule sets the floor</h2>
+      </div>
+      <div class="lbl" style="text-align:right;margin:0">diagonal proxy is cheap and lands near the floor in one step<br>integral squeezes further, conditionally stable</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:12px">
+      <div style="background:var(--panel);border:1px solid var(--line2);border-top:4px solid var(--blue);border-radius:4px;padding:8px 14px"><div style="font-family:var(--font-mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--blue);margin-bottom:5px">Single-step inversion — used</div><div style="font-size:16px;line-height:1.38;color:var(--ink)">Each cell's dopant chiefly sets its own heating (Q ∝ ε″|E|²), so the sensitivity is dominated by its diagonal — one proportional step lands near the achievable floor, though the true response is non-local.</div></div>
+      <div style="background:var(--panel);border:1px solid var(--line2);border-radius:4px;padding:8px 14px"><div style="font-family:var(--font-mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:5px">Density top-opt / OC</div><div style="font-size:16px;line-height:1.38;color:var(--ink)">Assumes a monotone compliance-like objective; here the fixed point drifts, so proportional iteration climbs back to a <strong>~16 °C</strong> plateau; OC-TO itself bottoms at <strong>10.3 °C</strong> — one step still beats 25 OC iterations.</div></div>
+      <div style="background:var(--panel);border:1px solid var(--line2);border-top:4px solid var(--coral);border-radius:4px;padding:8px 14px"><div style="font-family:var(--font-mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--coral);margin-bottom:5px">Integral controller</div><div style="font-size:16px;line-height:1.38;color:var(--ink)">Adds loop gain to break the fixed point (<strong>7.0 → 4.4 °C</strong>), but is only conditionally stable — diverges if over-iterated.</div></div>
+    </div>
+    <div class="plate" style="flex:1;min-height:0;margin-bottom:14px"><div class="capbar"><span>FIG. 32 — σ<sub>T</sub> convergence: single-step vs integral vs the ceiling</span><span style="color:var(--gold)">fgm_iterate · circle / hexagon / diamond</span></div><div class="fig" style="padding:8px"><img src="figures/fig_optimizer_convergence.webp" alt="Convergence of sigma_T: proportional single-step inversion reaches the iteration-1 optimum then relaxes to a ~16 C fixed-point ceiling, while the integral update escapes to 4.4 C at iteration 9 before drifting unstable; bar panel shows start, single-step and integral per geometry"></div></div>
+    <div class="foot"><span>RFAM · Dopant grading</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Defensible mechanism: because Q ∝ ε″|E|² and each cell's dopant chiefly sets its own loss, the map→temperature sensitivity is dominated by its diagonal, so a single proportional inversion behaves like one diagonally-preconditioned step and lands near the achievable floor at iteration 1. Say dominated-by-the-diagonal, not near-diagonal: the true sensitivity is non-local, since changing conductivity at one point alters Q_rf everywhere through the elliptic EQS problem, and that non-locality is what caps the iterative methods (circle 19.3→7.1 °C). Density topology-optimization / optimality-criteria updates assume a monotone self-adjoint compliance-type objective; here the fixed point drifts, so iterating past step 1 climbs back to a ~16 °C ceiling (one step beats 25 OC iterations). An integral accumulating update injects loop gain that breaks the fixed point and reaches 4.4 °C at iter 9, but is only conditionally stable and diverges if over-iterated. Policy: single-step inversion, plus bounded integral action for convex shapes.</div>
+
+    <!-- METHOD SELECTION -->
+  <section class="slide" data-speaker-notes="Backup: method-selection rule plotting solidity vs baseline heating concentration for every geometry. Solidity &gt;=0.90, low concentration -&gt; FGM alone; high concentration but convex -&gt; FGM + exposure schedule; solidity &lt;0.90 (re-entrant) -&gt; beyond dopant, needs hardware. The discriminator is reentrant shadowing plus heating concentration, not solidity alone: the open-notch six-point star grades fine at solidity 0.59, while the diamond's field-aligned tips make it the harder case at 0.97." style="display:grid;grid-template-columns:1.5fr .95fr;padding:40px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div class="plate"><div class="capbar"><span>FIG. 33 — method by geometry</span><span style="color:var(--gold)">solidity vs baseline concentration</span></div><div class="fig" style="padding:12px"><img src="figures/ch3/fig_method_selection_combined.webp" alt="Solidity versus baseline RF heating concentration for every geometry, colored by recommended method: FGM, FGM plus schedule, limit, or near-uniform"></div></div>
+    <div style="padding:26px 0 26px 32px;display:flex;flex-direction:column;justify-content:center">
+      <div class="eyb" style="margin-bottom:16px;font-size:16px"><span class="tick"></span>Decision rule</div>
+      <h2 class="dh" style="font-size:30px;line-height:1.1;margin-bottom:18px">Which method each part needs</h2>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;gap:12px"><span style="width:13px;height:13px;border-radius:3px;background:var(--green);margin-top:5px;flex:none"></span><div style="font-size:18px;line-height:1.45;color:var(--ink)"><strong>FGM alone</strong> — no reentrant shadowing, low concentration.</div></div>
+        <div style="display:flex;gap:12px"><span style="width:13px;height:13px;border-radius:3px;background:var(--gold);margin-top:5px;flex:none"></span><div style="font-size:18px;line-height:1.45;color:var(--ink)"><strong>FGM + schedule</strong> — high concentration but still convex.</div></div>
+        <div style="display:flex;gap:12px"><span style="width:13px;height:13px;border-radius:3px;background:var(--coral);margin-top:5px;flex:none"></span><div style="font-size:18px;line-height:1.45;color:var(--ink)"><strong>Limit</strong> — solidity &lt; 0.90 (re-entrant); needs hardware.</div></div>
+      </div>
+      <div style="margin-top:16px;font-size:18px;line-height:1.5;color:var(--muted)">The solidity = 0.90 reentrancy line predicts, up front, whether dopant grading can succeed.</div>
+    </div>
+    <div class="foot"><span>RFAM · Dopant grading</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Backup: method-selection rule plotting solidity vs baseline heating concentration for every geometry. Solidity &gt;=0.90, low concentration -&gt; FGM alone; high concentration but convex -&gt; FGM + exposure schedule; solidity &lt;0.90 (re-entrant) -&gt; beyond dopant, needs hardware. The discriminator is reentrant shadowing plus heating concentration, not solidity alone: the open-notch six-point star grades fine at solidity 0.59, while the diamond's field-aligned tips make it the harder case at 0.97.</div>
+
+  <!-- 14 · BIT-DEPTH -->
+  <section class="slide" data-speaker-notes="Backup: printability — the continuous dopant field must survive the RIP raster. At 2 bpp the gradient banks into visible steps; at 4 bpp (16 levels) it stays smooth, and the uniformity gains hold at the resolution the hardware actually deposits." style="display:grid;grid-template-columns:1fr 1.35fr;gap:50px;align-items:center;padding:52px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div>
+      <div class="eyb" style="margin-bottom:14px"><span class="tick"></span>Printability</div>
+      <h2 class="dh" style="font-size:38px;line-height:1.06;margin-bottom:18px">Map rasterization</h2>
+      <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px">
+        <li class="bl"><span class="mk">▹</span><span>The continuous dopant field is quantized to the binder printer's discrete ink levels.</span></li>
+        <li class="bl"><span class="mk">▹</span><span>At 2 bits per pixel the gradient banks into visible steps; at 4 bpp (16 levels) it stays smooth.</span></li>
+        <li class="bl"><span class="mk">▹</span><span>Uniformity gains hold at the resolution the hardware actually deposits.</span></li>
+      </ul>
+    </div>
+    <div class="plate" style="height:420px"><div class="capbar"><span>FIG. 34 — RIP raster · circle dopant map</span><span style="color:var(--gold)">2 vs 4 bpp</span></div><div class="fig"><img src="figures/ch3/fig_printer_fgm_bitdepth.webp" alt="Bit-depth effect on the raster: 2 bpp versus 4 bpp of the circle dopant map"></div></div>
+    <div class="foot"><span>RFAM · Dopant grading</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Backup: printability — the continuous dopant field must survive the RIP raster. At 2 bpp the gradient banks into visible steps; at 4 bpp (16 levels) it stays smooth, and the uniformity gains hold at the resolution the hardware actually deposits.</div>
+
+<!-- DFR · minimum clearance -->
+  <section class="slide" data-speaker-notes="Quick: minimum clearance. Two 8 mm features under fixed voltage — a 1.5 mm gap bridges into one fused region, 2.0 mm stays resolved (1.75 mm still bridges), so the melt-bridging threshold is ~2 mm. Sharper limit than the ~21 mm line-pair thermal-contrast pitch." style="display:flex;flex-direction:column;padding:34px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px">
+      <div>
+        <div class="eyb" style="margin-bottom:10px"><span class="tick"></span>Design for RFAM · minimum clearance</div>
+        <h2 class="dh" style="font-size:34px;line-height:1.05">Features fuse if they sit too close</h2>
+      </div>
+      <div class="lbl" style="text-align:right;margin:0">two 8 mm features, fixed voltage<br>melt bridges the gap below ~2 mm</div>
+    </div>
+    <div class="plate" style="flex:1;min-height:0"><div class="fig" style="padding:14px"><img src="figures/fig_dfr_clearance_crop.webp" alt="Two 8 mm features under fixed voltage: a 1.5 mm gap lets the melt bridge into one fused region, while a 2.0 mm gap stays resolved as two regions, placing the minimum clearance near 2 mm"></div></div>
+    <div class="foot"><span>RFAM · Design for RFAM</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Quick: minimum clearance. Two 8 mm features under fixed voltage — a 1.5 mm gap bridges into one fused region, 2.0 mm stays resolved (1.75 mm still bridges), so the melt-bridging threshold is ~2 mm. Sharper limit than the ~21 mm line-pair thermal-contrast pitch.</div>
+
+  <!-- DFR · orientation -->
+  <section class="slide" data-speaker-notes="Quick: the same 1.5 mm wall in three orientations all melt, but RF coupling rate spans 60x — parallel ~8 s, 45 deg ~26.5 s, perpendicular ~481 s. Orientation sets heating RATE, not pass/fail; a build-planning lever (perpendicular timing carries a mesh caveat)." style="display:flex;flex-direction:column;padding:34px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px">
+      <div>
+        <div class="eyb" style="margin-bottom:10px"><span class="tick"></span>Design for RFAM · feature orientation</div>
+        <h2 class="dh" style="font-size:34px;line-height:1.05">Thin walls depend on orientation</h2>
+      </div>
+      <div class="lbl" style="text-align:right;margin:0">same 1.5 mm wall, three angles<br>coupling rate spans 60× with orientation</div>
+    </div>
+    <div class="plate" style="flex:1;min-height:0"><div class="fig" style="padding:14px"><img src="figures/fig_dfr_orientation_crop.webp" alt="The same 1.5 mm wall in three orientations: all three melt, but the coupling rate spans 60x from parallel to perpendicular to the field, so orientation sets rate rather than pass or fail"></div></div>
+    <div class="foot"><span>RFAM · Design for RFAM</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Quick: the same 1.5 mm wall in three orientations all melt, but RF coupling rate spans 60x — parallel ~8 s, 45 deg ~26.5 s, perpendicular ~481 s. Orientation sets heating RATE, not pass/fail; a build-planning lever (perpendicular timing carries a mesh caveat).</div>
+
+    <!-- 3D STUDY GEOMETRIES -->
+  <section class="slide" data-speaker-notes="The heatr3d study parts are fully three-dimensional, not 2-D extrusions. Top: isometric renders of a cone, sphere and dumbbell, with a cylinder as the true-extrusion control. Bottom: cross-section area versus build height z varies for the cone (monotonic taper), sphere (central bulge) and dumbbell (two lobes joined by a pinched neck), and is constant only for the cylinder. That build-axis variation is exactly what a single planar dopant map cannot describe, which is why compensation has to become per-voxel in 3-D." style="display:flex;flex-direction:column;padding:38px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:12px">
+      <div>
+        <div class="eyb" style="margin-bottom:10px"><span class="tick"></span>Per-voxel grading</div>
+        <h2 class="dh" style="font-size:32px;line-height:1.05">Real parts vary along the build axis</h2>
+      </div>
+      <div class="lbl" style="text-align:right;margin:0">cone, sphere, dumbbell vs cylinder control<br>a single planar dopant map cannot describe z-variation</div>
+    </div>
+    <div class="plate" style="flex:1;min-height:0"><div class="capbar"><span>FIG. 35 — heatr3d study geometries — cross-section area vs build height</span><span style="color:var(--gold)">64³</span></div><div class="fig" style="padding:12px"><img src="figures/fig_heatr3d_geoms_c.webp" alt="Top: isometric renders of cone, sphere, dumbbell and a cylinder control. Bottom: cross-section area versus build height showing monotonic taper, central bulge, two lobes plus neck, and constant extrusion"></div></div>
+    <div class="foot"><span>RFAM · 3-D extension</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>The heatr3d study parts are fully three-dimensional, not 2-D extrusions. Top: isometric renders of a cone, sphere and dumbbell, with a cylinder as the true-extrusion control. Bottom: cross-section area versus build height z varies for the cone (monotonic taper), sphere (central bulge) and dumbbell (two lobes joined by a pinched neck), and is constant only for the cylinder. That build-axis variation is exactly what a single planar dopant map cannot describe, which is why compensation has to become per-voxel in 3-D.</div>
+
+
+    <!-- DENSIFICATION KINETICS -->
+  <section class="slide" data-speaker-notes="Backup: densification and shrinkage in true 3-D on a sphere — ~30% z-compaction reduces layer count 297 -&gt; 207. Melt-FGM flattens the radial density profile (sigma_rho -20%); a density-targeted FGM overcorrects the cold rim, so melt-fraction targeting is preferred." style="display:flex;flex-direction:column;padding:44px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px">
+      <div>
+        <div class="eyb" style="margin-bottom:10px"><span class="tick"></span>Sintering in 3-D</div>
+        <h2 class="dh" style="font-size:34px;line-height:1.05">Densification sets shrinkage</h2>
+      </div>
+      <div class="lbl" style="text-align:right;margin:0">sphere, true-3D 64³<br>melt-FGM <span style="text-transform:none">σ<sub>ρ</sub></span> −20% · density-FGM overcorrects</div>
+    </div>
+    <div class="plate" style="flex:1;min-height:0"><div class="capbar"><span>FIG. 36 — z-compaction, radial density, warpage by strategy</span><span style="color:var(--gold)">30% z-shrink</span></div><div class="fig" style="padding:12px"><img src="figures/ch3/fig_densify_v2.webp" alt="Sphere sintering: z-compaction sets layer count 297 to 207, radial density profile flattened by melt-FGM, and warpage by strategy where density-FGM overcorrects the cold rim"></div></div>
+    <div class="foot"><span>RFAM · 3-D extension</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Backup: densification and shrinkage in true 3-D on a sphere — ~30% z-compaction reduces layer count 297 -&gt; 207. Melt-FGM flattens the radial density profile (sigma_rho -20%); a density-targeted FGM overcorrects the cold rim, so melt-fraction targeting is preferred.</div>
+
+  <!-- 18 · TWO LEVERS -->
+  <section class="slide" data-speaker-notes="Backup: two independent levers. Dopant grading lowers thermal spread sigma_T (shape unchanged); geometry pre-warp lands the as-built shape on the CAD target (higher IoU, sigma_T unchanged). Separable problems — thermal uniformity vs dimensional accuracy — and together they improve both." style="display:grid;grid-template-columns:1.6fr .9fr;padding:40px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div class="plate"><div class="capbar"><span>FIG. 37 — dopant grading vs geometry pre-warp</span><span style="color:var(--goldm)">square · cylinder</span></div><div class="fig" style="padding:12px"><img src="figures/ch3/fig_fgm_vs_prewarp.webp" alt="Dopant grading versus geometry pre-warp versus both, on square and cylinder"></div></div>
+    <div style="padding:26px 0 26px 32px;display:flex;flex-direction:column;justify-content:center">
+      <div class="eyb" style="margin-bottom:16px;font-size:16px"><span class="tick"></span>Two levers</div>
+      <h2 class="dh" style="font-size:31px;line-height:1.1;margin-bottom:20px">Thermal vs dimensional error</h2>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;gap:14px"><span style="width:14px;height:14px;border-radius:3px;background:var(--blue);margin-top:5px;flex:none"></span><div style="font-size:20px;line-height:1.5;color:var(--ink)"><strong>Dopant grading</strong> lowers the thermal spread <span style="text-transform:none">σ<sub>T</sub></span>; IoU is essentially unchanged (0.727 → 0.672).</div></div>
+        <div style="display:flex;gap:14px"><span style="width:14px;height:14px;border-radius:3px;background:var(--teal);margin-top:5px;flex:none"></span><div style="font-size:20px;line-height:1.5;color:var(--ink)"><strong>Geometry pre-warp</strong> lands the as-built shape on the CAD target; <span style="text-transform:none">σ<sub>T</sub></span> is unchanged.</div></div>
+        <div style="display:flex;gap:14px"><span style="width:14px;height:14px;border-radius:3px;background:var(--green);margin-top:5px;flex:none"></span><div style="font-size:20px;line-height:1.5;color:var(--ink)"><strong>Together</strong> they improve both — uniformity and accuracy are separable.</div></div>
+      </div>
+    </div>
+    <div class="foot"><span>RFAM · Compensation levers</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Backup: two independent levers. Dopant grading lowers thermal spread sigma_T (shape unchanged); geometry pre-warp lands the as-built shape on the CAD target (higher IoU, sigma_T unchanged). Separable problems — thermal uniformity vs dimensional accuracy — and together they improve both.</div>
+
+  <!-- BACKUP: ARCHIVE + REPEATABILITY -->
+  <section class="slide" data-speaker-notes="The experimental basis and how repeatable it is. The archive is 174 recovered files from the 2018-2020 campaigns on one FLIR E60, spanning square, rectangle, diamond, ring, star, triangle and logo geometries plus a 2019 material study; all decoded with a purpose-built parser and catalogued. The one large same-geometry, same-session set is ten rectangle runs, and it sets the repeatability prior: run-to-run variation in time-to-melt is not noise but a monotone within-session drift, 268 to 477 s across the ten runs at about +22.6 s per run, while peak temperature stays tight at 5.7% CV. That is why every comparison in this work is made at a matched thermal state rather than a matched clock time, and it gives 24% CV on timing, 5.7% on peak temperature and 12-18% on sigma_T. These ten runs are not replicates - no notes, undocumented settings, monotone drift - so they bound the run-to-run spread from above rather than estimating it." style="display:flex;flex-direction:column;padding:38px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px">
+      <div>
+        <div class="eyb" style="margin-bottom:6px"><span class="tick"></span>Experimental basis</div>
+        <h2 class="dh" style="font-size:30px;line-height:1.04">The archive, and how repeatable it is</h2>
+      </div>
+      <div class="lbl" style="text-align:right;margin:0">174 recovered files · one FLIR E60 · 2018–2020<br>ten same-session rectangle runs bound the prior</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1.32fr 1fr;gap:30px;flex:1;min-height:0">
+      <div class="plate" style="min-height:0"><div class="capbar"><span>FIG. 38 — recovered thermography, representative geometries</span><span style="color:var(--gold)">FLIR E60</span></div><div class="fig" style="padding:12px"><img src="figures/val/fig_ir_archive_showcase.webp" alt="Grid of infrared frames across square, ring, diamond, star and triangle parts with their peak temperature trajectories"></div></div>
+      <div style="display:flex;flex-direction:column;gap:16px;min-height:0">
+        <div style="display:flex;gap:26px">
+          <div><div style="font-family:var(--font-display);font-weight:700;font-size:38px;color:var(--blue);line-height:1">5.7%</div><div class="lbl" style="margin-top:4px">CV · peak temperature</div></div>
+          <div><div style="font-family:var(--font-display);font-weight:700;font-size:38px;color:var(--coral);line-height:1">+22.6 s</div><div class="lbl" style="margin-top:4px">per run · melt-time drift</div></div>
+        </div>
+        <p style="font-size:18px;line-height:1.55;margin:0;color:var(--ink)">Within a session, run-to-run variation is a <strong>monotone drift</strong>, not noise: time to melt climbs 268 → 477 s across ten identical rectangle prints.</p>
+        <p style="font-size:18px;line-height:1.55;margin:0;color:var(--ink)">Peak temperature is far more repeatable than timing — which is why every comparison here is made at a <strong>matched thermal state</strong>, not a matched clock time.</p>
+      </div>
+    </div>
+    <div class="foot"><span>RFAM · Experimental basis</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>The experimental basis and how repeatable it is. The archive is 174 recovered files from the 2018-2020 campaigns on one FLIR E60, spanning square, rectangle, diamond, ring, star, triangle and logo geometries plus a 2019 material study; all decoded with a purpose-built parser and catalogued. The one large same-geometry, same-session set is ten rectangle runs, and it sets the repeatability prior: run-to-run variation in time-to-melt is not noise but a monotone within-session drift, 268 to 477 s across the ten runs at about +22.6 s per run, while peak temperature stays tight at 5.7% CV. That is why every comparison in this work is made at a matched thermal state rather than a matched clock time, and it gives 24% CV on timing, 5.7% on peak temperature and 12-18% on sigma_T. These ten runs are not replicates - no notes, undocumented settings, monotone drift - so they bound the run-to-run spread from above rather than estimating it.</div>
+
+
+    <!-- QUANTIFIED TAXONOMY -->
+  <section class="slide" data-speaker-notes="Superseded headline: the standardized 19-shape sweep (HEATR 2-D, voltage drive, both read states) is the result to quote now - one-shot proportional grading improves 12 of 19 cross-sections, is neutral on 1, and is HARMFUL on 6 (the sharp and re-entrant ones); the L-shape's FGM arm never reaches melt within 750 s, so its benefit is undefined rather than negative. A power-matched control shows that for 11 of those 12 the gain is spatial redistribution rather than extra dose, the square being the lone dose-driven exception. Residual in-part temperature deviation (ui_rms about the part mean) after best FGM, ordered convex -&gt; concave; hatched entries fail the sinter gate. Achievable uniformity is predictable from a shape's convexity/solidity." style="display:flex;flex-direction:column;padding:44px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px">
+      <div>
+        <div class="eyb" style="margin-bottom:10px"><span class="tick"></span>Quantified</div>
+        <h2 class="dh" style="font-size:34px;line-height:1.05">Residual deviation, shape by shape</h2>
+      </div>
+      <div class="lbl" style="text-align:right;margin:0">ui<sub>rms</sub> from part mean · convex → concave<br>hatched = fails the sinter gate</div>
+    </div>
+    <div class="plate" style="flex:1;min-height:0"><div class="capbar"><span>FIG. 39 — FGM-compensated in-part temperature deviation</span><span style="color:var(--gold)">best result per geometry</span></div><div class="fig" style="padding:12px"><img src="figures/ch3/fig_geometry_taxonomy.webp" alt="Per-geometry FGM-compensated temperature deviation maps with ui_rms and melt fraction, banded convex/mixed/concave and marked where the sinter gate fails"></div></div>
+    <div class="foot"><span>RFAM · Dopant grading</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Superseded headline: the standardized 19-shape sweep (HEATR 2-D, voltage drive, both read states) is the result to quote now - one-shot proportional grading improves 12 of 19 cross-sections, is neutral on 1, and is HARMFUL on 6 (the sharp and re-entrant ones); the L-shape's FGM arm never reaches melt within 750 s, so its benefit is undefined rather than negative. A power-matched control shows that for 11 of those 12 the gain is spatial redistribution rather than extra dose, the square being the lone dose-driven exception. Residual in-part temperature deviation (ui_rms about the part mean) after best FGM, ordered convex -&gt; concave; hatched entries fail the sinter gate. Achievable uniformity is predictable from a shape's convexity/solidity.</div>
+
+  <!-- BACKUP: SOLVED TURNTABLE -->
+  
+
+    <!-- APX 1 · SYSTEM DATA FLOW -->
+  <section class="slide" data-speaker-notes="Systems architecture and data flow. HEATR is a batch simulation tool, not a one-off script. A run is fully specified by used_config.yaml (geometry mask, dopant/carbon-black saturation map c(x,y), electric block with drive frequency and generator power, thermal block with step count, material model). The core module (heatr / heatr3d) runs the coupled EQS -&gt; heating -&gt; conduction -&gt; melt -&gt; densify kernels and writes a self-describing run directory. build_run_manifest.py walks the whole archive (~1600 runs indexed in the committed manifest), emits a manifest CSV, and vendors the essentials of every cited run into git so any figure regenerates from committed data. Figure builders (scripts/ and external_builders/) read that vendored data and emit the PDFs/PNGs consumed by the dissertation and this deck." style="display:flex;flex-direction:column;padding:38px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div class="eyb" style="margin-bottom:6px"><span class="tick"></span>Appendix · HEATR as a system</div>
+    <h2 class="dh" style="font-size:30px;line-height:1.04;margin-bottom:14px">System architecture &amp; data flow</h2>
+    <div style="display:flex;flex-direction:column;gap:9px;flex:1;min-height:0;font-family:var(--font-mono);font-size:12.5px;color:var(--ink)">
+      <div style="background:var(--panel);border:1px solid var(--line2);border-top:3px solid var(--blue);border-radius:5px;padding:11px 15px"><b style="color:var(--blue)">CONFIG</b> &nbsp; used_config.yaml → geometry mask · dopant map c(x,y) · electric{frequency_hz, generator_power_w} · thermal{n_steps} · PA-12 + carbon-black model</div>
+      <div style="text-align:center;color:var(--gold);font-size:20px;line-height:.6">↓</div>
+      <div style="background:var(--panel);border:1px solid var(--line2);border-top:3px solid var(--coral);border-radius:5px;padding:11px 15px"><b style="color:var(--coral)">HEATR CORE</b> &nbsp; module <i>heatr / heatr3d</i> → coupled kernels: EQS field → Q_rf → transient conduction (apparent Cp) → melt φ → densification &nbsp;·&nbsp; backends: 2.5-D extruded | true-3-D voxel</div>
+      <div style="text-align:center;color:var(--gold);font-size:20px;line-height:.6">↓</div>
+      <div style="background:var(--panel);border:1px solid var(--line2);border-top:3px solid var(--teal);border-radius:5px;padding:11px 15px"><b style="color:#2f6875">STUDY DRIVER</b> &nbsp; outer loop wraps the forward solve → fgm_iterate · turntable · placement_opt · orientation_opt · shell_sweep · antennae_calibrate</div>
+      <div style="text-align:center;color:var(--gold);font-size:20px;line-height:.6">↓</div>
+      <div style="background:var(--panel);border:1px solid var(--line2);border-top:3px solid var(--muted);border-radius:5px;padding:11px 15px"><b>RUN ARTIFACTS</b> &nbsp; runs/&lt;shape&gt;/&lt;study&gt;/&lt;family&gt;/&lt;run_id&gt;/ → summary.json · used_config.yaml · *_fields.npz · saturation_map.png</div>
+      <div style="text-align:center;color:var(--gold);font-size:20px;line-height:.6">↓</div>
+      <div style="background:var(--panel);border:1px solid var(--line2);border-top:3px solid var(--gold);border-radius:5px;padding:11px 15px"><b style="color:var(--goldm)">MANIFEST + VENDOR</b> &nbsp; build_run_manifest.py walks ~1600 runs → heatr_run_manifest.csv &nbsp;+&nbsp; copies featured-run essentials → data/runs/ (git)</div>
+      <div style="text-align:center;color:var(--gold);font-size:20px;line-height:.6">↓</div>
+      <div style="background:var(--panel);border:1px solid var(--line2);border-top:3px solid var(--green);border-radius:5px;padding:11px 15px"><b style="color:var(--green)">FIGURE BUILDERS → CONSUMERS</b> &nbsp; scripts/*.py + external_builders/*.py read vendored CSV/NPZ → PDF/PNG → LaTeX dissertation &amp; this deck</div>
+    </div>
+    <div class="foot"><span>RFAM · Appendix · system architecture</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Systems architecture and data flow. HEATR is a batch simulation tool, not a one-off script. A run is fully specified by used_config.yaml (geometry mask, dopant/carbon-black saturation map c(x,y), electric block with drive frequency and generator power, thermal block with step count, material model). The core module (heatr / heatr3d) runs the coupled EQS -&gt; heating -&gt; conduction -&gt; melt -&gt; densify kernels and writes a self-describing run directory. build_run_manifest.py walks the whole archive (~1600 runs indexed in the committed manifest), emits a manifest CSV, and vendors the essentials of every cited run into git so any figure regenerates from committed data. Figure builders (scripts/ and external_builders/) read that vendored data and emit the PDFs/PNGs consumed by the dissertation and this deck.</div>
+
+  <!-- APX 2 · CORE + HARNESS -->
+  <section class="slide" data-speaker-notes="Solver core and study harness. The core exposes a forward solve on a structured grid with two backends: a fast 2.5-D extruded solver and a true-3-D voxel solver (heatr3d). Every 'study' is an outer loop that wraps that forward solve: fgm_iterate drives the dopant-map optimizer (modes proportional / integral / hybrid, gain m, iteration count n, quantization 2 or 4 bpp); turntable averages the field over part rotations; placement and orientation optimizers search part pose; shell_sweep and antennae_calibrate tune exposure and electrode coupling. The FGM update law s = 0.5 + m (0.5 - T_tilde) with decayed gain m_n = m0 gamma^n is one plug-in policy inside fgm_iterate." style="display:grid;grid-template-columns:.9fr 1.1fr;gap:30px;align-items:stretch;padding:38px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div style="display:flex;flex-direction:column;justify-content:center">
+      <div class="eyb" style="margin-bottom:6px"><span class="tick"></span>Appendix · core</div>
+      <h2 class="dh" style="font-size:26px;line-height:1.05;margin-bottom:12px">Solver core &amp; study harness</h2>
+      <div style="background:var(--panel);border:1px solid var(--line2);border-top:3px solid var(--coral);border-radius:5px;padding:12px 15px;font-family:var(--font-mono);font-size:12.5px;color:var(--ink);line-height:1.9">
+        <div style="color:var(--coral);font-weight:700;margin-bottom:4px">heatr3d core — kernel stack</div>
+        grid / mesh builder<br>EQS assemble + sparse solve<br>Q_rf = ½ωε₀ε″|E|² coupler<br>implicit thermal integrator<br>melt-fraction φ tracker (DSC Cp)<br>viscous-capillary densify<br><span style="color:var(--muted)">backends: 2.5-D extruded · 3-D voxel</span>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;justify-content:center;gap:10px">
+      <div style="font-family:var(--font-mono);font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">study drivers — each an outer loop over forward solves</div>
+      <table style="width:100%;border-collapse:collapse;font-family:var(--font-mono);font-size:15px;color:var(--ink)">
+        <tbody>
+          <tr style="border-bottom:1px solid var(--line)"><td style="padding:6px 0;color:var(--blue)">fgm_iterate</td><td style="padding:6px 0">dopant map</td><td style="padding:6px 0;text-align:right;color:var(--muted)">mode{prop,integral,hybrid}, m, n, bpp</td></tr>
+          <tr style="border-bottom:1px solid var(--line)"><td style="padding:6px 0;color:var(--blue)">turntable</td><td style="padding:6px 0">part rotation</td><td style="padding:6px 0;text-align:right;color:var(--muted)">n_rot, angle step</td></tr>
+          <tr style="border-bottom:1px solid var(--line)"><td style="padding:6px 0;color:var(--blue)">placement_opt</td><td style="padding:6px 0">part position</td><td style="padding:6px 0;text-align:right;color:var(--muted)">bed search</td></tr>
+          <tr style="border-bottom:1px solid var(--line)"><td style="padding:6px 0;color:var(--blue)">orientation_opt</td><td style="padding:6px 0">build angle</td><td style="padding:6px 0;text-align:right;color:var(--muted)">θ sweep</td></tr>
+          <tr style="border-bottom:1px solid var(--line)"><td style="padding:6px 0;color:var(--blue)">shell_sweep</td><td style="padding:6px 0">exposure/shell</td><td style="padding:6px 0;text-align:right;color:var(--muted)">schedule</td></tr>
+          <tr><td style="padding:6px 0;color:var(--blue)">antennae_calibrate</td><td style="padding:6px 0">electrode coupling</td><td style="padding:6px 0;text-align:right;color:var(--muted)">field cal.</td></tr>
+        </tbody>
+      </table>
+      <div style="background:var(--panel);border:1px solid var(--line2);border-top:3px solid var(--blue);border-radius:5px;padding:10px 14px;font-family:var(--font-mono);font-size:15px;color:var(--ink)">FGM policy inside fgm_iterate: &nbsp; s = 0.5 + m(0.5−T̃), &nbsp; m<sub>n</sub> = m₀γ<sup>n</sup>, γ=0.7</div>
+    </div>
+    <div class="foot"><span>RFAM · Appendix · core &amp; harness</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Solver core and study harness. The core exposes a forward solve on a structured grid with two backends: a fast 2.5-D extruded solver and a true-3-D voxel solver (heatr3d). Every 'study' is an outer loop that wraps that forward solve: fgm_iterate drives the dopant-map optimizer (modes proportional / integral / hybrid, gain m, iteration count n, quantization 2 or 4 bpp); turntable averages the field over part rotations; placement and orientation optimizers search part pose; shell_sweep and antennae_calibrate tune exposure and electrode coupling. The FGM update law s = 0.5 + m (0.5 - T_tilde) with decayed gain m_n = m0 gamma^n is one plug-in policy inside fgm_iterate.</div>
+
+  <!-- APX 3 · RUN ARCHIVE / PROVENANCE -->
+  <section class="slide" data-speaker-notes="Run archive, provenance, reproducibility. Every run writes a directory keyed shape/study/family/run_id containing summary.json (the scalar metrics), used_config.yaml (exact inputs), field arrays (.npz), and the deposited saturation map. The manifest indexes all ~1600 runs; a FEATURED map binds each dissertation/deck figure to a specific run_id (e.g. the GT-logo figure comes from gt_logo/fgm_iterate/gtlogo_run_20260507_v2 iter 1), and the essentials of those runs are copied into version control so the results are regenerable offline. COMSOL cross-validation is its own artifact set (staged EQS fields + thermal metrics)." style="display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;padding:38px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div>
+      <div class="eyb" style="margin-bottom:6px"><span class="tick"></span>Appendix · provenance</div>
+      <h2 class="dh" style="font-size:26px;line-height:1.05;margin-bottom:12px">Run archive &amp; reproducibility</h2>
+      <div style="background:var(--panel);border:1px solid var(--line2);border-top:3px solid var(--muted);border-radius:5px;padding:12px 15px;font-family:var(--font-mono);font-size:15px;color:var(--ink);line-height:1.7;white-space:pre">runs/&lt;shape&gt;/&lt;study&gt;/&lt;family&gt;/&lt;run_id&gt;/
+ ├ summary.json      metrics
+ ├ used_config.yaml  exact inputs
+ ├ *_fields.npz      V,E,Q,T,φ,ρ
+ └ saturation.png    dopant map</div>
+      <div style="font-family:var(--font-mono);font-size:11.5px;color:var(--muted);margin-top:10px;line-height:1.6">summary.json → ui_rms_part_final · mean/max_T_part_final_c · mean_rho_rel_part_final · frac_part_ge_melt_ref · freq_hz · generator_power_w · n_steps</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="background:var(--panel);border:1px solid var(--line2);border-top:3px solid var(--gold);border-radius:5px;padding:13px 16px"><div style="font-family:var(--font-mono);font-size:15px;text-transform:uppercase;color:var(--goldm);margin-bottom:5px">Archive</div><div style="font-size:18px;color:var(--ink);line-height:1.5"><b>~1600</b> runs indexed in one manifest CSV; every plot regenerable from committed data.</div></div>
+      <div style="background:var(--panel);border:1px solid var(--line2);border-top:3px solid var(--blue);border-radius:5px;padding:13px 16px"><div style="font-family:var(--font-mono);font-size:15px;text-transform:uppercase;color:var(--blue);margin-bottom:5px">Figure → run binding</div><div style="font-family:var(--font-mono);font-size:11.5px;color:var(--ink);line-height:1.5">FEATURED map ties each figure to a run_id, e.g.<br>fig:gtlogo ← gt_logo/fgm_iterate/gtlogo_run_20260507_v2 iter1</div></div>
+      <div style="background:var(--panel);border:1px solid var(--line2);border-top:3px solid var(--teal);border-radius:5px;padding:13px 16px"><div style="font-family:var(--font-mono);font-size:15px;text-transform:uppercase;color:#2f6875;margin-bottom:5px">Cross-validation</div><div style="font-size:18px;color:var(--ink);line-height:1.5">COMSOL check is its own artifact set: staged EQS fields + thermal metrics, vendored alongside.</div></div>
+    </div>
+    <div class="foot"><span>RFAM · Appendix · provenance</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Run archive, provenance, reproducibility. Every run writes a directory keyed shape/study/family/run_id containing summary.json (the scalar metrics), used_config.yaml (exact inputs), field arrays (.npz), and the deposited saturation map. The manifest indexes all ~1600 runs; a FEATURED map binds each dissertation/deck figure to a specific run_id (e.g. the GT-logo figure comes from gt_logo/fgm_iterate/gtlogo_run_20260507_v2 iter 1), and the essentials of those runs are copied into version control so the results are regenerable offline. COMSOL cross-validation is its own artifact set (staged EQS fields + thermal metrics).</div>
+
+  <!-- APX 4 · NUMERICS -->
+  <section class="slide" data-speaker-notes="Numerics and discretization. EQS is a sparse complex-potential solve on the structured grid (E = -grad V); conduction uses implicit time stepping over thermal.n_steps with a DSC apparent heat capacity that absorbs the latent heat across the melt window; melt fraction phi is integrated per cell and T_phi90 is its 90% crossing; exposures stop at mean melt phi-bar = 0.90. Mesh refinement drives sigma_T toward the 2-D circle reference 19.30 C (n=64/80/96 give 26.3/22.6/20.8 C) but it is STILL DESCENDING at the finest mesh - a convergent approach, not a demonstrated plateau, so sigma_T is mesh-conditional under a sharp material boundary. The integral dose t_phi90 is the mesh-robust quantity (444.8 -&gt; 405.6 s across a 3.4x cell change). Conservation: energy-balance residual under 1.5%, sub-degree adaptive steps, COMSOL peak Q_rf within 10% and +10 C at 5 min." style="display:flex;flex-direction:column;justify-content:center;padding:40px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div class="eyb" style="margin-bottom:6px"><span class="tick"></span>Appendix · numerics</div>
+    <h2 class="dh" style="font-size:28px;line-height:1.04;margin-bottom:16px">Discretization &amp; conservation</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+      <div style="background:var(--panel);border:1px solid var(--line2);border-top:3px solid var(--blue);border-radius:5px;padding:14px 16px"><div style="font-family:var(--font-mono);font-size:15px;text-transform:uppercase;color:var(--blue);margin-bottom:7px">Discretization</div><div style="font-size:18px;color:var(--ink);line-height:1.55">Structured grid, n cells/axis. EQS = sparse complex-potential solve, E=−∇V. Conduction = implicit stepping over thermal.n_steps; apparent c<sub>p</sub>(T) carries latent heat across the melt window.</div></div>
+      <div style="background:var(--panel);border:1px solid var(--line2);border-top:3px solid var(--teal);border-radius:5px;padding:14px 16px"><div style="font-family:var(--font-mono);font-size:15px;text-transform:uppercase;color:#2f6875;margin-bottom:7px">Stop criterion</div><div style="font-size:18px;color:var(--ink);line-height:1.55">Melt fraction φ integrated per cell; T<sub><span style="text-transform:none">φ90</span></sub> is its 90% crossing. Exposure stops at mean melt φ̄ = 0.90 → dose t<sub><span style="text-transform:none">φ90</span></sub>.</div></div>
+      <div style="background:var(--panel);border:1px solid var(--line2);border-top:3px solid var(--coral);border-radius:5px;padding:14px 16px"><div style="font-family:var(--font-mono);font-size:15px;text-transform:uppercase;color:var(--coral);margin-bottom:7px">Mesh convergence</div><div style="font-size:18px;color:var(--ink);line-height:1.55">σ<sub>T</sub> descending toward the 2-D reference <b>19.30 °C</b> (n=64/80/96 → 26.3/22.6/20.8, still falling). Dose t<sub><span style="text-transform:none">φ90</span></sub> mesh-robust: 444.8 → 405.6 s over 3.4× cells.</div></div>
+      <div style="background:var(--panel);border:1px solid var(--line2);border-top:3px solid var(--green);border-radius:5px;padding:14px 16px"><div style="font-family:var(--font-mono);font-size:15px;text-transform:uppercase;color:var(--green);margin-bottom:7px">Conservation &amp; validation</div><div style="font-size:18px;color:var(--ink);line-height:1.55">Energy balance closes to ≈0% on clean runs (−4.6 J/m; 22.2% under a deliberately forced non-conserving step); sub-degree adaptive ΔT/step; COMSOL peak Q<sub>rf</sub> within 10%, +10 °C at 5 min.</div></div>
+    </div>
+    <div class="foot"><span>RFAM · Appendix · numerics</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Numerics and discretization. EQS is a sparse complex-potential solve on the structured grid (E = -grad V); conduction uses implicit time stepping over thermal.n_steps with a DSC apparent heat capacity that absorbs the latent heat across the melt window; melt fraction phi is integrated per cell and T_phi90 is its 90% crossing; exposures stop at mean melt phi-bar = 0.90. Mesh refinement drives sigma_T toward the 2-D circle reference 19.30 C (n=64/80/96 give 26.3/22.6/20.8 C) but it is STILL DESCENDING at the finest mesh - a convergent approach, not a demonstrated plateau, so sigma_T is mesh-conditional under a sharp material boundary. The integral dose t_phi90 is the mesh-robust quantity (444.8 -&gt; 405.6 s across a 3.4x cell change). Conservation: energy-balance residual under 1.5%, sub-degree adaptive steps, COMSOL peak Q_rf within 10% and +10 C at 5 min.</div>
+
+  <!-- APX 5 · ARCHIVE STATISTICS -->
+  <section class="slide" data-speaker-notes="Appendix. The plain question is: has anyone measured that dopant grading actually works? The archive cannot answer it, for one structural reason and one statistical one, and both are worth stating plainly. Structural: only the square has an ungraded counterpart at all. Every other geometry was tuned in COMSOL first and printed only in its graded form, so the crosstab reads 0 ungraded against 14 graded for the ring, 0 of 10 for the rectangle, 0 of 7 for the longhorn, 0 of 4 for the diamond. For those shapes the comparison cannot be made from this data, now or ever. Statistical: on the square, the effect does not survive widening past the original single pair. All 18 usable square recordings, redecoded under one frozen-ROI protocol and compared at a matched pre-melt part-mean of 120 C, give ungraded 11.8 plus or minus 3.4 C against graded 14.6 plus or minus 8.3 C - the graded arm is slightly worse, and the gap is well inside run-to-run noise at p = 0.56. Be careful how you say the last part: with 11 ungraded and 4 graded runs the comparison had only about a 45 percent chance at this 120 C state (about 30 percent at the 135 C state where the claim was originally made) of catching even the 43 percent improvement originally claimed, so this is the archive failing to answer, not evidence that grading fails. The heating-curve calibration shown earlier is untouched, because it fits one run against that run's own trace and never compares two parts. The practical consequence is a design requirement for the planned experiments: graded and ungraded parts must be printed in the same session, on the same geometry, and analyzed as pairs." style="display:flex;flex-direction:column;justify-content:center;padding:22px 76px 56px 76px">
+    <div class="prail"><div class="pfill"></div></div>
+    <div class="eyb" style="margin-bottom:6px"><span class="tick"></span>Appendix · archive statistics</div>
+    <h2 class="dh" style="font-size:28px;line-height:1.04;margin-bottom:10px">Why the archive cannot test whether grading works</h2>
+    <div style="display:grid;grid-template-columns:1.06fr 1fr;gap:14px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:10px"><div class="plate" style="max-height:560px;overflow:hidden"><div class="capbar"><span>FIG. 40 — ungraded vs graded spread, all square runs</span><span style="color:var(--gold)">p = 0.56</span></div><div class="fig" style="padding:6px;max-height:520px"><img src="figures/val/fig_ir_sigmaT_distributions.webp" alt="Distributions of in-part temperature spread for ungraded and graded square runs, heavily overlapping, with the graded arm slightly higher and much wider"></div></div></div>
+      <div style="display:grid;grid-template-columns:1fr;gap:6px"><div style="background:var(--panel);border:1px solid var(--line2);border-top:3px solid var(--blue);border-radius:5px;padding:7px 14px"><div style="font-family:var(--font-mono);font-size:15px;text-transform:uppercase;color:var(--blue);margin-bottom:3px">Only one shape has a before</div><div style="font-size:18px;color:var(--ink);line-height:1.34">Every geometry except the square was tuned in COMSOL and then printed only in its graded form. Ungraded/graded counts: ring <b>0/14</b>, rectangle <b>0/10</b>, longhorn <b>0/7</b>, diamond <b>0/4</b>. For those shapes the comparison cannot be made from this data.</div></div><div style="background:var(--panel);border:1px solid var(--line2);border-top:3px solid var(--coral);border-radius:5px;padding:7px 14px"><div style="font-family:var(--font-mono);font-size:15px;text-transform:uppercase;color:var(--coral);margin-bottom:3px">On the square, the effect vanishes</div><div style="font-size:18px;color:var(--ink);line-height:1.34">Widened from one pair to all <b>18</b> square recordings at a matched pre-melt <b>120 °C</b>: ungraded <b>11.8 ± 3.4 °C</b> vs graded <b>14.6 ± 8.3 °C</b>. The graded parts are slightly <i>worse</i>, and the gap sits well inside run-to-run noise (<b>p = 0.56</b>).</div></div><div style="background:var(--panel);border:1px solid var(--line2);border-top:3px solid var(--teal);border-radius:5px;padding:7px 14px"><div style="font-family:var(--font-mono);font-size:15px;text-transform:uppercase;color:#2f6875;margin-bottom:3px">Too few runs to have seen it</div><div style="font-size:18px;color:var(--ink);line-height:1.34">With 11 ungraded and 4 graded runs this test had only about a <b>45%</b> chance of catching even the 43% improvement first claimed. It says the archive cannot answer the question — not that grading fails.</div></div></div>
+    </div><div style="background:var(--panel);border:1px solid var(--line2);border-top:3px solid var(--green);border-radius:5px;padding:7px 14px"><div style="font-family:var(--font-mono);font-size:15px;text-transform:uppercase;color:#2f6f52;margin-bottom:3px">The calibration is unaffected</div><div style="font-size:18px;color:var(--ink);line-height:1.34">The heating-curve fit uses one run against its own trace and never compares two parts, so this null does not touch it. What it does set is a requirement: the planned prints must be <b>paired, same-session, same-geometry</b>.</div></div>
+    <div class="foot"><span>RFAM · Appendix · archive statistics</span><span class="pg"></span></div>
+  </section>
+  <div class="notes"><div class="nlabel">Speaker notes</div>Appendix. The plain question is: has anyone measured that dopant grading actually works? The archive cannot answer it, for one structural reason and one statistical one, and both are worth stating plainly. Structural: only the square has an ungraded counterpart at all. Every other geometry was tuned in COMSOL first and printed only in its graded form, so the crosstab reads 0 ungraded against 14 graded for the ring, 0 of 10 for the rectangle, 0 of 7 for the longhorn, 0 of 4 for the diamond. For those shapes the comparison cannot be made from this data, now or ever. Statistical: on the square, the effect does not survive widening past the original single pair. All 18 usable square recordings, redecoded under one frozen-ROI protocol and compared at a matched pre-melt part-mean of 120 C, give ungraded 11.8 plus or minus 3.4 C against graded 14.6 plus or minus 8.3 C - the graded arm is slightly worse, and the gap is well inside run-to-run noise at p = 0.56. Be careful how you say the last part: with 11 ungraded and 4 graded runs the comparison had only about a 45 percent chance at this 120 C state (about 30 percent at the 135 C state where the claim was originally made) of catching even the 43 percent improvement originally claimed, so this is the archive failing to answer, not evidence that grading fails. The heating-curve calibration shown earlier is untouched, because it fits one run against that run's own trace and never compares two parts. The practical consequence is a design requirement for the planned experiments: graded and ungraded parts must be printed in the same session, on the same geometry, and analyzed as pairs.</div>
+
+
+  <!-- 20 · CLOSING -->
+
+
+
+
+
+</div>
+
+
+
+
+
+</div>
+<div class="bar"><button id="prev">&#8592; Prev</button><span id="count">1 / 1</span><button id="next">Next &#8594;</button><button id="notes">Notes</button></div>
+<script>
+const stage=document.getElementById('stage');
+const slides=[...document.querySelectorAll('.slide')];
+const count=document.getElementById('count');
+let i=0;
+function fit(){const s=Math.min(1,(window.innerWidth-32)/1280,(window.innerHeight-70)/720);
+ slides.forEach(el=>{el.style.transform='scale('+s+')';el.style.transformOrigin='top center';el.style.marginBottom=(720*s-720+28)+'px';el.style.marginTop='14px';});}
+function go(n){i=Math.max(0,Math.min(slides.length-1,n));slides[i].scrollIntoView({block:'center'});count.textContent=(i+1)+' / '+slides.length;
+ document.querySelectorAll('.pfill').forEach(f=>f.style.width=((i+1)/slides.length*100)+'%');}
+document.getElementById('prev').onclick=()=>go(i-1);
+document.getElementById('next').onclick=()=>go(i+1);
+document.getElementById('notes').onclick=()=>document.body.classList.toggle('show-notes');
+addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(i+1)}else if(e.key==='ArrowLeft'){e.preventDefault();go(i-1)}else if(e.key.toLowerCase()==='n'){document.body.classList.toggle('show-notes')}});
+addEventListener('resize',fit);
+fit();count.textContent='1 / '+slides.length;
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){i=slides.indexOf(e.target);count.textContent=(i+1)+' / '+slides.length;document.querySelectorAll('.pfill').forEach(f=>f.style.width=((i+1)/slides.length*100)+'%')}})},{root:stage,threshold:.6});
+slides.forEach(s=>io.observe(s));
+</script>
+</body></html>
