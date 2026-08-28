@@ -132,7 +132,7 @@
       </article>
 
       <article class="glance-card" data-modal="formlabs" tabindex="0" role="button" aria-label="Open Formlabs case study: Fuse X1 architecture">
-        <img class="glance-card__image" src="assets/images/content/fuse-optical-selection-timeVpriceVpower.png" alt="Fuse X1 laser architecture trade study" />
+        <img class="glance-card__image" src="assets/images/content/fuse-x1-formlabs-official.jpg" alt="Formlabs Fuse X1 industrial SLS printer" />
         <div class="glance-card__shade"></div>
         <div class="glance-card__content">
           <span class="glance-card__eyebrow">System architecture</span>
@@ -154,18 +154,18 @@
       </article>
 
       <article class="glance-card" data-modal="heatr" tabindex="0" role="button" aria-label="Open HEATR case study: computational process design">
-        <img class="glance-card__image" src="assets/decks/rfam-sintering/figures/ch3/fig_fgm_circle_result.webp" alt="Functionally graded material map and predicted RFAM temperature field" />
+        <img class="glance-card__image" src="assets/decks/rfam-sintering/figures/threed/fig_deck_cube_solved_map.webp" alt="Three-dimensional HEATR adjoint solution and printer-ready dopant map" />
         <div class="glance-card__shade"></div>
         <div class="glance-card__content">
           <span class="glance-card__eyebrow">Computational design</span>
           <h3>HEATR</h3>
-          <p>Built a coupled electrothermal and densification platform that converts part geometry into printer-ready graded material maps.</p>
-          <div class="glance-card__metrics"><span><strong>54%</strong> lower temperature spread</span><span><strong>4-bit</strong> maps</span></div>
+          <p>Built a finite-difference-verified direct/adjoint pipeline that converts geometry into filtered, quantized, printer-ready dopant maps.</p>
+          <div class="glance-card__metrics"><span><strong>18/18</strong> beat uniform dopant</span><span><strong>4-bit</strong> maps</span></div>
         </div>
       </article>
 
       <article class="glance-card" data-modal="publications" tabindex="0" role="button" aria-label="Open publications: metal additive manufacturing research">
-        <img class="glance-card__image" src="assets/images/content/DED_CAD.avif" alt="Hybrid wire arc and powder-blown directed energy deposition system CAD" />
+        <img class="glance-card__image" src="assets/images/content/hybrid-ded-research.webp" alt="Hybrid wire-arc and powder-blown directed energy deposition samples and surface-height maps" />
         <div class="glance-card__shade"></div>
         <div class="glance-card__content">
           <span class="glance-card__eyebrow">Technical range</span>
@@ -226,8 +226,8 @@
           <p class="project-card__desc">A new polymer powder-bed process, custom machine, RF heating system, and coupled computational design platform</p>
           <div class="project-card__stats">
             <div class="stat">
-              <span class="stat__value">54%</span>
-              <span class="stat__label">Lower Predicted Temperature Spread</span>
+              <span class="stat__value">18/18</span>
+              <span class="stat__label">Printable Maps Beat Uniform Dopant</span>
             </div>
             <div class="stat">
               <span class="stat__value">600W</span>
@@ -246,7 +246,7 @@
         <div class="project-card__content">
           <span class="project-card__label">Simulation Tool</span>
           <h3 class="project-card__title">HEATR</h3>
-          <p class="project-card__desc">Purpose-built 2.5D electrothermal RF simulation for rapid geometry, compensation, and parameter space exploration</p>
+          <p class="project-card__desc">Coupled 2.5D/3D process simulation and finite-difference-verified adjoint design of printer-ready material maps</p>
           <span class="project-card__cta">Explore Tool &rarr;</span>
         </div>
       </article>
@@ -686,8 +686,8 @@
 
           <div class="modal__stats-grid">
             <div class="modal__stat">
-              <span class="modal__stat-value">54%</span>
-              <span class="modal__stat-label">Lower predicted temperature spread</span>
+              <span class="modal__stat-value">18/18</span>
+              <span class="modal__stat-label">Printable maps beat uniform dopant</span>
             </div>
             <div class="modal__stat">
               <span class="modal__stat-value">4-bit</span>
@@ -893,7 +893,7 @@
 
         <div class="modal__body">
           <div class="modal__intro">
-            <p><strong>HEATR is the coupled 2.5D/3D process-design platform I built for RFAM.</strong> It connects electro-quasi-static RF coupling to transient heat transfer, phase change, and densification, then works backward from target geometry to printer-ready process instructions. Because part geometry changes how RF energy couples into the material, the platform does more than predict heating: it designs graded dopant maps, exposure schedules, orientation, field averaging, and geometry compensation through the coupled physics.</p>
+            <p><strong>HEATR is the coupled 2.5D/3D forward and inverse-design platform I built for RFAM.</strong> It connects a complex-coefficient electro-quasi-static field solve to generator-power-scaled RF deposition, transient heat transfer, DSC-calibrated phase change, and viscous-capillary densification. The same physics then runs in reverse: a finite-difference-verified adjoint computes how every printable dopant cell changes the final melted geometry, enabling the software to convert target parts into machine-ready material maps and exposure instructions.</p>
           </div>
 
           <div class="modal__videos">
@@ -915,31 +915,32 @@
 
           <div class="modal__stats-grid">
             <div class="modal__stat">
-              <span class="modal__stat-value">54%</span>
-              <span class="modal__stat-label">Lower predicted temperature spread</span>
+              <span class="modal__stat-value">18/18</span>
+              <span class="modal__stat-label">Printable solved maps beat uniform dopant</span>
             </div>
             <div class="modal__stat">
-              <span class="modal__stat-value">0.904</span>
-              <span class="modal__stat-label">Cylinder melt-region IoU (1.0 = exact)</span>
+              <span class="modal__stat-value">13/18</span>
+              <span class="modal__stat-label">Beat the best stored map for each shape</span>
             </div>
             <div class="modal__stat">
-              <span class="modal__stat-value">4-bit</span>
-              <span class="modal__stat-label">Printer-ready graded material maps</span>
+              <span class="modal__stat-value">7</span>
+              <span class="modal__stat-label">Shapes clear the 0.95 IoU solved gate</span>
             </div>
           </div>
 
           <div class="modal__section">
             <h4>From Geometry to Printer-Ready Compensation</h4>
-            <p>The current pipeline uses finite-difference-verified direct and adjoint optimization to convert target geometry into filtered, smoothed, quantized dopant maps that the machine can actually print. Material grading and geometry correction reduced predicted temperature spread by 54% while raising predicted melt-region overlap from 0.727 to 0.828 for a square and from 0.673 to 0.904 for a cylinder.</p>
+            <p>The second-generation solver minimizes shape error directly, penalizing both unfused material inside the target and melt that escapes into the surrounding powder. One backward adjoint sweep returns the gradient for every dopant cell at roughly the cost of one forward solve. The pipeline jointly selects the dopant field and exposure stop, then filters and quantizes the result to the machine's 4-bit raster convention before re-running it through the production forward model.</p>
+            <p style="margin-top: 0.75rem;">Across the standardized 18-shape library, the printable single-pass map beat uniform dopant on all 18 shapes and the best stored historical map on 13. Seven shapes reached the absolute solved class of melt-region IoU &ge; 0.95. Four-bit quantization changed IoU by no more than 0.0035 across the census, showing that the optimized structure survives the transition from a continuous design variable to a printable instruction.</p>
           </div>
           <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr);">
             <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/decks/rfam-sintering/figures/ch3/fig_printer_fgm_maps.webp" alt="Printer-ready functionally graded dopant maps" />
-              <span>Printer-Ready 4-Bit Dopant Maps</span>
+              <img src="assets/decks/rfam-sintering/figures/solve/fig_solve_census_wide.webp" alt="Eighteen-shape HEATR adjoint inverse-design census" />
+              <span>18-Shape Adjoint Design Census</span>
             </div>
             <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/decks/rfam-sintering/figures/ch3/fig_fgm_circle_result.webp" alt="Nominal and functionally graded RFAM result comparison" />
-              <span>Nominal vs. Functionally Graded Result</span>
+              <img src="assets/decks/rfam-sintering/figures/threed/fig_deck_cube_solved_map.webp" alt="Three-dimensional solved material map through the build height" />
+              <span>Three-Dimensional Solved Map</span>
             </div>
           </div>
 
@@ -960,35 +961,34 @@
 
           <div class="modal__section">
             <h4>Why Build a Custom Solver?</h4>
-            <p>General-purpose FEA tools like COMSOL can solve the coupled EQS + thermal + phase-change problem, but the overhead of model setup, meshing, and multi-physics coupling makes it impractical to iterate quickly. Changing a geometry, testing a new compensation method, or sweeping an exposure parameter each requires substantial manual effort. HEATR eliminates that overhead with a purpose-built solver tuned specifically for RF-heated powder bed geometries. A simulation that might take an afternoon to set up and run in COMSOL completes in minutes in HEATR, enabling batch sweeps and automated optimization across the full primitive geometry library.</p>
+            <p>COMSOL can assemble the same coupled physics, and it remains an independent reference for HEATR. The advantage is not an exaggerated single-solve speed claim: a comparable transient case takes roughly 30 seconds in HEATR versus 60&ndash;70 seconds in COMSOL. The decisive difference is throughput and control. HEATR carries no per-run meshing, GUI, or license-seat overhead, so hundreds of unattended geometry, orientation, grading, and adjoint evaluations are scriptable. Owning the forward model also makes it possible to embed custom densification endpoints, quantization gates, inverse-design objectives, and exact adjoints directly in the solve.</p>
           </div>
 
           <div class="modal__section">
-            <h4>Simulation Modes</h4>
-            <p>HEATR supports multiple modes designed for systematic process exploration:</p>
+            <h4>Current Design System</h4>
             <ul>
-              <li><strong>Single Exposure:</strong> Full coupled electrothermal simulation for any geometry with detailed field, thermal, melt fraction, and densification outputs.</li>
-              <li><strong>Parameter Sweeps:</strong> Automated batch runs varying exposure time, part size, orientation, and material properties across the primitive geometry library.</li>
-              <li><strong>Exposure Optimizer:</strong> Bayesian optimization of process parameters to meet target temperature, uniformity, or densification objectives.</li>
-              <li><strong>Orientation Optimizer:</strong> Pareto optimization of part orientation to maximize sintering uniformity within a static field.</li>
-              <li><strong>Turntable Scheduling:</strong> Simulates rotational exposure averaging with configurable rotation increments and timing.</li>
+              <li><strong>Forward physics:</strong> Coupled EQS, RF power deposition, transient thermal transport, phase change, and densification in 2.5D and 3D.</li>
+              <li><strong>Adjoint material design:</strong> Shape-fidelity gradients for every dopant cell at approximately one additional forward-solve cost.</li>
+              <li><strong>Printability gates:</strong> Filtering, smoothing, 4-bit quantization, grid transfer, energy-residual checks, and production-forward re-evaluation.</li>
+              <li><strong>Additional actuators:</strong> Exposure stop, RF drive, orientation, asymmetric dwell, field averaging, and geometry pre-distortion.</li>
+              <li><strong>Method selection:</strong> Geometry-specific routing identifies where grading works and where field shadowing or power limits require another lever.</li>
             </ul>
           </div>
           <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr);">
             <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/images/content/heatr-circle-rf-summary.png" alt="HEATR – Circle: Full RF Simulation Summary with Thermal, Field, and Densification" />
-              <span>Circle: RF Simulation Summary</span>
+              <img src="assets/decks/rfam-sintering/figures/solve/fig_solve_loop_schematic.webp" alt="HEATR forward and adjoint inverse-design loop" />
+              <span>Forward + Adjoint Design Loop</span>
             </div>
             <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/images/content/heatr-square-rf-summary.png" alt="HEATR – Square: Full RF Simulation Summary" />
-              <span>Square: RF Simulation Summary</span>
+              <img src="assets/decks/rfam-sintering/figures/solve/fig_hexagon_ungraded_vs_graded.webp" alt="Ungraded and adjoint-designed hexagon comparison" />
+              <span>Ungraded vs. Adjoint-Designed</span>
             </div>
           </div>
 
           <div class="modal__section">
             <h4>Orientation Optimization</h4>
             <p>The ideal compensation strategy for non-axisymmetric parts would be a turntable that rotates the part through the field during exposure, averaging out the anisotropic coupling. In practice, this is extremely difficult to implement: the susceptor materials are high-impedance, and the electrode walls must maintain continuous contact with the powder medium throughout the process. Physically rotating a part while maintaining that contact is a significant mechanical challenge.</p>
-            <p style="margin-top: 0.75rem;">The next best approach is to keep the field static and optimize the orientation of the part within it. HEATR's orientation optimizer searches for the rotation angle that produces the most uniform sintering for a given geometry. The L-shape below illustrates the difference: in its default upright orientation, the vertical arm overheats while the horizontal arm barely reaches melt temperature. After orientation optimization (rotated ~45&deg;), the coupling distributes much more evenly across both arms, producing uniform melt and densification throughout the part.</p>
+            <p style="margin-top: 0.75rem;">A practical alternative is to keep the field static and optimize the part orientation within it. HEATR searches for rotations that reduce heating nonuniformity for a given geometry. The L-shape below illustrates the mechanism: its default orientation produces strongly uneven coupling, while a rotated orientation distributes the field more evenly and improves the simulated melt and densification response.</p>
           </div>
           <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr);">
             <div class="modal__gallery-item modal__gallery-item--lightbox">
@@ -1037,8 +1037,9 @@
           </div>
 
           <div class="modal__section">
-            <h4>Outputs &amp; Validation</h4>
-            <p>Each run produces a comprehensive output package: spatial field maps (voltage, E-field, Joule heating), thermal evolution with melt fraction and relative density contours, time-resolved temperature and densification curves, and a full validation report tracking energy balance residuals, numerical stability, and solver diagnostics. This makes it straightforward to compare results across geometries and compensation strategies.</p>
+            <h4>Verification, Cross-Checks &amp; Open Validation</h4>
+            <p>Every run reports field maps, thermal and densification histories, energy-balance residuals, and numerical diagnostics. The forward physics is cross-checked against COMSOL on reference cases, and a one-parameter calibration against a recovered independent IR transient reproduces the measured time-to-melt. The adjoint is verified against finite differences before optimization and satisfies the forward/adjoint transpose test to machine precision.</p>
+            <p style="margin-top: 0.75rem;">The remaining boundary is explicit: dedicated full-field validation on the current RFAM machine has not yet been completed, and the model still uses published 30 wt% graphite-in-nylon electrical data as a stand-in for the deployed 25 wt% carbon-black ink. Absolute heating magnitudes therefore remain model-relative pending impedance spectroscopy and closed-loop IR validation. The compensation results are simulation-established, not yet experimentally demonstrated.</p>
           </div>
           <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr);">
             <div class="modal__gallery-item modal__gallery-item--lightbox">
@@ -1079,10 +1080,10 @@
           <div class="modal__section">
             <h4>Technical Details</h4>
             <ul>
-              <li><strong>Physics:</strong> Electro-quasi-static field solve, volumetric Joule heating, transient thermal transport, DSC-calibrated apparent heat capacity phase-change, viscous-capillary densification with Arrhenius/WLF viscosity</li>
-              <li><strong>Discretization:</strong> 120&times;120 finite-difference grid with subpixel fill-fraction boundary treatment (8&times;8 subsampling), harmonic-mean conductivity at material interfaces</li>
-              <li><strong>Solver:</strong> Sparse direct solver (SuperLU), Forward Euler time integration with adaptive EQS/thermal subcycling</li>
-              <li><strong>Modes:</strong> Single exposure, parameter sweep, exposure optimizer, turntable scheduling, orientation Pareto optimization, multi-part placement, shell thickness study</li>
+              <li><strong>Physics:</strong> Complex-coefficient electro-quasi-static field solve, generator-power-scaled RF deposition, transient thermal transport, DSC-calibrated apparent heat capacity, and viscous-capillary densification</li>
+              <li><strong>Models:</strong> Production 2.5D solver plus a volumetric 3D port for full build-height studies</li>
+              <li><strong>Inverse design:</strong> Direct/adjoint material optimization, exposure-stop selection, orientation, field averaging, and geometry pre-distortion</li>
+              <li><strong>Numerical gates:</strong> Finite-difference gradient checks, grid refinement and transfer checks, filtering, 4-bit quantization, energy residuals, and production-forward re-evaluation</li>
               <li><strong>Stack:</strong> Python, NumPy, SciPy (sparse), Matplotlib, browser-based GUI with live job management</li>
             </ul>
           </div>
@@ -1090,12 +1091,11 @@
           <div class="modal__tags">
             <span>Electrothermal Simulation</span>
             <span>RF Heating</span>
-            <span>Rapid Iteration</span>
+            <span>Adjoint Inverse Design</span>
+            <span>Functionally Graded Materials</span>
+            <span>Shape Fidelity</span>
+            <span>Finite-Difference Verification</span>
             <span>Python</span>
-            <span>Finite Difference</span>
-            <span>Process Optimization</span>
-            <span>Orientation Optimization</span>
-            <span>Parameter Sweeps</span>
           </div>
         </div>
       </div>
