@@ -12,8 +12,8 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Matt McCoy - R&D Engineer, PhD Candidate at Georgia Tech, specializing in additive manufacturing, process physics, and precision systems.">
-  <title>Matt McCoy | R&D Engineer and PhD Candidate</title>
+  <meta name="description" content="Matt McCoy builds and leads industrial additive manufacturing systems from process physics and machine architecture through product launch and scale.">
+  <title>Matt McCoy | Additive Manufacturing Systems Lead</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -50,11 +50,12 @@
     <div class="menu-overlay__content">
       <nav class="menu-overlay__nav">
         <a href="#about" class="menu-overlay__link" data-index="01">About</a>
-        <a href="#work" class="menu-overlay__link" data-index="02">Work</a>
-        <a href="#research" class="menu-overlay__link" data-index="03">Research</a>
-        <a href="#archive" class="menu-overlay__link" data-index="04">Archive</a>
-        <a href="#music" class="menu-overlay__link" data-index="05">Music</a>
-        <a href="#contact" class="menu-overlay__link" data-index="06">Contact</a>
+        <a href="#at-a-glance" class="menu-overlay__link" data-index="02">At a Glance</a>
+        <a href="#work" class="menu-overlay__link" data-index="03">Work</a>
+        <a href="#research" class="menu-overlay__link" data-index="04">Research</a>
+        <a href="#archive" class="menu-overlay__link" data-index="05">Archive</a>
+        <a href="#music" class="menu-overlay__link" data-index="06">Music</a>
+        <a href="#contact" class="menu-overlay__link" data-index="07">Contact</a>
       </nav>
       <div class="menu-overlay__footer">
         <p>Atlanta, GA / EST</p>
@@ -71,7 +72,7 @@
     <div class="hero__bg"></div>
     <div class="hero__content">
       <div class="hero__intro">
-        <span class="hero__label">R&D Engineer and PhD Candidate</span>
+        <span class="hero__label">Additive Manufacturing Systems Lead &amp; PhD Candidate</span>
         <h1 class="hero__title">
           <span class="hero__title-line">Building the</span>
           <span class="hero__title-line"><em>future</em> of</span>
@@ -83,11 +84,11 @@
           <img src="assets/images/portrait.jpg" alt="Matt McCoy" />
         </div>
         <div class="hero__bio">
-          <p>I build products from <strong>first prototype to production</strong>. I lead <strong>process R&D</strong>, turn messy physics into manufacturable systems, and translate complex problems into clear decisions for teams and leaders. Currently developing <strong>volumetric additive manufacturing</strong> at Georgia Tech; previously process R&D and leadership at Formlabs.</p>
+          <p>I build and architect <strong>industrial powder-bed additive manufacturing systems</strong> from first principles and lead multidisciplinary teams from process R&amp;D through production. At Formlabs, I held engineering sign-off for the Fuse 1+ 30W launch and led early Fuse X1 optical and thermal architecture. At Georgia Tech, I invented a new polymer powder-bed process and built its machine, RF heating network, and multiphysics design software.</p>
           <div class="hero__meta">
+            <span>Industrial PBF Systems</span>
+            <span>Product Launch &amp; Scale</span>
             <span>NSF GRFP Fellow</span>
-            <span>Georgia Tech PhD</span>
-            <span>Formlabs R&D</span>
           </div>
         </div>
       </div>
@@ -98,10 +99,83 @@
     </div>
   </section>
 
+  <!-- At a Glance Section -->
+  <section id="at-a-glance" class="section section--glance">
+    <div class="glance-heading">
+      <div class="section__header">
+        <span class="section__number">02</span>
+        <h2 class="section__title">At a Glance</h2>
+      </div>
+      <p class="glance-heading__intro">A decade building additive manufacturing processes, machines, software, and teams.</p>
+      <div class="glance-controls" aria-label="At a glance carousel controls">
+        <button class="glance-control glance-control--prev" type="button" aria-label="Previous project">&larr;</button>
+        <span class="glance-count" aria-live="polite"><strong>01</strong> / 05</span>
+        <button class="glance-control glance-control--next" type="button" aria-label="Next project">&rarr;</button>
+      </div>
+    </div>
+
+    <div class="glance-track" tabindex="0" aria-label="Selected additive manufacturing work">
+      <article class="glance-card" data-modal="formlabs" tabindex="0" role="button" aria-label="Open Formlabs case study: Fuse 1 Plus 30W launch">
+        <img class="glance-card__image" src="assets/images/content/FUSE_DVT_BRINGUP.JPG" alt="Fuse 1 Plus 30W printer development hardware during bring-up" />
+        <div class="glance-card__shade"></div>
+        <div class="glance-card__content">
+          <span class="glance-card__eyebrow">Launch leadership</span>
+          <h3>Fuse 1+ 30W</h3>
+          <p>Engineering sign-off across a 30+ engineer redesign, 130+ ECOs, EVT/DVT/PVT, factory acceptance, and production release.</p>
+          <div class="glance-card__metrics"><span><strong>9 mo.</strong> launch</span><span><strong>55%+</strong> SLS share</span></div>
+        </div>
+      </article>
+
+      <article class="glance-card" data-modal="formlabs" tabindex="0" role="button" aria-label="Open Formlabs case study: Fuse X1 architecture">
+        <img class="glance-card__image" src="assets/images/content/fuse-optical-selection-timeVpriceVpower.png" alt="Fuse X1 laser architecture trade study" />
+        <div class="glance-card__shade"></div>
+        <div class="glance-card__content">
+          <span class="glance-card__eyebrow">System architecture</span>
+          <h3>Fuse X1</h3>
+          <p>Led early optical and thermal architecture, reducing a broad process and hardware search space to a few characterized system options.</p>
+          <div class="glance-card__metrics"><span><strong>Optics</strong></span><span><strong>Thermals</strong></span><span><strong>Materials</strong></span></div>
+        </div>
+      </article>
+
+      <article class="glance-card" data-modal="rfam" tabindex="0" role="button" aria-label="Open RFAM case study: invented process and custom machine">
+        <img class="glance-card__image" src="assets/images/content/rfam-machine-photo.jpg" alt="Custom radio-frequency additive manufacturing research machine" />
+        <div class="glance-card__shade"></div>
+        <div class="glance-card__content">
+          <span class="glance-card__eyebrow">Process invention</span>
+          <h3>RFAM Machine</h3>
+          <p>Invented a polymer powder-bed process, secured approximately $150K, and built the custom motion, jetting, controls, instrumentation, safety, and RF systems.</p>
+          <div class="glance-card__metrics"><span><strong>600 W</strong> RF system</span><span><strong>13.56 MHz</strong></span></div>
+        </div>
+      </article>
+
+      <article class="glance-card" data-modal="heatr" tabindex="0" role="button" aria-label="Open HEATR case study: computational process design">
+        <img class="glance-card__image" src="assets/decks/rfam-sintering/figures/ch3/fig_fgm_circle_result.webp" alt="Functionally graded material map and predicted RFAM temperature field" />
+        <div class="glance-card__shade"></div>
+        <div class="glance-card__content">
+          <span class="glance-card__eyebrow">Computational design</span>
+          <h3>HEATR</h3>
+          <p>Built a coupled electrothermal and densification platform that converts part geometry into printer-ready graded material maps.</p>
+          <div class="glance-card__metrics"><span><strong>54%</strong> lower temperature spread</span><span><strong>4-bit</strong> maps</span></div>
+        </div>
+      </article>
+
+      <article class="glance-card" data-modal="publications" tabindex="0" role="button" aria-label="Open publications: metal additive manufacturing research">
+        <img class="glance-card__image" src="assets/images/content/DED_CAD.avif" alt="Hybrid wire arc and powder-blown directed energy deposition system CAD" />
+        <div class="glance-card__shade"></div>
+        <div class="glance-card__content">
+          <span class="glance-card__eyebrow">Technical range</span>
+          <h3>Metal AM Research</h3>
+          <p>Peer-reviewed WAAM and hybrid WAAM/powder-blown DED research, including a 2025 paper in <em>npj Advanced Manufacturing</em>.</p>
+          <div class="glance-card__metrics"><span><strong>WAAM</strong></span><span><strong>Hybrid DED</strong></span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
   <!-- Work Section -->
   <section id="work" class="section section--work">
     <div class="section__header">
-      <span class="section__number">02</span>
+      <span class="section__number">03</span>
       <h2 class="section__title">Experience</h2>
     </div>
 
@@ -117,7 +191,7 @@
         <div class="work-card__content">
           <span class="work-card__date">2019 - 2023</span>
           <h3 class="work-card__title">Formlabs</h3>
-          <p class="work-card__role">Senior R&D Engineer & Lead</p>
+          <p class="work-card__role">SLS Systems R&amp;D &amp; Technical Program Leadership</p>
           <div class="work-card__tags">
             <span>SLS</span>
             <span>Optics</span>
@@ -131,7 +205,7 @@
   <!-- Research Section -->
   <section id="research" class="section section--research">
     <div class="section__header">
-      <span class="section__number">03</span>
+      <span class="section__number">04</span>
       <h2 class="section__title">Research</h2>
     </div>
 
@@ -144,11 +218,11 @@
         <div class="project-card__content">
           <span class="project-card__label">PhD Research</span>
           <h3 class="project-card__title">Radio Frequency Additive Manufacturing</h3>
-          <p class="project-card__desc">Volumetric polymer sintering via RF energy delivery&mdash;10x speed potential, infinite recyclability, and novel material modalities</p>
+          <p class="project-card__desc">A new polymer powder-bed process, custom machine, RF heating system, and coupled computational design platform</p>
           <div class="project-card__stats">
             <div class="stat">
-              <span class="stat__value">10x</span>
-              <span class="stat__label">Speed Potential</span>
+              <span class="stat__value">54%</span>
+              <span class="stat__label">Lower Predicted Temperature Spread</span>
             </div>
             <div class="stat">
               <span class="stat__value">600W</span>
@@ -191,9 +265,9 @@
           <span class="project-card__label">Publications</span>
           <h3 class="project-card__title">Research Output</h3>
           <ul class="project-card__list">
-            <li>2 SFF Conference Papers</li>
-            <li>npj Advanced Manufacturing</li>
-            <li>AM Journal (in preparation)</li>
+            <li>SFF 2025 &amp; 2026</li>
+            <li>npj Advanced Manufacturing (2025)</li>
+            <li>5 journal manuscripts planned for 2027</li>
           </ul>
           <span class="project-card__cta">View All &rarr;</span>
         </div>
@@ -204,7 +278,7 @@
   <!-- Archive Section -->
   <section id="archive" class="section section--archive">
     <div class="section__header">
-      <span class="section__number">04</span>
+      <span class="section__number">05</span>
       <h2 class="section__title">Archive</h2>
     </div>
 
@@ -264,7 +338,7 @@
   <!-- Music Section -->
   <section id="music" class="section section--music">
     <div class="section__header">
-      <span class="section__number">05</span>
+      <span class="section__number">06</span>
       <h2 class="section__title">Music</h2>
     </div>
 
@@ -343,21 +417,21 @@
 
         <div class="modal__body">
           <div class="modal__intro">
-            <p>At Formlabs, I worked on the Fuse series of SLS 3D printers, progressing from intern to Lead. I owned thermal and optical subsystems, managed cross-functional programs, and authored 30+ technical reports that enabled data-driven engineering decisions. The calibration tools and process characterization systems I developed are actively deployed across tens of thousands of Fuse printers today&mdash;including notable makers like Adam Savage.</p>
+            <p>At Formlabs, I grew from Fuse SLS process and hardware development into printer-wide technical ownership. I led engineering execution and sign-off for the 30+ engineer Fuse 1+ 30W launch, then returned to deep R&amp;D to lead early optical and thermal architecture for Fuse X1. My work spanned materials, process physics, hardware, controls, calibration, factory software, and customer tools&mdash;including the bed-temperature tool used by Adam Savage.</p>
           </div>
 
           <div class="modal__stats-grid">
             <div class="modal__stat">
               <span class="modal__stat-value">30+</span>
-              <span class="modal__stat-label">Technical reports authored</span>
+              <span class="modal__stat-label">Engineers coordinated</span>
             </div>
             <div class="modal__stat">
               <span class="modal__stat-value">3x</span>
               <span class="modal__stat-label">Dimensional accuracy improvement</span>
             </div>
             <div class="modal__stat">
-              <span class="modal__stat-value">120W</span>
-              <span class="modal__stat-label">Next-gen laser characterization</span>
+              <span class="modal__stat-value">9 mo.</span>
+              <span class="modal__stat-label">Fuse 1+ production launch</span>
             </div>
           </div>
 
@@ -423,9 +497,9 @@
           <div class="modal__section" style="margin-bottom: 2rem;">
             <p style="margin-bottom: 0.75rem;"><strong>Impact:</strong></p>
             <ul>
-              <li>The Fuse 1+ 30W remains Formlabs' flagship SLS printer and holds the largest SLS market share by units sold</li>
-              <li>Recognized as one of the best SLS printers on the market for print quality, speed, and cost&mdash;priced below most competitors</li>
-              <li>Now a major and growing segment of Formlabs' revenue</li>
+              <li>The Fuse 1/1+ family now represents over 55% of SLS printers sold worldwide</li>
+              <li>The complete redesign moved from prototype through production release in nine months</li>
+              <li>Engineering ownership spanned process architecture, requirements, verification, factory software, machine acceptance, and shipment release</li>
             </ul>
           </div>
           <div style="margin-bottom: 2rem;">
@@ -529,7 +603,7 @@
             <div class="modal__role">
               <div class="modal__role-header">
                 <h4>Senior Optical & Thermal Systems Engineer</h4>
-                <span class="modal__role-badge">Lead</span>
+                <span class="modal__role-badge">Fuse X1</span>
               </div>
               <p class="modal__role-date">April 2023 - September 2023</p>
               <ul>
@@ -602,17 +676,17 @@
 
         <div class="modal__body">
           <div class="modal__intro">
-            <p><strong>RFAM is a novel volumetric approach</strong> combining layerwise dopant deposition with volumetric RF heating to sinter polymers. Carbon/graphite-doped nylon powder is exposed to an RF field between copper electrode plates&mdash;the dopant selectively absorbs RF energy, generating heat that melts the surrounding nylon, enabling particle coalescence and part densification. Unlike laser sintering that scans sequentially, RFAM heats the entire build volume simultaneously&mdash;enabling order-of-magnitude improvements in speed, energy efficiency, and material utilization.</p>
+            <p><strong>RFAM is a new polymer powder-bed process</strong> combining layerwise dopant deposition with volumetric RF heating. Carbon/graphite-doped nylon powder is exposed to an RF field between copper electrode plates; the dopant selectively absorbs RF energy and melts the surrounding nylon. The resulting platform replaces sequential laser scanning with parallel energy delivery and creates a new process-design problem spanning material patterning, electromagnetic fields, heat transfer, and densification.</p>
           </div>
 
           <div class="modal__stats-grid">
             <div class="modal__stat">
-              <span class="modal__stat-value">10x</span>
-              <span class="modal__stat-label">Potential speed improvement</span>
+              <span class="modal__stat-value">54%</span>
+              <span class="modal__stat-label">Lower predicted temperature spread</span>
             </div>
             <div class="modal__stat">
-              <span class="modal__stat-value">&infin;</span>
-              <span class="modal__stat-label">Material recyclability</span>
+              <span class="modal__stat-value">4-bit</span>
+              <span class="modal__stat-label">Printer-ready material maps</span>
             </div>
             <div class="modal__stat">
               <span class="modal__stat-value">600W</span>
@@ -755,11 +829,10 @@
           <div class="modal__section">
             <h4>Key Advantages</h4>
             <ul>
-              <li><strong>10x speed potential:</strong> Volumetric heating eliminates sequential voxel-by-voxel scanning</li>
-              <li><strong>Infinite material recyclability:</strong> No thermal cycling of powder bed&mdash;unfused material remains pristine (vs. 5-7 cycles for SLS nylon)</li>
-              <li><strong>Energy efficient:</strong> Selective heating only where dopant is deposited; surrounding powder functionally transparent to RF</li>
-              <li><strong>Reduced residual stress:</strong> Volumetric heating eliminates interlayer reheating and thermal gradients</li>
-              <li><strong>Lower cost:</strong> No precision scanning optics; scalable designs without major system complexity</li>
+              <li><strong>Parallel energy delivery:</strong> RF exposure heats doped regions without a rastering laser</li>
+              <li><strong>Material-selective heating:</strong> Patterned conductive dopant defines where RF energy is absorbed</li>
+              <li><strong>Computationally designed process:</strong> Coupled physics converts geometry into graded material and exposure instructions</li>
+              <li><strong>New machine architecture:</strong> The process trades precision scanning optics for RF matching, field management, and dopant deposition</li>
             </ul>
           </div>
 

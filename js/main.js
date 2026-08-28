@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Add hover effect to interactive elements
-    const interactiveElements = document.querySelectorAll('a, button, [data-modal], .work-card, .project-card, .music-content, .archive-preview');
+    const interactiveElements = document.querySelectorAll('a, button, [data-modal], .work-card, .project-card, .glance-card, .music-content, .archive-preview');
     interactiveElements.forEach(el => {
       el.addEventListener('mouseenter', () => {
         // Check if we're in contact section (dark background)
@@ -98,6 +98,13 @@ document.addEventListener('DOMContentLoaded', () => {
     trigger.addEventListener('click', () => {
       const modalId = trigger.dataset.modal;
       openModal(modalId);
+    });
+
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openModal(trigger.dataset.modal);
+      }
     });
   });
 
@@ -196,6 +203,48 @@ document.addEventListener('DOMContentLoaded', () => {
   lightboxClose.addEventListener('click', closeLightbox);
   lightboxBackdrop.addEventListener('click', closeLightbox);
 
+  // At-a-glance horizontal carousel
+  const glanceTrack = document.querySelector('.glance-track');
+  const glanceCards = glanceTrack ? Array.from(glanceTrack.querySelectorAll('.glance-card')) : [];
+  const glancePrev = document.querySelector('.glance-control--prev');
+  const glanceNext = document.querySelector('.glance-control--next');
+  const glanceCount = document.querySelector('.glance-count strong');
+
+  function glanceActiveIndex() {
+    if (!glanceTrack || glanceCards.length === 0) return 0;
+    const trackLeft = glanceTrack.getBoundingClientRect().left;
+    return glanceCards.reduce((closest, card, index) => {
+      const distance = Math.abs(card.getBoundingClientRect().left - trackLeft);
+      return distance < closest.distance ? { index, distance } : closest;
+    }, { index: 0, distance: Infinity }).index;
+  }
+
+  function updateGlanceCount() {
+    if (glanceCount) {
+      glanceCount.textContent = String(glanceActiveIndex() + 1).padStart(2, '0');
+    }
+  }
+
+  function moveGlance(direction) {
+    if (!glanceTrack || glanceCards.length === 0) return;
+    const current = glanceActiveIndex();
+    const target = Math.max(0, Math.min(glanceCards.length - 1, current + direction));
+    glanceCards[target].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+  }
+
+  if (glanceTrack) {
+    glancePrev?.addEventListener('click', () => moveGlance(-1));
+    glanceNext?.addEventListener('click', () => moveGlance(1));
+    glanceTrack.addEventListener('scroll', updateGlanceCount, { passive: true });
+    glanceTrack.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+        e.preventDefault();
+        moveGlance(e.key === 'ArrowLeft' ? -1 : 1);
+      }
+    });
+    updateGlanceCount();
+  }
+
   // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -253,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }, observerOptions);
 
   // Animate elements on scroll
-  const animateElements = document.querySelectorAll('.work-card, .project-card, .music-content, .section__header');
+  const animateElements = document.querySelectorAll('.work-card, .project-card, .glance-card, .music-content, .section__header');
   animateElements.forEach((el, i) => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
