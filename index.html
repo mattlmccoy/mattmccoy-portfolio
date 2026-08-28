@@ -38,6 +38,7 @@
     <div class="nav__inner">
       <a href="#" class="nav__logo">M<span class="nav__logo-dot">.</span>M</a>
       <div class="nav__menu">
+        <a class="nav__resume" href="assets/documents/Matthew-McCoy-Resume.pdf" target="_blank" rel="noopener">Resume</a>
         <button class="nav__toggle" aria-label="Toggle navigation">
           <span class="nav__toggle-text">Menu</span>
         </button>
@@ -89,6 +90,10 @@
             <span>Industrial PBF Systems</span>
             <span>Product Launch &amp; Scale</span>
             <span>NSF GRFP Fellow</span>
+          </div>
+          <div class="hero__actions">
+            <a class="hero__resume" href="assets/documents/Matthew-McCoy-Resume.pdf" target="_blank" rel="noopener">Download resume <span aria-hidden="true">&rarr;</span></a>
+            <a class="hero__work-link" href="#at-a-glance">See selected work <span aria-hidden="true">&darr;</span></a>
           </div>
         </div>
       </div>
@@ -607,11 +612,11 @@
               </div>
               <p class="modal__role-date">April 2023 - September 2023</p>
               <ul>
-                <li>Owned thermal and optical subsystem development for next-generation SLS platforms</li>
+                <li>Led early optical and thermal architecture decisions for Fuse X1</li>
                 <li>Translated process physics into requirements, verification plans, and design trade studies</li>
                 <li>Developed multi-laser optics concepts (beam shaping, variable focus, scan strategies)</li>
                 <li>Created predictive frameworks: peak irradiance process maps, print time models, cost-performance optimization</li>
-                <li>Hiring manager: hired multiple full-time R&D engineers and dozens of interns</li>
+                <li>Mentored and hired engineers; later offered technical leadership of a five-engineer product-incubation team</li>
               </ul>
             </div>
 
@@ -881,14 +886,14 @@
           </div>
           <div class="modal__header-content">
             <span class="modal__label">PhD Research &bull; Task 2</span>
-            <h2 class="modal__title">HEATR: Electrothermal Simulation Platform</h2>
-            <p class="modal__subtitle">High-frequency Electrothermal Additive Thermal Resolver</p>
+            <h2 class="modal__title">HEATR: Multiphysics Process-Design Platform</h2>
+            <p class="modal__subtitle">Coupled RF, thermal, phase-change, and densification simulation</p>
           </div>
         </div>
 
         <div class="modal__body">
           <div class="modal__intro">
-            <p><strong>HEATR is a coupled 2.5D electrothermal simulation platform</strong> I built to rapidly explore the RFAM process design space. In RFAM, heating is driven by electro-quasi-static (EQS) coupling between the applied RF field and a carbon black doped nylon susceptor. Part geometry directly determines how energy couples into the material, which drives everything downstream: heating, melting, and densification. Understanding and compensating for this geometry-dependent coupling is essential to making good parts. HEATR provides a way to do that quickly, sweeping geometry types, compensation strategies, and exposure parameters in minutes rather than the hours-to-days required by general-purpose FEA tools like COMSOL.</p>
+            <p><strong>HEATR is the coupled 2.5D/3D process-design platform I built for RFAM.</strong> It connects electro-quasi-static RF coupling to transient heat transfer, phase change, and densification, then works backward from target geometry to printer-ready process instructions. Because part geometry changes how RF energy couples into the material, the platform does more than predict heating: it designs graded dopant maps, exposure schedules, orientation, field averaging, and geometry compensation through the coupled physics.</p>
           </div>
 
           <div class="modal__videos">
@@ -910,16 +915,31 @@
 
           <div class="modal__stats-grid">
             <div class="modal__stat">
-              <span class="modal__stat-value">17+</span>
-              <span class="modal__stat-label">Primitive geometries</span>
+              <span class="modal__stat-value">54%</span>
+              <span class="modal__stat-label">Lower predicted temperature spread</span>
             </div>
             <div class="modal__stat">
-              <span class="modal__stat-value">Minutes</span>
-              <span class="modal__stat-label">Per simulation run</span>
+              <span class="modal__stat-value">0.904</span>
+              <span class="modal__stat-label">Cylinder melt-region IoU (1.0 = exact)</span>
             </div>
             <div class="modal__stat">
-              <span class="modal__stat-value">7+</span>
-              <span class="modal__stat-label">Simulation modes</span>
+              <span class="modal__stat-value">4-bit</span>
+              <span class="modal__stat-label">Printer-ready graded material maps</span>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>From Geometry to Printer-Ready Compensation</h4>
+            <p>The current pipeline uses finite-difference-verified direct and adjoint optimization to convert target geometry into filtered, smoothed, quantized dopant maps that the machine can actually print. Material grading and geometry correction reduced predicted temperature spread by 54% while raising predicted melt-region overlap from 0.727 to 0.828 for a square and from 0.673 to 0.904 for a cylinder.</p>
+          </div>
+          <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/decks/rfam-sintering/figures/ch3/fig_printer_fgm_maps.webp" alt="Printer-ready functionally graded dopant maps" />
+              <span>Printer-Ready 4-Bit Dopant Maps</span>
+            </div>
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/decks/rfam-sintering/figures/ch3/fig_fgm_circle_result.webp" alt="Nominal and functionally graded RFAM result comparison" />
+              <span>Nominal vs. Functionally Graded Result</span>
             </div>
           </div>
 
@@ -1257,6 +1277,10 @@
               <p class="publication__venue">Solid Freeform Fabrication Symposium, Austin, TX (2025)</p>
             </div>
             <div class="publication">
+              <p class="publication__title">Geometry-Dependent Sintering Nonuniformity in Radio Frequency Additive Manufacturing</p>
+              <p class="publication__venue">Solid Freeform Fabrication Symposium, Austin, TX (2026)</p>
+            </div>
+            <div class="publication">
               <p class="publication__title">Impact of Heat Input and Step Over Distance on Part Geometry for Multi-Bead WAAM Components</p>
               <p class="publication__authors">Hussein, Z., Goodwin, J., McCoy, M., Bose-Bandyopadhyay, S., Saleeby, K., &amp; Salda&ntilde;a, C.</p>
               <p class="publication__venue">ASME MSEC 2024, Knoxville, TN</p>
@@ -1265,13 +1289,13 @@
           </div>
 
           <div class="modal__section">
-            <h4>Planned PhD Publications</h4>
+            <h4>Planned 2027 Journal Portfolio</h4>
             <ul class="publication__planned">
-              <li>Design of a Modular, Scalable Open-Architecture Platform for Binder and Material Jetting Additive Manufacturing</li>
-              <li>A Low-Cost Scanner-Based Diagnostic Pipeline for Jetting Fidelity and Dopant Distribution in Binder Jet Additive Manufacturing</li>
-              <li>Physical Pathways for Compensating Shrinkage and Field Nonuniformity in Radio Frequency-Driven Additive Manufacturing</li>
-              <li>Model-Informed Input Design for Radio Frequency&ndash;Driven Additive Manufacturing: Functional Grading and Inverse Lithography-Inspired Pre-Distortion</li>
-              <li>Radio Frequency as a Volumetric Energy Paradigm for Additive Manufacturing: Principles, Modalities, and Opportunities</li>
+              <li>RFAM machine architecture and polymer powder-bed process development</li>
+              <li>HEATR coupled electrothermal and densification solver, verification, and experimental cross-validation</li>
+              <li>Adjoint inverse design of printer-ready functionally graded dopant maps</li>
+              <li>Geometry compensation and pre-distortion through coupled process physics</li>
+              <li>Low-cost scanner metrology for jetting fidelity and dopant distribution</li>
             </ul>
           </div>
 

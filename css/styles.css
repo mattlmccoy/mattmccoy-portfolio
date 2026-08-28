@@ -171,6 +171,26 @@ strong {
   color: var(--teal);
 }
 
+.nav__menu {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.nav__resume {
+  padding: var(--space-xs) var(--space-sm);
+  color: var(--white);
+  font-size: 0.86rem;
+  font-weight: 500;
+  transition: color var(--transition), opacity var(--transition);
+}
+
+.nav__resume:hover,
+.nav__resume:focus-visible {
+  color: var(--teal);
+  outline: none;
+}
+
 .nav__toggle {
   background: none;
   border: none;
@@ -374,6 +394,48 @@ strong {
   background: rgba(255,255,255,0.1);
   border-radius: 50px;
   color: var(--gray-200);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.hero__resume,
+.hero__work-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 0.86rem;
+  font-weight: 500;
+  transition: color var(--transition), background var(--transition), transform var(--transition);
+}
+
+.hero__resume {
+  padding: 0.75rem 1.1rem;
+  border-radius: 999px;
+  color: var(--black);
+  background: var(--teal);
+}
+
+.hero__resume:hover,
+.hero__resume:focus-visible {
+  background: var(--white);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.hero__work-link {
+  color: var(--gray-200);
+}
+
+.hero__work-link:hover,
+.hero__work-link:focus-visible {
+  color: var(--teal);
+  outline: none;
 }
 
 .hero__scroll {
