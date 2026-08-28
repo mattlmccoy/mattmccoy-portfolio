@@ -1391,6 +1391,15 @@ strong {
   background: var(--gray-50);
 }
 
+.modal__gallery-item--animation {
+  aspect-ratio: 16/9;
+  background: #101116;
+}
+
+.modal__gallery-item--animation img {
+  object-fit: contain;
+}
+
 .modal__project {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1873,7 +1882,7 @@ strong {
   }
 
   .modal__gallery {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }
 }
 

@@ -986,53 +986,32 @@
           </div>
 
           <div class="modal__section">
-            <h4>Orientation Optimization</h4>
-            <p>The ideal compensation strategy for non-axisymmetric parts would be a turntable that rotates the part through the field during exposure, averaging out the anisotropic coupling. In practice, this is extremely difficult to implement: the susceptor materials are high-impedance, and the electrode walls must maintain continuous contact with the powder medium throughout the process. Physically rotating a part while maintaining that contact is a significant mechanical challenge.</p>
-            <p style="margin-top: 0.75rem;">A practical alternative is to keep the field static and optimize the part orientation within it. HEATR searches for rotations that reduce heating nonuniformity for a given geometry. The L-shape below illustrates the mechanism: its default orientation produces strongly uneven coupling, while a rotated orientation distributes the field more evenly and improves the simulated melt and densification response.</p>
+            <h4>Watch the Inverse Design Converge</h4>
+            <p>The animation below contrasts a one-shot proportional inverse mask with the adjoint solve. Instead of inferring a correction from a proxy field, the adjoint repeatedly evaluates the printable dopant map through the coupled RF, thermal, and densification physics, driving the final melted geometry toward the target.</p>
           </div>
-          <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr);">
-            <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/images/content/heatr-lshape-default-efields.png" alt="HEATR – L-Shape Default: E-field showing non-uniform coupling" />
-              <span>L-Shape Default: E-field Coupling</span>
-            </div>
-            <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/images/content/heatr-lshape-optimized-efields.png" alt="HEATR – L-Shape Optimized: E-field with improved coupling uniformity" />
-              <span>L-Shape Optimized: E-field Coupling</span>
-            </div>
-          </div>
-          <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr); margin-top: 1rem;">
-            <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/images/content/heatr-lshape-default-thermal.png" alt="HEATR – L-Shape Default: Severe thermal non-uniformity" />
-              <span>Default: Non-Uniform Sintering</span>
-            </div>
-            <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/images/content/heatr-lshape-optimized-thermal.png" alt="HEATR – L-Shape Optimized: Uniform temperature, melt, and density" />
-              <span>Optimized: Uniform Sintering</span>
-            </div>
-          </div>
-          <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr); margin-top: 1rem;">
-            <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/images/content/heatr-lshape-default-density.gif" alt="HEATR – L-Shape Default: Density evolution showing uneven densification" />
-              <span>Default: Density Evolution</span>
-            </div>
-            <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/images/content/heatr-lshape-optimized-density.gif" alt="HEATR – L-Shape Optimized: Density evolution showing uniform densification" />
-              <span>Optimized: Density Evolution</span>
+          <div class="modal__gallery" style="grid-template-columns: 1fr;">
+            <div class="modal__gallery-item modal__gallery-item--lightbox modal__gallery-item--animation">
+              <img src="assets/decks/rfam-sintering/figures/solve/gif_solve_vs_inversion_hexagon.webp" alt="Animated comparison of a proportional inverse dopant mask and an adjoint-optimized hexagon design" />
+              <span>Hexagon: Proportional Inversion vs. Adjoint Solve</span>
             </div>
           </div>
 
           <div class="modal__section">
-            <h4>Turntable Compensation</h4>
-            <p>While physically challenging, HEATR also supports turntable simulation for research into rotational exposure averaging. The turntable mode rotates the part through configurable increments during RF exposure, averaging the anisotropic field over multiple orientations. For non-axisymmetric geometries, this produces dramatically more uniform heating than any single static orientation. The results below show a square part under turntable exposure, with the characteristic oscillating temperature profile as the field orientation cycles.</p>
+            <h4>When Material Grading Is Not Enough</h4>
+            <p>Some re-entrant and multi-lobed geometries remain limited by field shadowing or available power. HEATR can then search process actuators as well as material maps. These SFF 2026 animations show how rotation changes the heating kernel, how an indexed two-stage schedule melts an L-shape limb by limb, and how asymmetric dwell distributes energy across a cross. The results are simulation-established; the current electrode-medium contact architecture prevents physical turntable implementation without a hardware change.</p>
           </div>
           <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr);">
-            <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/images/content/heatr-square-turntable-thermal.gif" alt="HEATR – Square: Animated Turntable Thermal Evolution" />
-              <span>Turntable: Thermal Evolution (Animated)</span>
+            <div class="modal__gallery-item modal__gallery-item--lightbox modal__gallery-item--animation">
+              <img src="assets/decks/rfam-sintering/figures/solve/gif_rotation_kernels.webp" alt="Animated comparison of static, continuously rotated, and indexed RF heating kernels for a cross" />
+              <span>Rotation Changes the Heating Kernel</span>
             </div>
-            <div class="modal__gallery-item modal__gallery-item--lightbox">
-              <img src="assets/images/content/heatr-square-turntable-rf-summary.png" alt="HEATR – Square Turntable: RF Summary with Oscillating Temperature Profile" />
-              <span>Turntable: RF Summary &amp; Temp. Profile</span>
+            <div class="modal__gallery-item modal__gallery-item--lightbox modal__gallery-item--animation">
+              <img src="assets/decks/rfam-sintering/figures/solve/gif_sequential_L.webp" alt="Animated HEATR temperature and densification simulation for a sequential two-orientation L-shape exposure" />
+              <span>Sequential L: Limb-by-Limb Exposure</span>
+            </div>
+            <div class="modal__gallery-item modal__gallery-item--lightbox modal__gallery-item--animation" style="grid-column: 1 / -1;">
+              <img src="assets/decks/rfam-sintering/figures/solve/gif_dwell_cross.webp" alt="Animated HEATR temperature and densification simulation for an asymmetric dwell schedule applied to a cross" />
+              <span>Cross: Asymmetric Dwell Schedule</span>
             </div>
           </div>
 
