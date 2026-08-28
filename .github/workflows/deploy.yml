@@ -25,6 +25,10 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Exclude build tooling from the published site
+        # tools/ is versioned so the banner stays regenerable, but it is not part
+        # of the site and its vendored figure sources should not be web-reachable.
+        run: rm -rf tools
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
