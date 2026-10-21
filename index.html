@@ -168,8 +168,8 @@
         <div class="glance-card__content">
           <span class="glance-card__eyebrow">Process invention</span>
           <h3>RFAM Machine</h3>
-          <p>Invented a polymer powder-bed process, secured approximately $150K, and built the custom motion, jetting, controls, instrumentation, safety, and RF systems.</p>
-          <div class="glance-card__metrics"><span><strong>600 W</strong> RF system</span><span><strong>13.56 MHz</strong></span></div>
+          <p>Invented a polymer powder-bed process, secured approximately $150K, and built the custom motion, jetting, controls, instrumentation, safety, and RF systems. Hand-built matching network; first parts fused October 2026.</p>
+          <div class="glance-card__metrics"><span><strong>600 W</strong> RF system</span><span><strong>13.56 MHz</strong></span><span><strong>~50x</strong> less RF in-image</span></div>
         </div>
       </article>
 
@@ -874,6 +874,68 @@
           </div>
 
           <div class="modal__section">
+            <h4>October 2026: A Hand-Built Matching Network, and the First Sintering Run</h4>
+            <p>The automatic tuner could not hold a match into a load whose impedance moves as the powder melts, so I built the matching network by hand and instrumented it. That work turned up a failure that had been corrupting every thermal measurement on the machine, and it ended with the first part this platform has fused.</p>
+          </div>
+
+          <div class="modal__section">
+            <h4>Chasing an RF Leak to Its Source</h4>
+            <p>The symptom was that the FLIR camera dropped out under power and the thermal images carried RF noise. The cause was mechanical. The coax entered the Faraday cage through a plastic-lined wall slot and its connector hung on zip ties, making no metal contact with the cage, so the shield was never bonded to the wall. The network's secondary sits at kilovolts, and the stray capacitance from that secondary to the cage carries a current that has to get back to the generator. With no bond at the wall it returned over the <em>outside</em> of the coax and the ground wire, which put RF on the cage, its frame, and the camera mount. The fix was a braid strap from the coax flange to the cage wall.</p>
+          </div>
+          <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/rfam-rf-leak-cause.webp" alt="Coax entering the Faraday cage through a plastic-lined slot with the connector on zip ties, and a diagram of the stray current's return path over the outside of the coax" />
+              <span>The Cause: An Unbonded Shield</span>
+            </div>
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/rfam-rf-shield-fix.webp" alt="Braid strap bonding the coax flange to the cage wall, with before and after measurements of RF on the coax and in the thermal image" />
+              <span>The Fix: Bonding the Shield at the Wall</span>
+            </div>
+          </div>
+
+          <div class="modal__stats-grid">
+            <div class="modal__stat">
+              <span class="modal__stat-value">18x</span>
+              <span class="modal__stat-label">Less RF on the coax at the cage (64.2 &rarr; 3.6 V rms, 20 W)</span>
+            </div>
+            <div class="modal__stat">
+              <span class="modal__stat-value">~50x</span>
+              <span class="modal__stat-label">Less RF in the thermal image, at 35x the power (354 mK at 10 W &rarr; 6.9 mK at 350 W)</span>
+            </div>
+            <div class="modal__stat">
+              <span class="modal__stat-value">350 W</span>
+              <span class="modal__stat-label">No camera dropouts; 0.0 W reflected to 310 W</span>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>Instrumenting the Network Itself</h4>
+            <p>With the camera trustworthy again, the same thermal imaging could be turned on the network. At the end of a 300 W hold the hottest spot was the circuit board beside the first high-voltage post at 90 &deg;C. Scaling that rise with power puts the same spot at 118&ndash;135 &deg;C at 500 W, against an FR4 softening point near 130 &deg;C, so the board becomes the binding constraint before the generator does. That is a projection from the 300 W measurement rather than a measurement at 500 W, and it is why the next run targets a constant 250 W rather than pushing the top end. RF interference in the image stayed between 0.9 and 1.6 mK at every step of the sweep.</p>
+          </div>
+          <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/rfam-network-thermal-300w.webp" alt="Hottest-pixel temperatures at five points on the matching network, measured at 300 W and projected to 500 W against the FR4 softening limit" />
+              <span>Where the Network Runs Hot</span>
+            </div>
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/rfam-matched-network-setup.webp" alt="The rebuilt matching network and bulkhead arrangement inside the Faraday cage" />
+              <span>The Rebuilt Network</span>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>The First Fused Part</h4>
+            <p>A 25.4 mm doped cube was ramped to 300 W. It collapsed at 553.7 s and smoked from its center about 75 seconds later. What came out of the bed was a fused body of 59.8 &times; 40.5 &times; 16.5 mm weighing 20.6 g, of which roughly 12 g was undoped nylon that had never been printed with dopant at all. Melting had run 9 mm across the field and 17 to 21 mm along it.</p>
+            <p>That extent is the interesting part. A quasi-steady melt-front estimate says conduction alone would need the cube face held somewhere between 400 and 700 &deg;C to melt 19 mm along the long axis, and nylon degrades above about 350 &deg;C. So conduction does not explain the part. Two possibilities remain open: RF heating of the hot undoped nylon once it is above its own transition, or doped powder that spilled into the surrounding bed. Distinguishing them is the next experiment, not a settled result.</p>
+          </div>
+          <div class="modal__gallery" style="grid-template-columns: repeat(1, 1fr);">
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/rfam-fused-body.webp" alt="Cross-section of the fused body on a checkerboard scale with the doped core outlined, beside a conduction-only estimate of the face temperature needed to melt that far into the powder" />
+              <span>Fused Body and the Conduction Argument</span>
+            </div>
+          </div>
+
+          <div class="modal__section">
             <h4>Advisors</h4>
             <p>Dr. Carolyn C. Seepersad (Woodruff School Chair & Professor) & Dr. Christopher J. Salda&ntilde;a (Ring Family Professor)</p>
           </div>
@@ -1073,6 +1135,27 @@
             <div class="modal__gallery-item modal__gallery-item--lightbox">
               <img src="assets/images/content/heatr-gui-results.png" alt="HEATR GUI – Results Browser with Run Metrics and Output Previews" />
               <span>GUI: Results Browser</span>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>October 2026: Running the Model Against a Real Part</h4>
+            <p>A thermal camera only ever sees the top surface. In a volumetric process that is the one place where nothing interesting happens, because the whole point is that the part heats from within. The first instrumented sintering run was a chance to ask what the model says is underneath while the camera watches the top.</p>
+            <p>Through the run the camera's 24 mm box mean climbed to roughly 100 &deg;C and never approached the 171 &deg;C melt onset. Over the same window the model's core-center band runs to about 330 &deg;C, well past melt. The part then collapsed at 553.7 s and smoked from its center at about 628 s, which is the behaviour of an interior that is far hotter than its surface.</p>
+            <p>The honest reading matters here. The cube's heating law was <em>fitted</em> to the camera, so the agreement on the top face is partly by construction and is not independent evidence. The core trace is an extrapolation from that fit, and the collapse and the smoke are physical corroboration of it, not a validation of it. The model is not valid after the collapse at 553.7 s, and this run carried no densification and no RF loss in the undoped powder. What the run does establish is that the surface reading alone would have been badly misleading, which is the case for having the forward model at all.</p>
+          </div>
+          <div class="modal__videos">
+            <div class="modal__video">
+              <video autoplay loop muted playsinline style="width: 100%; display: block;">
+                <source src="assets/images/content/rfam-subsurface-film.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+          <p style="text-align: center; color: var(--gray-600); font-size: 0.8rem; margin-bottom: 2rem;">What the camera sees versus what the model says is underneath &bull; 10-20 sintering run &bull; loops automatically</p>
+          <div class="modal__gallery" style="grid-template-columns: repeat(1, 1fr);">
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/rfam-surface-vs-interior.webp" alt="Measured camera traces against modelled top-face and core-center temperature bands over the sintering run, with melt onset, collapse, and the smoke event marked" />
+              <span>Surface Measurement vs Modelled Interior</span>
             </div>
           </div>
 
