@@ -704,6 +704,32 @@
             <p><strong>RFAM is a new polymer powder-bed process</strong> combining layerwise dopant deposition with volumetric RF heating. Carbon/graphite-doped nylon powder is exposed to an RF field between copper electrode plates; the dopant selectively absorbs RF energy and melts the surrounding nylon. The resulting platform replaces sequential laser scanning with parallel energy delivery and creates a new process-design problem spanning material patterning, electromagnetic fields, heat transfer, and densification.</p>
           </div>
 
+          <div class="modal__section">
+            <h4>How the Process Works</h4>
+            <p>Conductive ink is printed into each powder layer, exactly where the part should be. RF energy then passes through the entire build at once, but only the ink-doped powder absorbs it and fuses. Nothing scans and nothing traverses, so a whole cross-section, or a whole part, is heated in parallel. These renders were made with HEATR for a Nazdar press release and are illustrative rather than a specific solved run.</p>
+          </div>
+          <div class="modal__gallery" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/rfam-process-cube.webp" alt="Cutaway render of the RFAM process: Nazdar ink printed layer by layer, RF energy passing through the entire build, and only the ink-doped cube heating and fusing" />
+              <span>Print the Ink, Energize the Whole Build</span>
+            </div>
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/rfam-process-gtlogo.webp" alt="The same RFAM process render with a Georgia Tech logo as the printed part, heating and fusing while the surrounding powder stays cold" />
+              <span>Any Cross-Section, Heated at Once</span>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>Selectivity, Measured</h4>
+            <p>The renders show the intent. This is the machine doing it: a doped test part under RF, imaged with a FLIR A70 after about two minutes of heating. To the eye it is a dark patch in a bed of white powder. To the camera the doped region is the only thing above room temperature.</p>
+          </div>
+          <div class="modal__gallery" style="grid-template-columns: repeat(1, 1fr);">
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/rfam-flir-eye-vs-thermal.webp" alt="Side by side visible and thermal images of a doped test part after about two minutes of RF heating, showing only the doped region above room temperature" />
+              <span>Visible vs Thermal: Only the Doped Part Heats</span>
+            </div>
+          </div>
+
           <div class="modal__stats-grid">
             <div class="modal__stat">
               <span class="modal__stat-value">18/18</span>
@@ -1135,6 +1161,17 @@
             <div class="modal__gallery-item modal__gallery-item--lightbox">
               <img src="assets/images/content/heatr-gui-results.png" alt="HEATR GUI – Results Browser with Run Metrics and Output Previews" />
               <span>GUI: Results Browser</span>
+            </div>
+          </div>
+
+          <div class="modal__section">
+            <h4>What the Inverse Design Buys You</h4>
+            <p>The clearest way to see what grading does is to print the same hexagon twice. Fill it with ink uniformly and the RF field over-couples at the top and bottom and starves the flanks, so the part melts into an ellipse. Let the solver grade the ink instead, within the eight grey levels the printhead actually has, and the melted region comes out as the hexagon that was asked for. Shape match goes from 76 to 97 percent. Both are simulation.</p>
+          </div>
+          <div class="modal__gallery" style="grid-template-columns: repeat(1, 1fr);">
+            <div class="modal__gallery-item modal__gallery-item--lightbox">
+              <img src="assets/images/content/rfam-smart-ink-hexagon.webp" alt="Uniform ink placement melting a hexagon into an ellipse at 76 percent shape match, beside a solver-graded ink pattern reaching 97 percent" />
+              <span>Uniform vs Graded Ink: 76% &rarr; 97% Shape Match</span>
             </div>
           </div>
 
