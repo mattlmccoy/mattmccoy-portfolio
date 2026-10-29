@@ -340,3 +340,16 @@ document.addEventListener('DOMContentLoaded', () => {
     lastScroll = currentScroll;
   });
 });
+
+// Respect reduced motion for the research splash loop: show the poster frame instead.
+(() => {
+  const video = document.querySelector('.research-splash__video');
+  if (!video) return;
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const apply = () => {
+    if (still.matches) { video.pause(); video.removeAttribute('autoplay'); }
+    else video.play().catch(() => {});
+  };
+  apply();
+  still.addEventListener('change', apply);
+})();
