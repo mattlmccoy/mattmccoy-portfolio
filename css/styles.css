@@ -758,6 +758,65 @@ strong {
   color: var(--gray-600);
 }
 
+/* Research Splash: looping RFAM workflow figure above the research grid */
+.research-splash {
+  margin: 0 0 var(--space-lg);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--white);
+  border: 1px solid var(--gray-100);
+}
+
+.research-splash__media {
+  display: block;
+}
+
+.research-splash__video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1440 / 678;
+}
+
+.research-splash__caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-xs) var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  border-top: 1px solid var(--gray-100);
+}
+
+.research-splash__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+}
+
+.research-splash__caption p {
+  flex: 1 1 32rem;
+  margin: 0;
+  color: var(--gray-600);
+}
+
+.research-splash__cta {
+  color: var(--gray-800);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.research-splash__cta:hover {
+  color: var(--teal-dark);
+}
+
+@media (max-width: 768px) {
+  .research-splash__caption {
+    padding: var(--space-sm);
+  }
+}
+
 /* Research Grid */
 .research-grid {
   display: grid;
